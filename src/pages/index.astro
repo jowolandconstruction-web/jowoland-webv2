@@ -97,7 +97,8 @@ const waLink = `https://wa.me/${waNumber}`;
           PT. Jowo Land Construction menerapkan metodologi pelaksanaan yang terstandarisasi ketat sesuai Standar Nasional Indonesia (SNI) dan mematuhi protokol Keselamatan dan Kesehatan Kerja (K3) Konstruksi.
         </p>
       </div>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <!-- Mobile: single column list -->
+      <div class="flex flex-col gap-5 md:hidden">
         {[
           { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
           { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
@@ -106,18 +107,66 @@ const waLink = `https://wa.me/${waNumber}`;
           { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
           { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
         ].map((item, i) => (
-          <Card hover data-reveal data-reveal-delay={String(i % 3)}>
-            <div class="flex flex-col gap-3">
-              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 font-bold text-base shrink-0">
-                {item.step}
-              </div>
-              <div>
-                <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
-                <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
-              </div>
+          <div class="flex items-start gap-4" data-reveal data-reveal-delay={String(i)}>
+            <div class="w-11 h-11 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="text-white font-bold text-base">{item.step}</span>
             </div>
-          </Card>
+            <Card hover class="flex-1">
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <div>
+                  <h3 class="text-sm font-semibold text-foreground leading-snug">{item.title}</h3>
+                  <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+                </div>
+              </div>
+            </Card>
+          </div>
         ))}
+      </div>
+
+      <!-- Desktop: zigzag timeline -->
+      <div class="relative hidden md:block">
+        <!-- Vertical Timeline Line -->
+        <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 via-brand-500 to-brand-500 -translate-x-1/2"></div>
+        
+        <div class="flex flex-col gap-10">
+        {[
+          { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
+          { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
+          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
+          { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
+          { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
+          { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
+        ].map((item, i) => (
+          <div
+            class={`relative flex items-center ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+            data-reveal
+            data-reveal-delay={String(i)}
+          >
+            {/* Timeline Dot */}
+            <div class="absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-brand-500 border-4 border-background-secondary flex items-center justify-center z-20">
+              <span class="text-white font-bold text-lg">{item.step}</span>
+            </div>
+
+            {/* Content Card */}
+            <div class={`flex-1 ${i % 2 === 0 ? 'pr-20 justify-end' : 'pl-20 justify-start'} flex`}>
+              <Card hover class="w-[calc(50%-4rem)]">
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                    <Icon name={item.icon} size="sm" />
+                  </div>
+                  <div>
+                    <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
+                    <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        ))}
+        </div>
       </div>
     </div>
   </section>
