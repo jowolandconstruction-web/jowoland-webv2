@@ -1,0 +1,431 @@
+---
+/**
+ * Single WordPress blog post
+ * URL: /blog/[slug]
+ */
+export const prerender = false;
+
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { getPost, getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml } from '@/lib/wordpress';
+import siteConfig from '@/config/site.config';
+
+const { slug } = Astro.params;
+if (!slug) return Astro.redirect('/blog');
+
+const post = await getPost(slug);
+if (!post) return Astro.redirect('/blog');
+
+const img = getFeaturedImage(post);
+const cats = getPostCategories(post);
+const authorName = post._embedded?.author?.[0]?.name || siteConfig.name;
+const excerpt = stripHtml(post.excerpt.rendered);
+
+const waNumber = '6285280749218';
+const waMsg = encodeURIComponent(`Halo, saya ingin konsultasi mengenai artikel: ${stripHtml(post.title.rendered)}`);
+const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
+
+const canonicalUrl = `${siteConfig.url}/blog/${post.slug}`;
+const seoTitle = post.yoast_head_json?.title || `${stripHtml(post.title.rendered)} | PT. Jowo Land Construction`;
+const seoDesc = post.yoast_head_json?.description || excerpt.slice(0, 160);
+const ogImage = post.yoast_head_json?.og_image?.[0]?.url || img?.src || `${siteConfig.url}/og-default.svg`;
+
+const recentPosts = await getPosts({ per_page: 4, exclude: String(post.id) });
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: stripHtml(post.title.rendered),
+  description: seoDesc,
+  url: canonicalUrl,
+  image: ogImage,
+  datePublished: post.date,
+  dateModified: post.modified,
+  author: {
+    '@type': 'Person',
+    name: authorName,
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    logo: {
+      '@type': 'ImageObject',
+      url: `${siteConfig.url}/favicon.svg`,
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl,
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Beranda', item: siteConfig.url },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteConfig.url}/blog` },
+    { '@type': 'ListItem', position: 3, name: stripHtml(post.title.rendered), item: canonicalUrl },
+  ],
+};
+---
+
+<PageLayout title={seoTitle} description={seoDesc}>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:title" content={seoTitle} />
+    <meta property="og:description" content={seoDesc} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:type" content="article" />
+    <meta property="article:published_time" content={post.date} />
+    <meta property="article:modified_time" content={post.modified} />
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <!-- Breadcrumb -->
+  <nav class="bg-background border-b border-border overflow-x-hidden" aria-label="Breadcrumb">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 py-3">
+      <ol class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-foreground-muted flex-wrap">
+        <li><a href="/" class="hover:text-brand-500 transition-colors">Beranda</a></li>
+        <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50 shrink-0" /></li>
+        <li><a href="/blog" class="hover:text-brand-500 transition-colors">Blog</a></li>
+        <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50 shrink-0" /></li>
+        <li class="text-foreground font-medium line-clamp-1 min-w-0" set:html={post.title.rendered} />
+      </ol>
+    </div>
+  </nav>
+
+  <!-- Article Hero -->
+  <section class="py-8 sm:py-[var(--space-section-md)] bg-background-secondary border-t border-border overflow-x-hidden">
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <div class="grid gap-6 sm:gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+
+        <!-- Featured image -->
+        <div class="min-w-0 space-y-4">
+          {img ? (
+            <div class="aspect-video overflow-hidden rounded-2xl bg-background-tertiary border border-border">
+              <img
+                src={img.src}
+                alt={img.alt}
+                class="w-full h-full object-cover"
+                width="600"
+                height="338"
+                is:inline
+              />
+            </div>
+          ) : (
+            <div class="aspect-video rounded-2xl bg-background-tertiary border border-border flex items-center justify-center">
+              <Icon name="file-text" class="w-16 h-16 text-foreground-muted/30" />
+            </div>
+          )}
+        </div>
+
+        <!-- Meta -->
+        <div class="min-w-0 flex flex-col gap-4 sm:gap-5">
+          {cats.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {cats.map((cat) => (
+                <Badge variant="brand" pill>{cat}</Badge>
+              ))}
+            </div>
+          )}
+
+          <h1 class="font-display text-2xl sm:text-3xl md:text-4xl font-bold text-foreground leading-tight" set:html={post.title.rendered} />
+
+          <div class="flex flex-col gap-2 text-sm text-foreground-muted sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-4 sm:gap-y-2">
+            <span class="flex items-center gap-1.5">
+              <Icon name="user" size="sm" class="shrink-0" />
+              {authorName}
+            </span>
+            <span class="flex items-center gap-1.5">
+              <Icon name="calendar" size="sm" class="shrink-0" />
+              <time datetime={post.date}>{formatWPDate(post.date)}</time>
+            </span>
+            {post.modified !== post.date && (
+              <span class="flex items-center gap-1.5">
+                <Icon name="refresh-cw" size="sm" class="shrink-0" />
+                Diperbarui: <time datetime={post.modified}>{formatWPDate(post.modified)}</time>
+              </span>
+            )}
+          </div>
+
+          {excerpt && (
+            <p class="text-sm sm:text-base text-foreground-muted leading-relaxed">{excerpt}</p>
+          )}
+
+          <div class="flex flex-col gap-3 pt-1 sm:flex-row sm:pt-2">
+            <a
+              href={waLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex w-full items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20ba5a] active:bg-[#1da851] transition-colors text-white font-semibold text-sm sm:text-base px-5 py-3.5 rounded-xl shadow-md shadow-black/10 sm:flex-1"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175.216 175.552" class="w-5 h-5 shrink-0" aria-hidden="true">
+                <path fill="#fff" d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 9.349 32.535l1.455 2.312-6.179 22.559 23.146-6.069 2.235 1.324c9.387 5.571 20.15 8.517 31.126 8.523h.023c33.707 0 61.14-27.426 61.153-61.135a60.75 60.75 0 0 0-17.895-43.251 60.75 60.75 0 0 0-43.235-17.928z"/>
+                <path fill="#25D366" d="M87.184 32.227c-29.909 0-54.178 24.261-54.19 54.13a53.98 53.98 0 0 0 8.349 28.535l1.455 2.312-5.179 18.559 19.146-5.069 2.235 1.324c8.387 4.971 17.95 7.617 27.726 7.623h.023c29.907 0 54.14-24.226 54.153-54.135a53.75 53.75 0 0 0-15.895-38.251 53.75 53.75 0 0 0-37.823-15.028z"/>
+                <path fill="#fff" fill-rule="evenodd" d="M68.772 55.603c-1.378-3.061-2.828-3.123-4.137-3.176l-3.524-.043c-1.226 0-3.218.46-4.902 2.3s-6.435 6.287-6.435 15.332 6.588 17.785 7.506 19.013 12.718 20.381 31.405 27.75c15.529 6.124 18.689 4.906 22.061 4.6s10.877-4.447 12.408-8.74 1.532-7.971 1.073-8.74-1.685-1.226-3.525-2.146-10.877-5.367-12.562-5.981-2.91-.919-4.137.921-4.746 5.979-5.819 7.206-2.144 1.381-3.984.462-7.76-2.861-14.784-9.124c-5.465-4.873-9.154-10.891-10.228-12.73s-.114-2.835.808-3.751c.825-.824 1.838-2.147 2.759-3.22s1.224-1.84 1.836-3.065.307-2.301-.153-3.22-4.032-10.011-5.67-13.696z"/>
+              </svg>
+              Pesan Sekarang
+            </a>
+            <Button size="lg" variant="outline" href="/contact" class="w-full sm:flex-1">
+              <Icon name="mail" size="sm" />
+              Kirim Inquiry
+            </Button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 sm:gap-3 pt-1 sm:pt-2">
+            {[
+              { icon: 'check-circle', text: 'Konsultasi Gratis' },
+              { icon: 'map-pin', text: 'Survey Lokasi' },
+              { icon: 'zap', text: 'Respon Cepat' },
+              { icon: 'globe', text: 'Seluruh Pulau Jawa' },
+            ].map((item) => (
+              <div class="flex items-center gap-2 text-sm text-foreground-muted">
+                <Icon name={item.icon} size="sm" class="text-brand-500 shrink-0" />
+                {item.text}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full Content -->
+  <section class="py-8 sm:py-[var(--space-section-md)] bg-background border-t border-border overflow-x-hidden">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 min-w-0 w-full">
+      <h2 class="font-display text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Isi Artikel</h2>
+      <div class="wp-content prose prose-sm max-w-none text-foreground-muted leading-relaxed" set:html={post.content.rendered} />
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-8 sm:py-[var(--space-section-md)] bg-background-secondary border-t border-border overflow-x-hidden">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6">
+      <Card padding="lg" class="bg-brand-500/5 border-brand-500/20">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <div class="flex-1 min-w-0">
+            <h3 class="font-semibold text-foreground mb-1">Butuh Jasa Bore Pile?</h3>
+            <p class="text-sm text-foreground-muted">Konsultasi gratis dengan tim PT. Jowo Land Construction sekarang.</p>
+          </div>
+          <Button href={waLink} target="_blank" rel="noopener noreferrer" class="cta-btn-brand w-full sm:w-auto shrink-0">
+            <Icon name="message-circle" size="sm" />
+            WhatsApp
+          </Button>
+        </div>
+      </Card>
+    </div>
+  </section>
+
+  <!-- Recent Posts -->
+  {recentPosts.length > 0 && (
+    <section class="py-8 sm:py-[var(--space-section-md)] bg-background border-t border-border overflow-x-hidden">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col gap-6 sm:gap-8">
+        <h2 class="font-display text-xl sm:text-2xl font-bold text-foreground text-center">
+          Artikel Terbaru
+        </h2>
+        <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {recentPosts.map((rp, i) => {
+            const rpImg = getFeaturedImage(rp);
+            return (
+              <a href={`/blog/${rp.slug}`} class="group block min-w-0">
+                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
+                  {rpImg ? (
+                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
+                      <img
+                        src={rpImg.src}
+                        alt={rpImg.alt}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        width="300"
+                        height="169"
+                        is:inline
+                      />
+                    </div>
+                  ) : (
+                    <div class="aspect-video rounded-t-xl bg-background-tertiary flex items-center justify-center">
+                      <Icon name="file-text" size="sm" class="text-brand-500/50" />
+                    </div>
+                  )}
+                  <div class="p-4 flex flex-col flex-1 min-w-0">
+                    <h3 class="text-sm font-semibold text-foreground mb-1 line-clamp-2 group-hover:text-brand-500 transition-colors" set:html={rp.title.rendered} />
+                    <time class="text-xs text-foreground-muted mt-auto" datetime={rp.date}>{formatWPDate(rp.date)}</time>
+                  </div>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+        <div class="flex justify-center">
+          <Button variant="outline" href="/blog">
+            Semua Blog
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+      </div>
+    </section>
+  )}
+</PageLayout>
+
+<style is:global>
+  .wp-content {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  .wp-content * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .wp-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .wp-content p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .wp-content ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content ul li {
+    margin-bottom: 0.25rem;
+  }
+
+  .wp-content ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content ol li {
+    margin-bottom: 0.25rem;
+  }
+
+  .wp-content a {
+    color: var(--color-brand-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .wp-content a:hover {
+    color: var(--color-brand-400);
+  }
+
+  .wp-content img,
+  .wp-content video,
+  .wp-content iframe,
+  .wp-content embed,
+  .wp-content object {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 0.75rem;
+  }
+
+  .wp-content img {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .wp-content figure,
+  .wp-content .wp-block-image,
+  .wp-content .wp-block-embed,
+  .wp-content .wp-block-table {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .wp-content .wp-block-embed__wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .wp-content .wp-block-embed iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .wp-content blockquote {
+    border-left: 4px solid var(--color-brand-500);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--color-foreground-muted);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content th {
+    background-color: var(--color-background-tertiary);
+    font-weight: 600;
+    color: var(--color-foreground);
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .wp-content td {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .wp-content pre {
+    background: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content code {
+    background: var(--color-background-tertiary);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+
+  .wp-content pre code {
+    background: none;
+    padding: 0;
+  }
+</style>

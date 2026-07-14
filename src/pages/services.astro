@@ -1,0 +1,288 @@
+---
+/**
+ * Layanan page
+ * URL: /services
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+import LetterGlitchBand from '@/components/patterns/LetterGlitchBand.astro';
+
+const waNumber = '6285280749218';
+const waLink = `https://wa.me/${waNumber}`;
+---
+<PageLayout
+  title="Area Layanan PT. Jowo Land Construction — Jasa Bore Pile Profesional di Pulau Jawa"
+  description="PT. Jowo Land Construction melayani pembuatan bore pile profesional untuk rumah, gedung, gudang, dan proyek konstruksi di seluruh Pulau Jawa."
+>
+  <Hero layout="centered" size="sm" class="isolate services-hero" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="drill" size="sm" />
+      Layanan
+    </Badge>
+    <h1 slot="title">
+      <span class="text-foreground">Area Layanan —</span><br />
+      <span class="text-brand-500">PT. Jowo Land Construction</span>
+    </h1>
+    <p slot="description">
+      PT. Jowo Land Construction melayani pengeboran untuk pondasi bore pile profesional untuk berbagai kebutuhan pondasi bangunan di seluruh kota dan kabupaten di Pulau Jawa.
+    </p>
+    <Fragment slot="actions">
+      <Button size="lg" href="#straus-pile" variant="outline">
+        Straus Pile
+        <Icon name="arrow-down" size="sm" class="hero-jump-arrow" />
+      </Button>
+      <Button size="lg" href="#mini-crane" variant="outline">
+        Mini Crane
+        <Icon name="arrow-down" size="sm" class="hero-jump-arrow" />
+      </Button>
+      <Button size="lg" href="#area" variant="outline">
+        Area Layanan
+        <Icon name="arrow-down" size="sm" class="hero-jump-arrow" />
+      </Button>
+    </Fragment>
+  </Hero>
+
+  <!-- Straus Pile -->
+  <section id="straus-pile" class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 glitch:grid-cols-2 glitch:gap-12 glitch:items-start">
+        <div class="flex flex-col gap-4 sm:items-center sm:text-center glitch:items-start glitch:text-left" data-reveal="right" data-reveal-ease="smooth">
+          <div class="flex flex-col gap-6 sm:items-center glitch:items-start">
+            <Badge variant="brand" pill class="self-start sm:self-center glitch:self-start">
+              <Icon name="drill" size="sm" />
+              Jasa Bore Pile Straus Pile
+            </Badge>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+              Bore Pile Straus Pile Manual
+            </h2>
+          </div>
+          <p class="text-lg text-foreground-muted leading-relaxed text-pretty sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0">
+            Straus pile adalah metode pembuatan pondasi bore pile secara manual menggunakan alat bor tangan. Cocok untuk proyek dengan akses terbatas, area sempit, atau lokasi yang tidak dapat dijangkau mesin besar.
+          </p>
+          <p class="text-lg text-foreground-muted leading-relaxed text-pretty sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0">
+            Metode ini sangat efektif untuk pondasi rumah tinggal, ruko, dan bangunan skala kecil hingga menengah dengan kondisi tanah yang membutuhkan pondasi tambahan.
+          </p>
+          <Button variant="outline" href={waLink} target="_blank" rel="noopener noreferrer" class="self-start sm:self-center glitch:self-start mt-2 sm:hidden glitch:inline-flex">
+            Konsultasi Sekarang
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+        <div class="sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0" data-reveal="left" data-reveal-delay="1" data-reveal-ease="smooth">
+          <Card variant="elevated" padding="lg" class="h-full flex flex-col justify-center">
+            <div class="flex items-center gap-3 pb-4 mb-4 border-b border-border sm:justify-center glitch:justify-start">
+              <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                <Icon name="drill" size="md" />
+              </div>
+              <h3 class="font-display text-base font-semibold text-foreground">Keunggulan Straus Pile</h3>
+            </div>
+            <ul class="flex flex-col gap-3">
+              {[
+                { title: 'Cocok untuk area sempit', desc: 'Dapat dikerjakan di lokasi dengan akses terbatas yang tidak bisa dijangkau mesin besar.' },
+                { title: 'Biaya lebih terjangkau', desc: 'Metode manual dengan biaya operasional lebih rendah, cocok untuk proyek skala kecil.' },
+                { title: 'Minim getaran', desc: 'Proses pengerjaan tidak menimbulkan getaran berlebih yang dapat mengganggu bangunan sekitar.' },
+                { title: 'Fleksibel', desc: 'Dapat disesuaikan dengan berbagai kondisi tanah dan kebutuhan kedalaman pondasi.' },
+                { title: 'Melayani seluruh Pulau Jawa', desc: 'Tim kami siap bergerak ke seluruh wilayah Pulau Jawa.' },
+              ].map((item) => (
+                <li class="flex items-start gap-3">
+                  <Icon name="check" size="sm" class="text-brand-500 shrink-0 mt-1" />
+                  <p class="text-sm text-foreground-muted leading-relaxed">
+                    <span class="font-semibold text-foreground">{item.title}</span> — {item.desc}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+        <div class="hidden sm:flex justify-center glitch:hidden" data-reveal data-reveal-delay="2">
+          <Button variant="outline" href={waLink} target="_blank" rel="noopener noreferrer">
+            Konsultasi Sekarang
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mini Crane -->
+  <section id="mini-crane" class="py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 glitch:grid-cols-2 glitch:gap-12 glitch:items-start">
+        <div class="flex flex-col gap-4 sm:items-center sm:text-center glitch:order-2 glitch:items-start glitch:text-left" data-reveal="left" data-reveal-ease="smooth">
+          <div class="flex flex-col gap-6 sm:items-center glitch:items-start">
+            <Badge variant="brand" pill class="self-start sm:self-center glitch:self-start">
+              <Icon name="settings" size="sm" />
+              Jasa Bore Pile Mesin Mini Crane
+            </Badge>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+              Bore Pile dengan Mesin Mini Crane
+            </h2>
+          </div>
+          <p class="text-lg text-foreground-muted leading-relaxed text-pretty sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0">
+            Pengerjaan bore pile menggunakan mesin mini crane untuk proyek yang membutuhkan kedalaman lebih besar dan kapasitas beban yang lebih tinggi. Cocok untuk gedung bertingkat, gudang, pabrik, dan proyek konstruksi skala besar.
+          </p>
+          <p class="text-lg text-foreground-muted leading-relaxed text-pretty sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0">
+            Dengan dukungan mesin modern, proses pengerjaan lebih cepat dan hasil lebih presisi sesuai spesifikasi teknis yang dibutuhkan.
+          </p>
+          <Button variant="outline" href={waLink} target="_blank" rel="noopener noreferrer" class="self-start sm:self-center glitch:self-start mt-2 sm:hidden glitch:inline-flex">
+            Konsultasi Sekarang
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+        <div class="sm:max-w-xl sm:mx-auto glitch:order-1 glitch:max-w-none glitch:mx-0" data-reveal="right" data-reveal-delay="1" data-reveal-ease="smooth">
+          <Card variant="elevated" padding="lg" class="h-full flex flex-col justify-center">
+            <div class="flex items-center gap-3 pb-4 mb-4 border-b border-border sm:justify-center glitch:justify-start">
+              <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                <Icon name="settings" size="md" />
+              </div>
+              <h3 class="font-display text-base font-semibold text-foreground">Keunggulan Mini Crane</h3>
+            </div>
+            <ul class="flex flex-col gap-3">
+              {[
+                { title: 'Kedalaman lebih besar', desc: 'Mampu mencapai kedalaman yang lebih dalam sesuai kebutuhan struktur bangunan.' },
+                { title: 'Kapasitas beban tinggi', desc: 'Cocok untuk bangunan bertingkat dan proyek dengan beban konstruksi besar.' },
+                { title: 'Pengerjaan lebih cepat', desc: 'Mesin modern memungkinkan proses pengeboran lebih efisien dan tepat waktu.' },
+                { title: 'Presisi tinggi', desc: 'Hasil pengeboran lebih presisi sesuai spesifikasi teknis yang dibutuhkan.' },
+                { title: 'Untuk proyek skala besar', desc: 'Ideal untuk gedung, gudang, pabrik, dan proyek konstruksi besar lainnya.' },
+              ].map((item) => (
+                <li class="flex items-start gap-3">
+                  <Icon name="check" size="sm" class="text-brand-500 shrink-0 mt-1" />
+                  <p class="text-sm text-foreground-muted leading-relaxed">
+                    <span class="font-semibold text-foreground">{item.title}</span> — {item.desc}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </div>
+        <div class="hidden sm:flex justify-center glitch:hidden" data-reveal data-reveal-delay="2">
+          <Button variant="outline" href={waLink} target="_blank" rel="noopener noreferrer">
+            Konsultasi Sekarang
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Area Layanan -->
+  <section id="area" class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Wilayah Kerja</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Area Layanan Jasa Bore Pile di Pulau Jawa
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Kami melayani seluruh kota dan kabupaten di Pulau Jawa.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center" data-reveal>
+        {[
+          'Surabaya','Sidoarjo','Gresik','Malang','Mojokerto','Pasuruan',
+          'Jakarta','Bekasi','Bogor','Depok','Tangerang','Bandung',
+          'Semarang','Yogyakarta','Solo','Madiun','Kediri','Blitar',
+          'Jember','Banyuwangi','Probolinggo','Lumajang',
+        ].map((kota) => (
+          <Badge variant="brand" pill>{kota}</Badge>
+        ))}
+        <Badge variant="brand" pill>dan seluruh Pulau Jawa</Badge>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proses Kerja -->
+  <section class="py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Cara Kerja</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Proses Pengerjaan Bore Pile
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto text-balance">
+          Enam tahap pengerjaan yang terstruktur untuk hasil terbaik.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          { step: '1', title: 'Konsultasi', desc: 'Diskusikan kebutuhan pondasi proyek Anda bersama tim kami secara gratis.' },
+          { step: '2', title: 'Survey Lokasi', desc: 'Tim kami melakukan pengecekan langsung ke lokasi proyek.' },
+          { step: '3', title: 'Analisa Data Tanah', desc: 'Analisa data penyelidikan tanah untuk menentukan spesifikasi bore pile.' },
+          { step: '4', title: 'Penawaran Harga', desc: 'Kami berikan quotation yang transparan sesuai kebutuhan proyek.' },
+          { step: '5', title: 'Pengerjaan', desc: 'Proses pengeboran dan pengecoran pondasi bore pile oleh tim berpengalaman.' },
+          { step: '6', title: 'Quality Control', desc: 'Finishing dan pengecekan kualitas untuk memastikan hasil terbaik.' },
+        ].map((item, i) => (
+          <Card hover data-reveal data-reveal-delay={String(i % 3)}>
+            <div class="flex flex-col items-center text-center gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 font-bold text-base shrink-0">
+                {item.step}
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
+                <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
+      <Badge variant="brand" pill class="mb-6">Hubungi Kami</Badge>
+      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
+        Butuh Jasa Bore Pile untuk Proyek Anda?
+      </h2>
+      <p class="text-lg text-foreground-muted mb-8 text-balance">
+        Hubungi tim PT. Jowo Land Construction sekarang untuk konsultasi gratis dan penawaran terbaik.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
+          <Icon name="message-circle" size="sm" />
+          WhatsApp: 0852-8074-9218
+        </Button>
+        <Button size="lg" variant="outline" href="/contact">
+          Kirim Pesan
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+    <LetterGlitchBand>
+      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
+        Butuh Jasa Bore Pile untuk Proyek Anda?
+      </h2>
+      <p class="text-lg text-foreground-muted mb-8 text-balance">
+        Hubungi tim PT. Jowo Land Construction sekarang untuk konsultasi gratis dan penawaran terbaik.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="hero-btn-brand">
+          <Icon name="message-circle" size="sm" />
+          WhatsApp: 0852-8074-9218
+        </Button>
+        <Button size="lg" variant="outline" href="/contact">
+          Kirim Pesan
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </LetterGlitchBand>
+  </section>
+</PageLayout>
+
+<style is:global>
+  .services-hero .hero-jump-arrow {
+    animation: hero-jump-arrow-bounce 1.8s ease-in-out infinite;
+  }
+  @keyframes hero-jump-arrow-bounce {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .services-hero .hero-jump-arrow { animation: none; }
+  }
+  html { scroll-padding-top: 4rem; }
+</style>

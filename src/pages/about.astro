@@ -1,0 +1,207 @@
+---
+/**
+ * Tentang Kami page
+ * URL: /about
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+
+const waNumber = '6285280749218';
+const waLink = `https://wa.me/${waNumber}`;
+---
+<PageLayout
+  title="Tentang PT. Jowo Land Construction"
+  description="PT. Jowo Land Construction merupakan kontraktor jasa bore pile & strauss pile profesional dan berpengalaman sejak 2012."
+>
+  <Hero layout="centered" size="sm" class="isolate" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="building" size="sm" />
+      Tentang Kami
+    </Badge>
+    <h1 slot="title">
+      <span class="text-foreground [-webkit-text-fill-color:currentColor]">Tentang</span><br />
+      <span class="text-brand-500 [-webkit-text-fill-color:var(--color-brand-500)]">PT. Jowo Land Construction</span>
+    </h1>
+    <p slot="description">
+      Spesialis Geoteknik Rekayasa Pondasi Sejak 2012
+    </p>
+  </Hero>
+
+  <!-- Profil Perusahaan -->
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid gap-10 glitch:grid-cols-2 glitch:gap-12">
+        <div class="flex flex-col justify-center gap-4 sm:items-center sm:text-center glitch:items-start glitch:text-left" data-reveal="right" data-reveal-ease="smooth">
+          <div class="flex flex-col gap-6 sm:items-center glitch:items-start">
+            <Badge variant="brand" pill class="self-start sm:self-center glitch:self-start">Profil Perusahaan</Badge>
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground text-balance">
+              Sejak 2012, Kami Bangun Pondasi Yang Kokoh
+            </h2>
+          </div>
+          <p class="text-lg text-foreground-muted leading-relaxed text-pretty sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0">
+            PT. Jowo Land Construction merupakan perusahaan jasa bore pile yang melayani pengerjaan pondasi untuk berbagai jenis proyek konstruksi di seluruh kota dan kabupaten di Pulau Jawa. Kami hadir untuk membantu kebutuhan pondasi bangunan dengan sistem kerja profesional, tenaga berpengalaman, dan pengerjaan yang mengutamakan kualitas serta ketepatan waktu.
+          </p>
+          <p class="text-lg text-foreground-muted leading-relaxed text-pretty sm:max-w-xl sm:mx-auto glitch:max-w-none glitch:mx-0">
+            Didirikan dan dikelola langsung oleh Pak Achmad Fikri Ibnu Hadi, PT. Jowo Land Construction berkomitmen memberikan layanan terbaik dalam bidang pondasi bore pile untuk rumah, ruko, gudang, gedung, pabrik, sekolah, tempat ibadah, hingga proyek konstruksi skala besar lainnya.
+          </p>
+        </div>
+        <div class="flex flex-col h-full" data-reveal="left" data-reveal-delay="1" data-reveal-ease="smooth">
+          <Card variant="elevated" padding="none" class="flex-1 flex flex-col justify-center overflow-hidden">
+            <div class="aspect-video">
+              <iframe
+                src="https://www.youtube.com/embed/O1IJrhdJqwM"
+                title="Tentang PT. Jowo Land Construction"
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Salam Hangat dari Founder -->
+  <section class="py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Salam Hangat</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground text-balance">
+          Dari Founder Kami
+        </h2>
+      </div>
+      <div class="mt-8" data-reveal data-reveal-delay="1">
+        <Card variant="elevated" padding="lg">
+          <div class="prose prose-sm max-w-none">
+            <p class="text-lg text-foreground-muted leading-relaxed">
+              "Sebagai CEO PT. Jowo Land Construction, saya turut bangga menjadi bagian dari pembangunan di Indonesia. PT. Jowo Land Construction tidak melihat setiap proyek sebagai sekadar pekerjaan konstruksi.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Kami melihatnya sebagai amanah.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Amanah dari pemilik rumah yang sedang membangun masa depan keluarganya.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Amanah dari pengusaha yang sedang mengembangkan usahanya.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Amanah dari investor yang mempercayakan modalnya.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Dan amanah dari setiap klien yang berharap bangunannya dapat berdiri kokoh selama puluhan tahun ke depan.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Karena itu kami selalu berupaya menghadirkan kualitas terbaik melalui pendekatan teknis yang terukur, tenaga kerja berpengalaman, peralatan yang memadai, serta komitmen terhadap standar mutu dan keselamatan kerja.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Saya percaya bahwa reputasi tidak dibangun melalui kata-kata.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Reputasi dibangun melalui konsistensi.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Melalui pekerjaan yang dilakukan dengan benar, bahkan ketika tidak ada yang melihatnya.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Sama seperti pondasi.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Ia tidak terlihat.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Namun seluruh bangunan bertumpu di atasnya.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Kepercayaan klien tidak dibangun dari apa yang kami katakan.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Kepercayaan dibangun dari apa yang kami kerjakan.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Atas nama seluruh tim PT. Jowo Land Construction, saya mengucapkan terima kasih atas kepercayaan yang telah diberikan kepada kami selama ini.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Kami akan terus berkomitmen untuk memberikan solusi pondasi yang aman, efisien, dan dapat dipertanggungjawabkan secara teknis.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Karena bagi kami, pekerjaan ini bukan sekadar membangun pondasi.
+            </p>
+            <p class="text-lg text-foreground-muted leading-relaxed mt-4">
+              Kami sedang membantu membangun sesuatu yang akan menopang masa depan."
+            </p>
+            <div class="mt-8 pt-6 border-t border-border">
+              <p class="font-semibold text-foreground text-lg">Hormat kami,</p>
+              <p class="font-semibold text-brand-600 text-xl mt-2">Achmad Fikri Ibnu Hadi</p>
+              <p class="text-foreground-muted mt-1">Founder & Director</p>
+              <p class="text-foreground-muted mt-1">PT. Jowo Land Construction</p>
+              <p class="text-brand-500 font-semibold mt-2">"Spesialis Geoteknik Rekayasa Pondasi"</p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sosial Media -->
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-4xl px-6">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Hubungi Kami</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Ikuti Kami di Sosial Media
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Dapatkan update terbaru tentang proyek kami dan informasi seputar pondasi bore pile
+        </p>
+      </div>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" data-reveal data-reveal-delay="1">
+        <Button variant="outline" href="https://www.instagram.com/pt._jowo_land_construction/" target="_blank" rel="noopener noreferrer" class="justify-start">
+          <Icon name="instagram" class="w-5 h-5 text-brand-500" />
+          Instagram
+          <Icon name="arrow-right" size="sm" class="ml-auto" />
+        </Button>
+        <Button variant="outline" href="https://www.facebook.com/PT.Jowolandconstruction" target="_blank" rel="noopener noreferrer" class="justify-start">
+          <Icon name="facebook" class="w-5 h-5 text-brand-500" />
+          Facebook
+          <Icon name="arrow-right" size="sm" class="ml-auto" />
+        </Button>
+        <Button variant="outline" href="https://www.youtube.com/@JowolandConstruction" target="_blank" rel="noopener noreferrer" class="justify-start">
+          <Icon name="youtube" class="w-5 h-5 text-brand-500" />
+          YouTube
+          <Icon name="arrow-right" size="sm" class="ml-auto" />
+        </Button>
+        <Button variant="outline" href="https://www.linkedin.com/in/ptjowolandconstruction" target="_blank" rel="noopener noreferrer" class="justify-start">
+          <Icon name="linkedin" class="w-5 h-5 text-brand-500" />
+          LinkedIn
+          <Icon name="arrow-right" size="sm" class="ml-auto" />
+        </Button>
+        <Button variant="outline" href="https://www.tiktok.com/@jowoland_construction" target="_blank" rel="noopener noreferrer" class="justify-start">
+          <Icon name="tiktok" class="w-5 h-5 text-brand-500" />
+          TikTok
+          <Icon name="arrow-right" size="sm" class="ml-auto" />
+        </Button>
+        <Button variant="outline" href="https://id.pinterest.com/PTJowoLandConstruction/" target="_blank" rel="noopener noreferrer" class="justify-start">
+          <Icon name="pinterest" class="w-5 h-5 text-brand-500" />
+          Pinterest
+          <Icon name="arrow-right" size="sm" class="ml-auto" />
+        </Button>
+      </div>
+      <div class="mt-8 text-center">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
+          <Icon name="message-circle" size="sm" />
+          Konsultasi Gratis via WhatsApp
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>

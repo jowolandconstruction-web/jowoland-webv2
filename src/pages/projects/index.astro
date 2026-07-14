@@ -1,0 +1,279 @@
+---
+/**
+ * Portofolio page
+ * URL: /projects
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+import ImageCtaBand from '@/components/patterns/ImageCtaBand.astro';
+
+const waNumber = '6285280749218';
+const waLink = `https://wa.me/${waNumber}`;
+
+const projects = [
+  {
+    title: 'Proyek Bore Pile Gudang — Surabaya',
+    type: 'Gudang',
+    location: 'Surabaya',
+    pondasi: 'Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk pembangunan gudang dengan fokus pada kekuatan pondasi dan efisiensi pengerjaan di area proyek.',
+    icon: 'building',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-surabaya-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Pondasi Rumah Tinggal — Sidoarjo',
+    type: 'Rumah Tinggal',
+    location: 'Sidoarjo',
+    pondasi: 'Mini Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan mini bore pile untuk rumah tinggal dengan area pengerjaan terbatas dan kondisi tanah yang membutuhkan pondasi tambahan.',
+    icon: 'home',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-surabaya-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Gedung — Gresik',
+    type: 'Gedung',
+    location: 'Gresik',
+    pondasi: 'Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk kebutuhan konstruksi gedung dengan sistem pengerjaan profesional dan pengawasan lapangan yang optimal.',
+    icon: 'layers',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-surabaya-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Pabrik — Mojokerto',
+    type: 'Pabrik',
+    location: 'Mojokerto',
+    pondasi: 'Bore Pile Mesin',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk pabrik dengan kedalaman sesuai kondisi tanah dan kebutuhan beban struktur bangunan.',
+    icon: 'settings',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-pasuruan-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Pondasi Ruko — Malang',
+    type: 'Ruko',
+    location: 'Malang',
+    pondasi: 'Straus Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan straus pile untuk deretan ruko dengan kondisi tanah labil yang membutuhkan pondasi dalam yang kuat.',
+    icon: 'store',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-tulungagung-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Gedung Bertingkat — Bandung',
+    type: 'Gedung Bertingkat',
+    location: 'Bandung',
+    pondasi: 'Bore Pile Mesin',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk gedung bertingkat dengan spesifikasi teknis tinggi dan pengawasan ketat selama proses pengerjaan.',
+    icon: 'building-2',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-bandung-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Rumah — Jakarta',
+    type: 'Rumah Tinggal',
+    location: 'Jakarta',
+    pondasi: 'Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk rumah di Jakarta dengan penyesuaian kondisi tanah dan kebutuhan proyek.',
+    icon: 'home',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-jakarta-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Pabrik — Klaten',
+    type: 'Pabrik',
+    location: 'Klaten',
+    pondasi: 'Bore Pile Mesin',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk pabrik di Klaten dengan tenaga profesional dan alat modern.',
+    icon: 'settings',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-klaten-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Gedung — Purwokerto',
+    type: 'Gedung',
+    location: 'Purwokerto',
+    pondasi: 'Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk gedung di Purwokerto dengan perhitungan beban yang tepat.',
+    icon: 'building',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-purwokerto-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Pondasi Ruko — Semarang',
+    type: 'Ruko',
+    location: 'Semarang',
+    pondasi: 'Straus Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan straus pile untuk ruko di Semarang dengan akses terbatas.',
+    icon: 'store',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-semarang-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Rumah — Surakarta',
+    type: 'Rumah Tinggal',
+    location: 'Surakarta',
+    pondasi: 'Mini Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan mini bore pile untuk rumah di Surakarta dengan pengerjaan cepat dan rapi.',
+    icon: 'home',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-surakarta-by-hutama-bore-pile.jpg',
+  },
+  {
+    title: 'Proyek Bore Pile Gudang — Yogyakarta',
+    type: 'Gudang',
+    location: 'Yogyakarta',
+    pondasi: 'Bore Pile',
+    status: 'Selesai',
+    desc: 'Pengerjaan pondasi bore pile untuk gudang di Yogyakarta dengan kualitas terjamin.',
+    icon: 'building',
+    image: '/assets/img/project/jasa-bore-pile-hydraulic-yogyakarta-by-hutama-bore-pile.jpg',
+  },
+];
+---
+
+<PageLayout
+  title="Portofolio Jasa Bore Pile Profesional | PT. Jowo Land Construction"
+  description="Lihat portofolio proyek jasa bore pile PT. Jowo Land Construction untuk rumah, gudang, gedung, dan berbagai proyek konstruksi di Pulau Jawa."
+  eagerReveal
+>
+  <Hero layout="centered" size="sm" class="isolate" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="layers" size="sm" />
+      Portofolio
+    </Badge>
+    <h1 slot="title">Dokumentasi Proyek Bore Pile</h1>
+    <p slot="description">
+      PT. Jowo Land Construction telah menangani berbagai pekerjaan jasa bore pile dan pondasi bangunan untuk kebutuhan rumah tinggal, ruko, gudang, gedung, pabrik, hingga proyek konstruksi lainnya di berbagai kota di Pulau Jawa.
+    </p>
+  </Hero>
+
+  <!-- Proyek -->
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Proyek Kami</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Proyek Jasa Bore Pile yang Telah Dikerjakan
+        </h2>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {projects.map((project, i) => (
+          <Card variant="elevated" hover padding="none" class="group flex flex-col" data-reveal data-reveal-delay={String(i % 3)}>
+            <div class="overflow-hidden bg-background-tertiary">
+              <img
+                src={project.image}
+                alt={project.title}
+                class="w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                loading="lazy"
+                is:inline
+              />
+            </div>
+            <div class="flex flex-1 flex-col p-6">
+              <div class="mb-3 flex items-start justify-between gap-4">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                  <Icon name={project.icon} size="sm" />
+                </div>
+                <Badge variant="brand" pill class="text-xs">{project.status}</Badge>
+              </div>
+              <h3 class="font-display text-base font-bold text-foreground mb-2">{project.title}</h3>
+              <p class="text-sm text-foreground-muted leading-relaxed mb-4 flex-1">{project.desc}</p>
+              <div class="flex flex-wrap gap-1.5 mt-auto">
+                <Badge variant="brand">{project.type}</Badge>
+                <Badge variant="brand">{project.pondasi}</Badge>
+                <Badge variant="brand">{project.location}</Badge>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Dokumentasi Lapangan -->
+  <section class="py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Dokumentasi</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Pengerjaan Menggunakan Tenaga Berpengalaman
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Setiap proyek dikerjakan oleh tim yang berpengalaman di bidang pondasi bore pile dengan dukungan alat kerja yang memadai.
+        </p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { icon: 'drill', text: 'Proses pengeboran' },
+          { icon: 'layers', text: 'Pemasangan tulangan' },
+          { icon: 'droplets', text: 'Pengecoran beton' },
+          { icon: 'check-circle', text: 'Quality control' },
+        ].map((item) => (
+          <Card hover data-reveal class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+              <Icon name={item.icon} size="sm" />
+            </div>
+            <p class="text-sm font-medium text-foreground">{item.text}</p>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Kenapa Klien Memilih Kami -->
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Keunggulan</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Kenapa Banyak Klien Memilih PT. Jowo Land Construction?
+        </h2>
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center" data-reveal>
+        {[
+          'Pengerjaan profesional',
+          'Tenaga berpengalaman',
+          'Harga kompetitif',
+          'Support proyek kecil & besar',
+          'Survey lokasi',
+          'Konsultasi gratis',
+          'Area layanan luas',
+        ].map((item) => (
+          <Badge variant="brand" pill>{item}</Badge>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <ImageCtaBand
+      backgroundImage="https://images.unsplash.com/photo-1756388812709-3d524bc42b9b?w=1920&h=800&fit=crop&q=80&auto=format"
+      imageAlt="Pekerja konstruksi dan excavator di lokasi proyek bangunan"
+    >
+      <Badge variant="brand" pill class="mb-6">Konsultasi Gratis</Badge>
+      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
+        Konsultasikan Proyek Anda Sekarang
+      </h2>
+      <p class="text-lg text-foreground-muted mb-8 text-balance">
+        Butuh jasa bore pile untuk rumah, gudang, ruko, gedung, atau proyek lainnya? Hubungi tim kami sekarang.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="hero-btn-brand">
+          <Icon name="message-circle" size="sm" />
+          WhatsApp: 0852-8074-9218
+        </Button>
+        <Button size="lg" variant="outline" href="/contact">
+          Kirim Pesan
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </ImageCtaBand>
+  </section>
+</PageLayout>

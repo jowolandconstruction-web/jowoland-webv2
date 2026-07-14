@@ -1,0 +1,129 @@
+---
+import Input from '@/components/ui/form/Input/Input.astro';
+import Textarea from '@/components/ui/form/Textarea/Textarea.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import { cn } from '@/lib/cn';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const waNumber = '6285280749218';
+---
+
+<form
+  id="contact-form"
+  class={cn('space-y-5', className)}
+  novalidate
+>
+  <!-- Nama + Telepon -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <Input
+      label="Nama"
+      name="name"
+      type="text"
+      required
+      autocomplete="name"
+      placeholder="Nama Anda"
+    />
+    <Input
+      label="Nomor Telepon / WhatsApp"
+      name="phone"
+      type="tel"
+      required
+      autocomplete="tel"
+      placeholder="08xx-xxxx-xxxx"
+    />
+  </div>
+
+  <Input
+    label="Email"
+    name="email"
+    type="email"
+    autocomplete="email"
+    placeholder="email@anda.com"
+  />
+
+  <Input
+    label="Lokasi Proyek"
+    name="location"
+    type="text"
+    placeholder="Contoh: Grobogan, Semarang, Jakarta, Bali, dll."
+  />
+
+  <Textarea
+    label="Detail Kebutuhan / Pesan"
+    name="message"
+    required
+    rows={4}
+    placeholder="Ceritakan kebutuhan bore pile/strauss pile Anda: jenis bangunan, estimasi titik, kedalaman, dll."
+  />
+
+  <div id="form-message" class="hidden text-sm"></div>
+
+  <div class="flex justify-center">
+    <Button type="submit" id="submit-button" class="gap-2 cta-btn-brand w-full sm:w-auto">
+      <Icon name="message-circle" size="sm" />
+      Kirim via WhatsApp
+      <Icon name="arrow-right" size="sm" />
+    </Button>
+  </div>
+
+  <p class="text-xs text-foreground-muted text-center">
+    Pesan akan dikirim langsung ke WhatsApp kami untuk respon lebih cepat.
+  </p>
+</form>
+
+<script define:vars={{ waNumber }}>
+  function initContactForm() {
+    const form = document.getElementById('contact-form');
+    const button = document.getElementById('submit-button');
+    const msgEl = document.getElementById('form-message');
+
+    if (!form || !button || !msgEl) return;
+    if (form.dataset.waInit) return;
+    form.dataset.waInit = 'true';
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = form.querySelector('[name="name"]')?.value?.trim() || '';
+      const phone = form.querySelector('[name="phone"]')?.value?.trim() || '';
+      const email = form.querySelector('[name="email"]')?.value?.trim() || '';
+      const location = form.querySelector('[name="location"]')?.value?.trim() || '';
+      const message = form.querySelector('[name="message"]')?.value?.trim() || '';
+
+      if (!name || !phone || !message) {
+        msgEl.textContent = 'Mohon isi nama, nomor telepon, dan pesan.';
+        msgEl.className = 'text-sm text-destructive';
+        msgEl.classList.remove('hidden');
+        return;
+      }
+
+      const lines = [
+        '🏗️ *Inquiry Jasa Bore Pile — PT. Jowo Land Construction*',
+        '',
+        `👤 *Nama:* ${name}`,
+        `📞 *Telepon:* ${phone}`,
+        email ? `📧 *Email:* ${email}` : '',
+        location ? `📍 *Lokasi Proyek:* ${location}` : '',
+        '',
+        `💬 *Pesan:*`,
+        message,
+      ].filter(Boolean).join('\n');
+
+      const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(lines)}`;
+      window.open(waUrl, '_blank', 'noopener,noreferrer');
+
+      msgEl.textContent = 'Membuka WhatsApp… Jika tidak terbuka otomatis, klik tombol di atas lagi.';
+      msgEl.className = 'text-sm text-success';
+      msgEl.classList.remove('hidden');
+    });
+  }
+
+  initContactForm();
+  document.addEventListener('astro:after-swap', initContactForm);
+</script>

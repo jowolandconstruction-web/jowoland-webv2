@@ -1,0 +1,93 @@
+---
+/**
+ * Kebijakan Privasi page
+ * URL: /privacy
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+---
+<PageLayout
+  title="Kebijakan Privasi | PT. Jowo Land Construction"
+  description="Privacy Policy PT. Jowo Land Construction terkait penggunaan website, pengelolaan data, dan perlindungan privasi pengguna."
+>
+  <Hero layout="centered" size="sm" class="isolate" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="shield" size="sm" />
+      Kebijakan Privasi
+    </Badge>
+    <h1 slot="title">Kebijakan Privasi</h1>
+    <p slot="description">Terakhir diperbarui: 27 Juni 2026. Kami berkomitmen menjaga privasi dan keamanan data setiap pengguna website kami.</p>
+  </Hero>
+
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-3xl px-6">
+      <Card variant="elevated" padding="lg" class="prose prose-sm max-w-none">
+        <div class="space-y-8 text-foreground-muted">
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">1. Informasi yang Kami Kumpulkan</h2>
+            <p class="leading-relaxed">Kami dapat mengumpulkan informasi yang Anda berikan secara langsung, seperti nama, nama perusahaan, nomor telepon, email, lokasi proyek, jenis proyek, informasi teknis pekerjaan pondasi, dan dokumen pendukung seperti gambar kerja atau hasil penyelidikan tanah.</p>
+            <p class="leading-relaxed mt-2">Website juga dapat mengumpulkan data teknis secara otomatis seperti alamat IP, jenis perangkat, browser, sistem operasi, halaman yang dikunjungi, durasi kunjungan, sumber kunjungan, cookie, dan teknologi serupa.</p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">2. Penggunaan Informasi</h2>
+            <p class="leading-relaxed">Informasi yang kami kumpulkan digunakan untuk:</p>
+            <ul class="list-disc list-inside mt-2 space-y-1">
+              <li>Menanggapi konsultasi dan permintaan penawaran</li>
+              <li>Melakukan komunikasi terkait proyek</li>
+              <li>Memberikan informasi mengenai layanan kami</li>
+              <li>Meningkatkan kualitas website dan layanan</li>
+              <li>Menganalisis performa website</li>
+              <li>Memenuhi kewajiban hukum apabila diperlukan</li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">3. Keamanan Data</h2>
+            <p class="leading-relaxed">
+              PT. Jowo Land Construction menerapkan langkah-langkah teknis dan administratif yang wajar untuk menjaga keamanan informasi yang kami kelola. Meski demikian, tidak ada metode transmisi data maupun penyimpanan elektronik yang dapat dijamin 100% aman.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">4. Cookie, Analitik, dan Iklan</h2>
+            <p class="leading-relaxed">
+              Website kami dapat menggunakan cookie untuk mengingat preferensi pengguna, memahami perilaku pengunjung, dan mengoptimalkan performa website. Kami juga dapat menggunakan layanan analitik seperti Google Analytics dan layanan periklanan seperti Google Ads untuk memahami penggunaan website dan menampilkan iklan yang relevan.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">5. Kerahasiaan Informasi dan Hak Pengguna</h2>
+            <p class="leading-relaxed">
+              Kami tidak menjual, menyewakan, ataupun memperdagangkan data pribadi pelanggan. Anda berhak meminta akses, pembaruan, perbaikan, maupun penghapusan data sepanjang tidak bertentangan dengan kewajiban hukum yang berlaku.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">6. Perubahan Kebijakan & Kontak</h2>
+            <p class="leading-relaxed">
+              Privacy Policy ini dapat diperbarui sewaktu-waktu sesuai perkembangan layanan, teknologi, maupun perubahan peraturan. Jika Anda memiliki pertanyaan terkait kebijakan privasi ini, silakan hubungi kami:
+            </p>
+            <div class="mt-3 space-y-1">
+              <p>📞 WhatsApp: <a href="https://wa.me/6285280749218" class="text-brand-500 hover:underline" target="_blank" rel="noopener noreferrer">0852-8074-9218</a></p>
+              <p>📧 Email: <a href="mailto:info@jowolandborepile.com" class="text-brand-500 hover:underline">info@jowolandborepile.com</a></p>
+              <p>📍 Karanganyar, Ketitang, Kec. Godong, Kabupaten Grobogan, Jawa Tengah 58162</p>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <div class="mt-8 text-center">
+        <Button variant="outline" href="/contact">
+          Hubungi Kami
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>

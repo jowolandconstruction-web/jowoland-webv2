@@ -1,0 +1,233 @@
+---
+/**
+ * Layanan / Products page — fetches live from WooCommerce
+ * URL: /layanan
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+import LetterGlitchBand from '@/components/patterns/LetterGlitchBand.astro';
+import { getProducts, formatPrice, stripHtml } from '@/lib/wordpress';
+import siteConfig from '@/config/site.config';
+
+const products = await getProducts({ per_page: 50, orderby: 'menu_order', order: 'asc' });
+
+const waNumber = '6285280749218';
+const waLink = `https://wa.me/${waNumber}`;
+
+const canonicalUrl = `${siteConfig.url}/layanan`;
+
+// Schema markup for the page
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Area Layanan PT. Jowo Land Construction',
+  description: 'PT. Jowo Land Construction melayani pembuatan bore pile profesional untuk rumah, gedung, gudang, dan proyek konstruksi di seluruh Pulau Jawa.',
+  url: canonicalUrl,
+  provider: {
+    '@type': 'ConstructionCompany',
+    name: siteConfig.name,
+    url: siteConfig.url,
+    telephone: siteConfig.phone,
+    email: siteConfig.email,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: siteConfig.address?.street,
+      addressLocality: siteConfig.address?.city,
+      addressRegion: siteConfig.address?.state,
+      postalCode: siteConfig.address?.zip,
+      addressCountry: 'ID',
+    },
+  },
+};
+---
+
+<PageLayout
+  title="Area Layanan PT. Jowo Land Construction — Jasa Bore Pile Profesional di Pulau Jawa"
+  description="PT. Jowo Land Construction melayani pembuatan bore pile profesional untuk rumah, gedung, gudang, dan proyek konstruksi di seluruh Pulau Jawa."
+>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  </Fragment>
+
+  <Hero layout="centered" size="sm" class="isolate services-hero" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="drill" size="sm" />
+      Layanan & Produk
+    </Badge>
+    <h1 slot="title">
+      <span class="text-foreground">Area Layanan —</span><br />
+      <span class="text-brand-500">PT. Jowo Land Construction</span>
+    </h1>
+    <p slot="description">
+      PT. Jowo Land Construction melayani pengeboran pondasi bore pile profesional untuk berbagai kebutuhan bangunan di seluruh kota dan kabupaten di Pulau Jawa.
+    </p>
+    <Fragment slot="actions">
+      <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
+        <Icon name="message-circle" size="sm" />
+        Konsultasi Gratis
+      </Button>
+      <Button size="lg" variant="outline" href="#produk">
+        Lihat Produk
+        <Icon name="arrow-down" size="sm" />
+      </Button>
+    </Fragment>
+  </Hero>
+
+  <!-- Products from WooCommerce -->
+  <section id="produk" class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Produk Layanan</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Pilihan Layanan Jasa Bore Pile
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Pilih layanan yang sesuai dengan kebutuhan proyek Anda. Konsultasi gratis tersedia untuk semua layanan.
+        </p>
+      </div>
+
+      {products.length > 0 ? (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {products.map((product, i) => {
+            const img = product.images?.[0];
+            const desc = stripHtml(product.short_description || product.description).slice(0, 120);
+            const hasPrice = product.price && parseFloat(product.price) > 0;
+            return (
+              <a
+                href={`/layanan/${product.slug}`}
+                class="group block"
+                data-reveal
+                data-reveal-delay={String(i % 3)}
+              >
+                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
+                  {img && (
+                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
+                      <img
+                        src={img.src}
+                        alt={img.alt || product.name}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        width="400"
+                        height="225"
+                      />
+                    </div>
+                  )}
+                  <div class="flex flex-1 flex-col p-5">
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                      <h3 class="font-display text-base font-bold text-foreground leading-snug">{product.name}</h3>
+                      {product.on_sale && (
+                        <Badge variant="brand" pill class="shrink-0 text-xs">Promo</Badge>
+                      )}
+                    </div>
+                    {desc && (
+                      <p class="text-sm text-foreground-muted leading-relaxed mb-3 flex-1">{desc}…</p>
+                    )}
+                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
+                      {hasPrice ? (
+                        <div>
+                          {product.on_sale && product.regular_price && (
+                            <p class="text-xs text-foreground-muted line-through">{formatPrice(product.regular_price)}</p>
+                          )}
+                          <p class="text-sm font-bold text-brand-500">{formatPrice(product.price)}</p>
+                        </div>
+                      ) : (
+                        <p class="text-sm text-foreground-muted italic">Hubungi untuk harga</p>
+                      )}
+                      <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 group-hover:gap-2 transition-all">
+                        Detail <Icon name="arrow-right" size="sm" />
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <!-- Fallback jika WooCommerce tidak tersedia -->
+        <div class="grid gap-6 sm:grid-cols-2">
+          {[
+            { icon: 'drill', title: 'Jasa Bore Pile Straus Pile', desc: 'Pengerjaan pondasi straus pile manual untuk berbagai kebutuhan konstruksi. Cocok untuk area dengan akses terbatas dan proyek skala kecil hingga menengah.', href: '/services#straus-pile' },
+            { icon: 'settings', title: 'Jasa Bore Pile Mesin Mini Crane', desc: 'Pengerjaan bore pile menggunakan mesin mini crane untuk proyek yang membutuhkan kedalaman lebih besar dan kapasitas beban tinggi.', href: '/services#mini-crane' },
+            { icon: 'home', title: 'Pondasi Rumah Tinggal', desc: 'Layanan pondasi bore pile khusus untuk rumah tinggal dengan kondisi tanah labil atau area yang membutuhkan pondasi dalam.', href: '/contact' },
+            { icon: 'building', title: 'Pondasi Gedung & Pabrik', desc: 'Pengerjaan pondasi bore pile untuk gedung bertingkat, pabrik, gudang, dan proyek konstruksi skala besar lainnya.', href: '/contact' },
+          ].map((item, i) => (
+            <Card hover href={item.href} class="group flex flex-col" data-reveal data-reveal-delay={String(i % 2)}>
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
+                  <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+                  <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 mt-3 group-hover:gap-2 transition-all">
+                    Selengkapnya <Icon name="arrow-right" size="sm" />
+                  </span>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Hubungi -->
+  <section class="py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-3xl px-6 text-center" data-reveal>
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
+        Hubungi PT. Jowo Land Construction
+      </h2>
+      <p class="text-foreground-muted mb-6">
+        Butuh jasa bore pile profesional untuk proyek Anda?
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
+          <Icon name="message-circle" size="sm" />
+          WhatsApp: 0852-8074-9218
+        </Button>
+        <Button size="lg" variant="outline" href="mailto:hutamaborepile@gmail.com">
+          <Icon name="mail" size="sm" />
+          hutamaborepile@gmail.com
+        </Button>
+      </div>
+      <p class="text-sm text-foreground-muted mt-4">
+        📍 Karanganyar, Ketitang, Kec. Godong, Grobogan, Jawa Tengah 58162
+      </p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="glitch:hidden mx-auto max-w-2xl px-6 text-center" data-reveal>
+      <Badge variant="brand" pill class="mb-6">Konsultasi Gratis</Badge>
+      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
+        Butuh Jasa Bore Pile untuk Proyek Anda?
+      </h2>
+      <p class="text-lg text-foreground-muted mb-8 text-balance">
+        Hubungi tim PT. Jowo Land Construction sekarang untuk konsultasi gratis dan penawaran terbaik.
+      </p>
+      <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
+        <Icon name="message-circle" size="sm" />
+        WhatsApp: 0852-8074-9218
+      </Button>
+    </div>
+    <LetterGlitchBand>
+      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
+        Butuh Jasa Bore Pile untuk Proyek Anda?
+      </h2>
+      <p class="text-lg text-foreground-muted mb-8 text-balance">
+        Hubungi tim PT. Jowo Land Construction sekarang untuk konsultasi gratis dan penawaran terbaik.
+      </p>
+      <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="hero-btn-brand">
+        <Icon name="message-circle" size="sm" />
+        WhatsApp: 0852-8074-9218
+      </Button>
+    </LetterGlitchBand>
+  </section>
+</PageLayout>

@@ -1,0 +1,158 @@
+---
+/**
+ * Artikel / Blog from WordPress
+ * URL: /blog
+ */
+export const prerender = false;
+
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+import { getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml } from '@/lib/wordpress';
+import siteConfig from '@/config/site.config';
+
+const posts = await getPosts({ per_page: 20, orderby: 'date', order: 'desc' });
+
+const canonicalUrl = `${siteConfig.url}/blog`;
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Blog Jasa Bore Pile | PT. Jowo Land Construction',
+  description: 'Artikel seputar jasa bore pile, pondasi bangunan, biaya bore pile, jenis pondasi, dan tips konstruksi untuk berbagai proyek di Pulau Jawa.',
+  url: canonicalUrl,
+  publisher: {
+    '@type': 'Organization',
+    name: siteConfig.name,
+    url: siteConfig.url,
+  },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Beranda', item: siteConfig.url },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: canonicalUrl },
+  ],
+};
+---
+
+<PageLayout
+  title="Kategori Jasa Bore Pile Profesional di Pulau Jawa | PT. Jowo Land Construction"
+  description="Artikel seputar jasa bore pile, pondasi bangunan, biaya bore pile, jenis pondasi, dan tips konstruksi untuk berbagai proyek di Pulau Jawa."
+  eagerReveal
+>
+  <Fragment slot="head">
+    <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <Hero layout="centered" size="sm" class="isolate" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="book" size="sm" />
+      Blog
+    </Badge>
+    <h1 slot="title">Kategori Jasa Bore Pile</h1>
+    <p slot="description">
+      Informasi lengkap seputar jasa bore pile, pondasi bangunan, biaya, proses pengerjaan, dan tips konstruksi untuk berbagai proyek di Pulau Jawa.
+    </p>
+  </Hero>
+
+  <!-- Posts -->
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+
+      {posts.length > 0 ? (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post, i) => {
+            const img = getFeaturedImage(post);
+            const cats = getPostCategories(post);
+            const excerpt = stripHtml(post.excerpt.rendered).slice(0, 140);
+            return (
+              <a href={`/blog/${post.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
+                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
+                  {img ? (
+                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading={i < 3 ? 'eager' : 'lazy'}
+                        width="400"
+                        height="225"
+                      />
+                    </div>
+                  ) : (
+                    <div class="aspect-video rounded-t-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center">
+                      <Icon name="file-text" class="w-10 h-10 text-brand-500/40" />
+                    </div>
+                  )}
+                  <div class="flex flex-1 flex-col p-5">
+                    {cats.length > 0 && (
+                      <div class="flex flex-wrap gap-1.5 mb-2">
+                        {cats.slice(0, 2).map((cat) => (
+                          <Badge variant="brand" pill class="text-xs">{cat}</Badge>
+                        ))}
+                      </div>
+                    )}
+                    <h2 class="font-display text-base font-bold text-foreground leading-snug mb-2 group-hover:text-brand-500 transition-colors" set:html={post.title.rendered} />
+                    {excerpt && (
+                      <p class="text-sm text-foreground-muted leading-relaxed flex-1">{excerpt}…</p>
+                    )}
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-border">
+                      <time class="text-xs text-foreground-muted" datetime={post.date}>
+                        {formatWPDate(post.date)}
+                      </time>
+                      <span class="inline-flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">
+                        Baca <Icon name="arrow-right" size="sm" />
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="py-16 text-center">
+          <div class="bg-background mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full">
+            <Icon name="file-text" size="lg" class="text-foreground-muted" />
+          </div>
+          <p class="text-foreground-muted text-lg mb-4">Belum ada artikel tersedia.</p>
+          <Button variant="outline" href="/contact">
+            Hubungi Kami
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-2xl px-6 text-center" data-reveal>
+      <Badge variant="brand" pill class="mb-4">Konsultasi Gratis</Badge>
+      <h2 class="font-display text-2xl font-bold text-foreground mb-3">
+        Butuh Jasa Bore Pile?
+      </h2>
+      <p class="text-foreground-muted mb-6">
+        Hubungi PT. Jowo Land Construction untuk konsultasi dan penawaran terbaik.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <Button size="lg" href="https://wa.me/6285280749218" target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
+          <Icon name="message-circle" size="sm" />
+          WhatsApp: 0852-8074-9218
+        </Button>
+        <Button size="lg" variant="outline" href="/contact">
+          Kirim Pesan
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>

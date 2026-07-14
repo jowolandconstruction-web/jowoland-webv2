@@ -1,0 +1,37 @@
+---
+interface Props {
+  /** Background image URL (e.g. Unsplash) */
+  backgroundImage: string;
+  /** Accessible description when the image conveys meaning; leave empty for decorative */
+  imageAlt?: string;
+  maxWidth?: '6xl' | '7xl';
+}
+
+const { backgroundImage, imageAlt = '', maxWidth = '6xl' } = Astro.props;
+
+const maxWidthClass = maxWidth === '7xl' ? 'max-w-7xl' : 'max-w-6xl';
+const isDecorative = !imageAlt;
+---
+
+<div class:list={['mx-auto px-6', maxWidthClass]}>
+  <div class="relative isolate min-h-[22rem] overflow-hidden rounded-3xl border border-white/10 sm:min-h-[26rem]">
+    <img
+      src={backgroundImage}
+      alt={imageAlt}
+      class="absolute inset-0 h-full w-full object-cover"
+      loading="lazy"
+      decoding="async"
+      aria-hidden={isDecorative ? 'true' : undefined}
+    />
+    <div class="absolute inset-0 bg-brand-950/75" aria-hidden="true"></div>
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-brand-950/90 via-brand-950/50 to-brand-950/40"
+      aria-hidden="true"
+    ></div>
+    <div class="relative z-10 px-6 py-16 sm:py-24 invert-section" data-reveal>
+      <div class="mx-auto max-w-2xl rounded-2xl border border-white/10 bg-brand-900/85 px-6 py-10 text-center shadow-xl backdrop-blur-md sm:px-10">
+        <slot />
+      </div>
+    </div>
+  </div>
+</div>

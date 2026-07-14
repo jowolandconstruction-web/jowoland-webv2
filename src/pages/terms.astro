@@ -1,0 +1,122 @@
+---
+/**
+ * Syarat & Ketentuan page
+ * URL: /terms
+ */
+import PageLayout from '@/layouts/PageLayout.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Button from '@/components/ui/form/Button/Button.astro';
+import { Hero } from '@/components/hero';
+---
+<PageLayout
+  title="Syarat & Ketentuan Layanan | PT. Jowo Land Construction"
+  description="Baca syarat dan ketentuan layanan PT. Jowo Land Construction terkait penggunaan website, konsultasi, dan pengerjaan jasa bore pile."
+>
+  <Hero layout="centered" size="sm" class="isolate" showHeroHalo>
+    <Badge slot="badge" variant="brand" pill>
+      <Icon name="file-text" size="sm" />
+      Syarat & Ketentuan
+    </Badge>
+    <h1 slot="title">Syarat & Ketentuan Layanan</h1>
+    <p slot="description">Terakhir diperbarui: 27 Juni 2026. Dengan mengakses dan menggunakan website ini, Anda dianggap telah membaca dan menyetujui seluruh ketentuan yang berlaku.</p>
+  </Hero>
+
+  <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-3xl px-6">
+      <Card variant="elevated" padding="lg">
+        <div class="space-y-8 text-foreground-muted">
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">1. Tentang Kami</h2>
+            <p class="leading-relaxed">PT. Jowo Land Construction merupakan perusahaan yang bergerak di bidang jasa konstruksi, dengan spesialisasi pekerjaan pondasi bored pile (strauss pile), pondasi dalam, serta layanan pendukung konstruksi lainnya.</p>
+            <p class="leading-relaxed mt-2">Website ini disediakan sebagai media informasi, edukasi, konsultasi, dan komunikasi antara perusahaan dengan calon pelanggan maupun pelanggan.</p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">2. Penggunaan Website</h2>
+            <p class="leading-relaxed">Pengguna diperbolehkan menggunakan website ini untuk:</p>
+            <ul class="list-disc list-inside mt-2 space-y-1">
+              <li>memperoleh informasi mengenai layanan perusahaan</li>
+              <li>mengajukan konsultasi</li>
+              <li>meminta penawaran harga (quotation)</li>
+              <li>menghubungi tim PT. Jowo Land Construction</li>
+              <li>memperoleh informasi teknis seputar pekerjaan pondasi</li>
+            </ul>
+            <p class="leading-relaxed mt-2">Pengguna dilarang menggunakan website untuk tindakan yang melanggar hukum, mengganggu keamanan sistem, menyebarkan malware, menyalin isi website untuk tujuan komersial tanpa izin, atau menggunakan identitas palsu saat menghubungi perusahaan.</p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">3. Informasi Teknis</h2>
+            <p class="leading-relaxed">Seluruh artikel, panduan, simulasi biaya, ilustrasi, maupun informasi teknis pada website ini disusun sebagai informasi umum. Setiap proyek konstruksi memiliki karakteristik berbeda, sehingga keputusan teknis tetap harus mempertimbangkan hasil penyelidikan tanah, data sondir atau boring, gambar struktur, kondisi lapangan, beban bangunan, dan peraturan teknis yang berlaku.</p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">4. Penawaran Harga</h2>
+            <p class="leading-relaxed">
+              Seluruh harga yang ditampilkan pada website bersifat estimasi dan dapat berubah sewaktu-waktu. Nilai akhir pekerjaan disesuaikan dengan lokasi proyek, kondisi tanah, diameter dan kedalaman bore pile, jumlah titik, metode pelaksanaan, akses alat, spesifikasi teknis, dan ruang lingkup pekerjaan.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">5. Konsultasi</h2>
+            <p class="leading-relaxed">
+              Kami menyediakan layanan konsultasi awal tanpa biaya sebagai bentuk komitmen membantu calon pelanggan memahami kebutuhan pondasinya. Konsultasi gratis tidak mengikat kedua belah pihak untuk melakukan kerja sama.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">6. Pelaksanaan Pekerjaan</h2>
+            <p class="leading-relaxed">Seluruh pekerjaan yang disepakati akan dilaksanakan berdasarkan dokumen kontrak yang telah disetujui kedua belah pihak. Apabila terdapat perbedaan antara isi website dan kontrak pekerjaan, maka ketentuan dalam kontrak menjadi acuan utama.</p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">7. Hak Kekayaan Intelektual</h2>
+            <p class="leading-relaxed">
+              Seluruh isi website termasuk teks, gambar, logo, desain, dokumentasi proyek, dan elemen lainnya merupakan milik PT. Jowo Land Construction dan dilindungi oleh hak kekayaan intelektual. Dilarang menyalin, mendistribusikan, atau menggunakan konten website tanpa izin tertulis dari pihak PT. Jowo Land Construction.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">8. Tautan ke Website Pihak Ketiga</h2>
+            <p class="leading-relaxed">Website ini dapat memuat tautan menuju situs pihak ketiga. PT. Jowo Land Construction tidak bertanggung jawab atas isi, layanan, keamanan, maupun kebijakan privasi dari website tersebut.</p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">9. Pembatasan Tanggung Jawab</h2>
+            <p class="leading-relaxed">
+              PT. Jowo Land Construction berupaya menyajikan informasi yang akurat dan terbaru. Namun, kami tidak menjamin seluruh informasi pada website selalu bebas dari kesalahan atau perubahan. Penggunaan informasi dari website menjadi tanggung jawab masing-masing pengguna.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">10. Perubahan Ketentuan</h2>
+            <p class="leading-relaxed">
+              PT. Jowo Land Construction berhak memperbarui atau mengubah isi syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Pengguna disarankan untuk memeriksa halaman ini secara berkala.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-xl font-bold text-foreground mb-3">11. Kontak Resmi</h2>
+            <p class="leading-relaxed">Jika Anda memiliki pertanyaan mengenai syarat dan ketentuan layanan ini, silakan hubungi:</p>
+            <div class="mt-3 space-y-1">
+              <p class="font-semibold text-foreground">PT. Jowo Land Construction</p>
+              <p>📞 WhatsApp: <a href="https://wa.me/6285280749218" class="text-brand-500 hover:underline" target="_blank" rel="noopener noreferrer">0852-8074-9218</a></p>
+              <p>📧 Email: <a href="mailto:info@jowolandborepile.com" class="text-brand-500 hover:underline">info@jowolandborepile.com</a></p>
+              <p>📍 Karanganyar, Ketitang, Kec. Godong, Kabupaten Grobogan, Jawa Tengah 58162, Indonesia</p>
+              <p>🌐 <a href="https://jowolandborepile.co.id" class="text-brand-500 hover:underline" target="_blank" rel="noopener noreferrer">www.jowolandborepile.co.id</a></p>
+            </div>
+          </div>
+        </div>
+      </Card>
+
+      <div class="mt-8 text-center">
+        <Button variant="outline" href="/contact">
+          Hubungi Kami
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+</PageLayout>

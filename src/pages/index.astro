@@ -1,0 +1,617 @@
+---
+import LandingLayout from '@/layouts/LandingLayout.astro';
+import { Hero } from '@/components/hero';
+import Button from '@/components/ui/form/Button/Button.astro';
+import Badge from '@/components/ui/data-display/Badge/Badge.astro';
+import Card from '@/components/ui/data-display/Card/Card.astro';
+import Icon from '@/components/ui/primitives/Icon/Icon.astro';
+import ImageCtaBand from '@/components/patterns/ImageCtaBand.astro';
+import { getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml } from '@/lib/wordpress';
+
+const posts = await getPosts({ per_page: 3, orderby: 'date', order: 'desc' });
+
+const waNumber = '6285280749218';
+const waLink = `https://wa.me/${waNumber}`;
+---
+
+<LandingLayout
+  title="Kontraktor Jasa Pondasi Bored Pile (Strauss Pile)"
+  description="PT. Jowo Land Construction - Kontraktor jasa bore pile & strauss pile profesional sejak 2012. Spesialis geoteknik rekayasa pondasi dengan harga terjangkau, layanan 7 provinsi di Jawa & Bali, dan 98% kepuasan klien."
+  image="/og-default.svg"
+  includeProfessionalServiceSchema={true}
+>
+  <!-- Hero -->
+  <Hero layout="centered" size="xl" class="hero-dark-gradient" showScrollIndicator fullHeight>
+    <Badge slot="badge" variant="brand" pill pulse class="dark:text-brand-200">Konsultasi Gratis</Badge>
+
+    <h1 slot="title" class="!text-[clamp(1.8rem,8vw,3rem)] sm:!text-5xl md:!text-6xl lg:!text-7xl">
+      <span class="text-brand-600 dark:text-foreground [-webkit-text-fill-color:currentColor]">Kontraktor Jasa Pondasi</span><br />
+      <span class="text-brand-600 dark:text-foreground [-webkit-text-fill-color:currentColor]">Bored Pile (Strauss Pile)</span>
+    </h1>
+
+    <p slot="description" class="max-w-2xl">
+      PT. Jowo Land Construction Spesialis Geoteknik Rekayasa Pondasi (Jasa Bore Pile dan Strauss Pile).
+      <br /><strong>98% Kepuasan • 168+ Klien • 820+ Proyek Selesai</strong>
+    </p>
+
+    <Fragment slot="actions">
+      <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
+        <Icon name="message-circle" size="sm" />
+        Hubungi via WhatsApp
+        <Icon name="arrow-right" size="sm" />
+      </Button>
+      <Button size="lg" variant="outline" href="/contact">
+        Konsultasi Gratis
+        <Icon name="arrow-right" size="sm" />
+      </Button>
+    </Fragment>
+  </Hero>
+
+  <!-- Quick Trust -->
+  <section class="relative z-10 py-8 bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6">
+      <div class="grid grid-cols-3 gap-4 text-center">
+        <div class="flex flex-col items-center gap-2 p-4">
+          <p class="text-3xl font-bold text-brand-600 autocount" data-target="98" data-suffix="%">0</p>
+          <p class="text-sm font-semibold text-foreground">Kepuasan Klien</p>
+        </div>
+        <div class="flex flex-col items-center gap-2 p-4">
+          <p class="text-3xl font-bold text-brand-600 autocount" data-target="168" data-suffix="+">0</p>
+          <p class="text-sm font-semibold text-foreground">Klien Puas</p>
+        </div>
+        <div class="flex flex-col items-center gap-2 p-4">
+          <p class="text-3xl font-bold text-brand-600 autocount" data-target="820" data-suffix="+">0</p>
+          <p class="text-sm font-semibold text-foreground">Proyek Selesai</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Memahami Pondasi Bored Pile -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Tentang Bore Pile</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Memahami Pondasi Bored Pile (Strauss Pile)
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-3xl mx-auto">
+          Pondasi Bored Pile ialah pondasi beton berbentuk tabung silinder, pondasi ini secara prinsip semacam pondasi tiang pancang (paku bumi), namun pemasangannya dimulai dari pengeboran tanah, memasukkan tulangan besi yang telah dirakit, lalu pengecoran di tempat (in-situ).
+        </p>
+        <p class="text-foreground-muted max-w-3xl mx-auto">
+          Merujuk dari wikipedia: pondasi bore pile diklasifikasikan sebagai pondasi dalam, yang dirancang untuk mentransfer beban struktur menuju lapisan tanah terkeras yang memiliki daya dukung lebih baik.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tahapan Pelaksanaan Pekerjaan -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Proses Kerja</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Tahapan Pelaksanaan Pekerjaan Bore Pile
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          PT. Jowo Land Construction menerapkan metodologi pelaksanaan yang terstandarisasi ketat sesuai Standar Nasional Indonesia (SNI) dan mematuhi protokol Keselamatan dan Kesehatan Kerja (K3) Konstruksi.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
+          { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
+          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
+          { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
+          { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
+          { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
+        ].map((item, i) => (
+          <Card hover data-reveal data-reveal-delay={String(i % 3)}>
+            <div class="flex flex-col gap-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 font-bold text-base shrink-0">
+                {item.step}
+              </div>
+              <div>
+                <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
+                <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Harga Jasa Bore Pile -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Harga Jasa</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Harga Jasa Bore Pile per Meter Terbaru 2026
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Biaya atau harga jasa bore pile setiap proyek bisa berbeda, karena setiap proyek memiliki kondisi tanah yang berbeda. Setiap bangunan memiliki kebutuhan struktur yang berbeda. Setiap proyek memiliki spek yang berbeda.
+        </p>
+        <p class="text-foreground-muted max-w-2xl mx-auto">
+          Berikut tabel harga jasa bore pile sebagai acuan dasar secara umum:
+        </p>
+      </div>
+      <div class="max-w-4xl mx-auto w-full" data-reveal>
+        <Card variant="elevated" padding="lg">
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="border-b border-border">
+                  <th class="text-left py-3 px-4 font-semibold text-foreground">Diameter Lubang (Ø)</th>
+                  <th class="text-center py-3 px-4 font-semibold text-foreground">Alat Mesin Mini Crane</th>
+                  <th class="text-center py-3 px-4 font-semibold text-foreground">Alat Berat Excavator</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border">
+                <tr>
+                  <td class="py-3 px-4 text-foreground-muted">30 cm</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 135.000/m²</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 185.000/m²</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-foreground-muted">40 cm</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 145.000/m²</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 195.000/m²</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-foreground-muted">50 cm</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 185.000/m²</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 235.000/m²</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-foreground-muted">60 cm</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 210.000/m²</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 285.000/m²</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-foreground-muted">80 cm</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 280.000/m²</td>
+                  <td class="py-3 px-4 text-center font-semibold text-brand-600">Rp 350.000/m²</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-4 text-sm text-foreground-muted italic">
+            *Berhati-hatilah saat ada kontraktor lain yang menawarkan harga yang sangat murah. Karena pekerjaan bore pile tergolong pekerjaan yang sangat berat, serta memerlukan skill khusus, sehingga membutuhkan biaya yang banyak.
+          </p>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilihan Metode Alat -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Metode Alat</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Pilihan Metode Alat Bore Pile Sesuai Kebutuhan Proyek Anda
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Kami dari PT. Jowo Land Construction paham, setiap proyek memiliki spek, anggaran, dan jenis tanah yang berbeda, sehingga alat yang digunakan-pun harus menyesuaikan kebutuhan tersebut.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <Card hover data-reveal class="flex flex-col">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+              <Icon name="drill" size="sm" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-foreground">Metode Alat Strauss Pile (Mini Crane / Wash Boring)</h3>
+              <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">
+                Cocok untuk area dengan akses terbatas dan proyek skala menengah.
+              </p>
+            </div>
+          </div>
+        </Card>
+        <Card hover data-reveal data-reveal-delay="1" class="flex flex-col">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+              <Icon name="settings" size="sm" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-foreground">Metode Alat Hydraulic Drilling Rig (Alat Berat Bore Pile)</h3>
+              <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">
+                Cocok untuk proyek besar dengan kebutuhan daya dukung yang tinggi.
+              </p>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Layanan -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Layanan Kami</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Layanan Jasa Bore Pile
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Kami menyediakan berbagai layanan pondasi bore pile untuk kebutuhan konstruksi Anda.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <Card hover href="/layanan" class="group flex flex-col" data-reveal>
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+              <Icon name="drill" size="sm" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-foreground">Jasa Bore Pile Straus Pile</h3>
+              <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">
+                Pengerjaan pondasi straus pile manual untuk berbagai kebutuhan konstruksi. Cocok untuk area dengan akses terbatas dan proyek skala menengah.
+              </p>
+              <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 mt-3 group-hover:gap-2 transition-all">
+                Selengkapnya <Icon name="arrow-right" size="sm" />
+              </span>
+            </div>
+          </div>
+        </Card>
+        <Card hover href="/layanan" class="group flex flex-col" data-reveal data-reveal-delay="1">
+          <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+              <Icon name="settings" size="sm" />
+            </div>
+            <div class="flex-1 min-w-0">
+              <h3 class="text-base font-semibold text-foreground">Jasa Bore Pile Mesin Mini Crane</h3>
+              <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">
+                Pengerjaan bore pile menggunakan mesin mini crane untuk proyek yang membutuhkan kedalaman lebih dan kapasitas beban lebih besar.
+              </p>
+              <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 mt-3 group-hover:gap-2 transition-all">
+                Selengkapnya <Icon name="arrow-right" size="sm" />
+              </span>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Keunggulan -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Kenapa Kami?</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Mengapa Menggunakan Jasa Bore Pile dari PT. Jowo Land Construction?
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-3xl mx-auto">
+          PT. Jowo Land Construction tidak melihat pekerjaan bore pile sebagai aktivitas membuat lubang dan menuangkan beton saja. Kami melihatnya sebagai proses rekayasa geoteknik yang menentukan masa depan sebuah bangunan. Karena bagi kami, setiap proyek bukan sekadar pekerjaan konstruksi, lebih dari itu, kami melihat pekerjaan bore pile sebagai <strong>REPUTASI</strong>.
+        </p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <Card variant="elevated" padding="lg" data-reveal>
+          <h3 class="text-xl font-bold text-foreground mb-4">Keunggulan PT. Jowo Land Construction Sebagai Kontraktor Bore Pile</h3>
+          <ul class="flex flex-col gap-4">
+            {[
+              { icon: 'tag', title: 'Transparansi Harga', desc: 'Tidak ada biaya tersembunyi. Lingkup kerja dan spesifikasi pekerjaan tertuang jelas di dalam kontrak kerja.' },
+              { icon: 'settings', title: 'Peralatan Lengkap & Terawat', desc: 'Kami menggunakan unit mesin bor milik sendiri dengan jadwal perawatan rutin.' },
+              { icon: 'users', title: 'SDM & Tenaga Ahli', desc: 'Proyek Anda diawasi langsung oleh Engineer dan operator tersertifikasi di bidang geoteknik.' },
+              { icon: 'shield-check', title: 'Legalitas Penuh', desc: 'Beroperasi resmi dengan NIB, Sertifikasi Kelayakan Alat (SILO), dan SIO Operator dari Kemenaker.' },
+            ].map((item) => (
+              <li class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br dari-brand-500/20 ke-brand-500/5 flex items-center justify-center text-brand-500 shrink-0 mt-0.5">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-foreground">{item.title}</p>
+                  <p class="text-sm text-foreground-muted leading-relaxed mt-0.5">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+        <Card variant="elevated" padding="lg" data-reveal data-reveal-delay="1">
+          <h3 class="text-xl font-bold text-foreground mb-4">Standar Teknik yang Digunakan</h3>
+          <p class="text-foreground-muted mb-4">
+            Sebagai komitmen pada keamanan dan ketepatan, seluruh pengerjaan pondasi kami tunduk pada standar teknik sipil yang berlaku di Indonesia (SNI), yaitu:
+          </p>
+          <ul class="flex flex-col gap-2">
+            <li class="flex items-center gap-2">
+              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
+              <span class="text-foreground">SNI 8460:2017 (Persyaratan Perancangan Geoteknik)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
+              <span class="text-foreground">SNI 2847:2019 (Persyaratan Beton Struktural untuk Bangunan Gedung)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
+              <span class="text-foreground">SNI 03-1726-2012 (Tata Cara Perancangan Ketahanan Gempa)</span>
+            </li>
+          </ul>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dokumentasi dan Portofolio -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Portofolio</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Dokumentasi dan Portofolio Proyek
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Bukti nyata dari dedikasi kami dapat dilihat pada rekam jejak Proyek kami.
+        </p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-3">
+        {[
+          { title: 'Proyek 1', src: 'https://www.youtube.com/embed/-70H0vUf4Kg' },
+          { title: 'Proyek 2', src: 'https://www.youtube.com/embed/0zNIc-Xth8I' },
+          { title: 'Proyek 3', src: 'https://www.youtube.com/embed/p0AQB72czxk' },
+        ].map((video, i) => (
+          <Card hover data-reveal data-reveal-delay={String(i % 3)} padding="none" class="overflow-hidden">
+            <div class="aspect-video">
+              <iframe
+                src={video.src}
+                title={video.title}
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
+          </Card>
+        ))}
+      </div>
+      <div class="text-center">
+        <Button variant="outline" href="/projects">
+          Lihat Seluruh Proyek Terbaru Kami
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Area Layanan -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Area Layanan</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Area Layanan Jasa Bore Pile
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Kami memiliki armada mobilisasi yang memadai untuk menunjang pengiriman ke berbagai provinsi, meliputi:
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-2 justify-center" data-reveal>
+        {[
+          'Jawa Tengah',
+          'Jawa Timur',
+          'Jawa Barat',
+          'Yogyakarta',
+          'Jakarta',
+          'Banten',
+          'Bali',
+        ].map((provinsi) => (
+          <Badge variant="brand" pill class="text-base px-4 py-2">{provinsi}</Badge>
+        ))}
+      </div>
+      <div class="text-center">
+        <Button variant="outline" href="/contact">
+          Tanyakan Area Anda
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimoni -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Testimoni</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Testimoni Klien
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          Reputasi kami dibangun di atas integritas. Silakan tinjau ulang testimoni nyata klien kami melalui Google Business dan telah terverifikasi.
+        </p>
+      </div>
+      <div class="max-w-2xl mx-auto w-full" data-reveal>
+        <div id="shapo-widget-4d2ec5382782b8332544" class="w-full"></div>
+      </div>
+    </div>
+  </section>
+  <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
+
+  <!-- FAQ -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>FAQ</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Pertanyaan Umum Seputar Bore Pile
+        </h2>
+      </div>
+      <div class="max-w-3xl mx-auto w-full" data-reveal>
+        <Card variant="elevated" padding="lg">
+          {[
+            { q: 'Apakah bore pile aman untuk tembok tetangga yang menempel?', a: 'Sangat aman. Bore pile bekerja dengan cara mengekstraksi tanah, bukan memukul atau mendesak tanah. Metode ini minim getaran dan mencegah risiko retaknya bangunan di sebelah lokasi proyek.' },
+            { q: 'Berapa lama proses pengerjaan bore pile?', a: 'Durasi sangat bergantung pada volume (jumlah titik), kedalaman, dan cuaca. Namun, dengan metode mesin (Mini Crane atau Rig), kecepatan produksi kami jauh lebih efisien dibandingkan metode manual.' },
+            { q: 'Apakah PT. Jowo Land menyediakan material juga?', a: 'Ya, kami menyediakan paket All-In (Jasa + Material Besi & Beton Ready Mix) agar klien tidak perlu repot, dengan jaminan spesifikasi material sesuai RAB.' },
+          ].map((item, i) => (
+            <details class="border-b border-border last:border-0" name="faq-borepile">
+              <summary class="flex w-full items-center justify-between text-sm py-4 text-left font-medium text-foreground transition-colors hover:text-foreground-secondary cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                {item.q}
+                <Icon name="chevron-down" size="sm" class="faq-icon shrink-0 text-foreground-muted transition-transform duration-200" />
+              </summary>
+              <div class="pb-4 text-sm text-foreground-muted leading-relaxed">{item.a}</div>
+            </details>
+          ))}
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog -->
+  {posts.length > 0 && (
+    <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+      <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+        <div class="flex flex-col items-center gap-6 text-center" data-reveal>
+          <Badge variant="brand" pill>Blog</Badge>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+            Informasi Seputar Bore Pile
+          </h2>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post, i) => {
+            const img = getFeaturedImage(post);
+            const cats = getPostCategories(post);
+            const excerpt = stripHtml(post.excerpt.rendered).slice(0, 140);
+            return (
+              <a href={`/blog/${post.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
+                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
+                  {img ? (
+                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
+                      <img
+                        src={img.src}
+                        alt={img.alt}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        width="400"
+                        height="225"
+                      />
+                    </div>
+                  ) : (
+                    <div class="aspect-video rounded-t-xl bg-gradient-to-br dari-brand-500/20 ke-brand-500/5 flex items-center justify-center">
+                      <Icon name="file-text" class="w-10 h-10 text-brand-500/40" />
+                    </div>
+                  )}
+                  <div class="flex flex-1 flex-col p-5">
+                    {cats.length > 0 && (
+                      <div class="flex flex-wrap gap-1.5 mb-2">
+                        {cats.slice(0, 2).map((cat) => (
+                          <Badge variant="brand" pill class="text-xs">{cat}</Badge>
+                        ))}
+                      </div>
+                    )}
+                    <h2 class="font-display text-base font-bold text-foreground leading-snug mb-2 group-hover:text-brand-500 transition-colors" set:html={post.title.rendered} />
+                    {excerpt && (
+                      <p class="text-sm text-foreground-muted leading-relaxed flex-1">{excerpt}…</p>
+                    )}
+                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-border">
+                      <time class="text-xs text-foreground-muted" datetime={post.date}>
+                        {formatWPDate(post.date)}
+                      </time>
+                      <span class="inline-flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">
+                        Baca <Icon name="arrow-right" size="sm" />
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+        <div class="flex justify-center">
+          <Button variant="outline" href="/blog">
+            Lihat Semua Blog
+            <Icon name="arrow-right" size="sm" />
+          </Button>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Penutup & Hubungi Kami -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <ImageCtaBand
+      backgroundImage="https://images.unsplash.com/photo-1748956628042-b73331e0b479?w=1920&h=800&fit=crop&q=80&auto=format"
+      imageAlt="Pekerja konstruksi di lokasi pembangunan gedung dengan tower crane"
+    >
+      <Badge variant="brand" pill class="mb-6">Hubungi Kami</Badge>
+      <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
+        Hubungi Kami Sekarang untuk Penawaran Resmi dan Konsultasi Gratis
+      </h2>
+      <p class="text-lg text-foreground-muted mb-4 text-balance">
+        Untuk memastikan kualitas yang terbaik, PT. Jowo Land Construction hanya menerima kuota proyek pembuatan pondasi bore pile secara terbatas setiap bulannya. Amankan jadwal proyek Anda hari ini.
+      </p>
+      <p class="text-lg text-foreground-muted mb-8 text-balance">
+        Dapatkan Penawaran Harga Bore Pile Secara Resmi. Tim engineer kami siap meninjau gambar denah bangunan Anda dan memberikan estimasi biaya tanpa komitmen.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="hero-btn-brand">
+          <Icon name="message-circle" size="sm" />
+          Hubungi via WhatsApp
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+        <Button size="lg" variant="outline" href="/contact">
+          Kirim Pesan
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
+      <div class="mt-8 pt-6 border-t border-border">
+        <p class="font-semibold text-foreground mb-2">Respon Cepat via WhatsApp 24 Jam</p>
+        <p class="text-foreground-muted">Alamat Kantor Pusat: PT. Jowo Land Construction, Karanganyar, Ketitang, Kec. Godong, Kabupaten Grobogan, Jawa Tengah 58162</p>
+      </div>
+    </ImageCtaBand>
+  </section>
+</LandingLayout>
+
+<script is:inline>
+  function animateCounter(element) {
+    const target = parseInt(element.getAttribute('data-target'), 10);
+    const suffix = element.getAttribute('data-suffix') || '';
+    const duration = 2000; // 2 seconds
+    const startTime = performance.now();
+
+    function updateCounter(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Ease out quart animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      const current = Math.floor(easeOutQuart * target);
+      
+      element.textContent = current + suffix;
+      
+      if (progress < 1) {
+        requestAnimationFrame(updateCounter);
+      }
+    }
+
+    requestAnimationFrame(updateCounter);
+  }
+
+  function initCounters() {
+    const counters = document.querySelectorAll('.autocount');
+    counters.forEach(counter => {
+      if (counter.dataset.animated === 'true') return;
+      counter.dataset.animated = 'true';
+      animateCounter(counter);
+    });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCounters);
+  } else {
+    initCounters();
+  }
+  
+  // Also initialize after Astro view transitions
+  document.addEventListener('astro:page-load', initCounters);
+</script>
+
+<style>
+  details[open] > summary .faq-icon {
+    transform: rotate(180deg);
+  }
+</style>
