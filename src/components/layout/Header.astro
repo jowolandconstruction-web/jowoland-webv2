@@ -196,16 +196,8 @@ const buttonId = `${menuId}-button`;
         (hasLogoSlot ? (
           <slot name="logo" />
         ) : (
-          <a href="/" class="flex items-center gap-2">
-            <Logo size={size === 'sm' ? 'md' : 'lg'} forceDark={isInvert} />
-            <span
-              class={cn(
-                'font-display text-xl font-bold tracking-tight',
-                isFloating ? 'hdr-logo-text' : (isInvert ? 'text-brand-600 dark:text-foreground lg:text-on-invert' : 'text-brand-600 dark:text-foreground')
-              )}
-            >
-              {logoText || siteConfig.name}
-            </span>
+          <a href="/" class="flex items-center gap-2" aria-label={siteConfig.name}>
+            <Logo size={size === 'sm' ? 'lg' : 'xl'} class="h-10 w-auto lg:h-12" forceDark={isInvert} />
           </a>
         ))
     }
