@@ -78,6 +78,12 @@ function wcAuthHeader(): string {
   return 'Basic ' + Buffer.from(`${WC_KEY}:${WC_SECRET}`).toString('base64');
 }
 
+function fetchWithTimeout(url: string, options: RequestInit = {}, timeoutMs = 8000): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  return fetch(url, { ...options, signal: controller.signal }).finally(() => clearTimeout(timer));
+}
+
 export async function getProducts(params: Record<string, string | number> = {}): Promise<WCProduct[]> {
   if (!WP_URL || !WC_KEY) return [];
   const query = new URLSearchParams({
@@ -86,7 +92,7 @@ export async function getProducts(params: Record<string, string | number> = {}):
     ...Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])),
   });
   try {
-    const res = await fetch(`${WP_URL}/wp-json/wc/v3/products?${query}`, {
+    const res = await fetchWithTimeout(`${WP_URL}/wp-json/wc/v3/products?${query}`, {
       headers: { Authorization: wcAuthHeader() },
     });
     if (!res.ok) return [];
@@ -99,7 +105,7 @@ export async function getProducts(params: Record<string, string | number> = {}):
 export async function getProduct(slug: string): Promise<WCProduct | null> {
   if (!WP_URL || !WC_KEY) return null;
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       `${WP_URL}/wp-json/wc/v3/products?slug=${encodeURIComponent(slug)}&per_page=1`,
       { headers: { Authorization: wcAuthHeader() } }
     );
@@ -114,8 +120,8 @@ export async function getProduct(slug: string): Promise<WCProduct | null> {
 export async function getProductById(id: number): Promise<WCProduct | null> {
   if (!WP_URL || !WC_KEY) return null;
   try {
-    const res = await fetch(`${WP_URL}/wp-json/wc/v3/products/${id}`, {
-      headers: { Authorization: wcAuthHeader() } ,
+    const res = await fetchWithTimeout(`${WP_URL}/wp-json/wc/v3/products/${id}`, {
+      headers: { Authorization: wcAuthHeader() },
     });
     if (!res.ok) return null;
     return res.json();
@@ -135,7 +141,7 @@ export async function getPosts(params: Record<string, string | number> = {}): Pr
     ...Object.fromEntries(Object.entries(params).map(([k, v]) => [k, String(v)])),
   });
   try {
-    const res = await fetch(`${WP_URL}/wp-json/wp/v2/posts?${query}`);
+    const res = await fetchWithTimeout(`${WP_URL}/wp-json/wp/v2/posts?${query}`);
     if (!res.ok) return [];
     return res.json();
   } catch {
@@ -146,7 +152,7 @@ export async function getPosts(params: Record<string, string | number> = {}): Pr
 export async function getPost(slug: string): Promise<WPPost | null> {
   if (!WP_URL) return null;
   try {
-    const res = await fetch(
+    const res = await fetchWithTimeout(
       `${WP_URL}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed=1&per_page=1`
     );
     if (!res.ok) return null;

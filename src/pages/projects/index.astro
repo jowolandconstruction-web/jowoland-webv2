@@ -118,10 +118,10 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
       <div class="flex flex-col items-center gap-4 text-center" data-reveal>
         <Badge variant="brand" pill>Dokumentasi</Badge>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-          Pengerjaan Menggunakan Tenaga Berpengalaman
+          Dokumentasi dan Portofolio Proyek
         </h2>
         <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
-          Setiap proyek dikerjakan oleh tim yang berpengalaman di bidang pondasi bore pile dengan dukungan alat kerja yang memadai.
+          Bukti nyata dari dedikasi kami dapat dilihat pada rekam jejak Proyek kami.
         </p>
       </div>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -136,6 +136,29 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
               <Icon name={item.icon} size="sm" />
             </div>
             <p class="text-sm font-medium text-foreground">{item.text}</p>
+          </Card>
+        ))}
+      </div>
+      <!-- Video dokumentasi — 3 kolom 1 baris -->
+      <div class="grid gap-6 md:grid-cols-3">
+        {[
+          { title: 'Dokumentasi Proyek Bore Pile 1', src: 'https://www.youtube.com/embed/-70H0vUf4Kg' },
+          { title: 'Dokumentasi Proyek Bore Pile 2', src: 'https://www.youtube.com/embed/0zNIc-Xth8I' },
+          { title: 'Dokumentasi Proyek Bore Pile 3', src: 'https://www.youtube.com/embed/p0AQB72czxk' },
+        ].map((video, i) => (
+          <Card hover data-reveal data-reveal-delay={String(i)} padding="none" class="overflow-hidden">
+            <div class="aspect-video">
+              <iframe
+                src={video.src}
+                title={video.title}
+                class="w-full h-full"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+                loading="lazy"
+              ></iframe>
+            </div>
           </Card>
         ))}
       </div>
