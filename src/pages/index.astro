@@ -6,9 +6,10 @@ import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import ImageCtaBand from '@/components/patterns/ImageCtaBand.astro';
-import { getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml } from '@/lib/wordpress';
+import { getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml, getProducts, formatPrice } from '@/lib/wordpress';
 
 const posts = await getPosts({ per_page: 3, orderby: 'date', order: 'desc' });
+const featuredProducts = await getProducts({ per_page: 3, orderby: 'menu_order', order: 'asc' });
 
 const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
 ---
@@ -203,6 +204,59 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
           </Card>
         ))}
       </div>
+      {featuredProducts.length > 0 && (
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {featuredProducts.map((product, i) => {
+            const img = product.images?.[0];
+            const desc = stripHtml(product.short_description || product.description).slice(0, 120);
+            const hasPrice = product.price && parseFloat(product.price) > 0;
+            return (
+              <a href={`/layanan/${product.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
+                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
+                  {img && (
+                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
+                      <img
+                        src={img.src}
+                        alt={img.alt || product.name}
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        width="400"
+                        height="225"
+                      />
+                    </div>
+                  )}
+                  <div class="flex flex-1 flex-col p-5">
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                      <h3 class="font-display text-base font-bold text-foreground leading-snug">{product.name}</h3>
+                      {product.on_sale && (
+                        <Badge variant="brand" pill class="shrink-0 text-xs">Promo</Badge>
+                      )}
+                    </div>
+                    {desc && (
+                      <p class="text-sm text-foreground-muted leading-relaxed mb-3 flex-1">{desc}…</p>
+                    )}
+                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
+                      {hasPrice ? (
+                        <div>
+                          {product.on_sale && product.regular_price && (
+                            <p class="text-xs text-foreground-muted line-through">{formatPrice(product.regular_price)}</p>
+                          )}
+                          <p class="text-sm font-bold text-brand-500">{formatPrice(product.price)}</p>
+                        </div>
+                      ) : (
+                        <p class="text-sm text-foreground-muted italic">Hubungi untuk harga</p>
+                      )}
+                      <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 group-hover:gap-2 transition-all">
+                        Detail <Icon name="arrow-right" size="sm" />
+                      </span>
+                    </div>
+                  </div>
+                </Card>
+              </a>
+            );
+          })}
+        </div>
+      )}
       <div class="text-center">
         <Button variant="outline" href="/projects">
           Lihat Seluruh Proyek Terbaru Kami
