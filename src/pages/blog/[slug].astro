@@ -197,9 +197,29 @@ const breadcrumbSchema = {
 
   <!-- Full Content -->
   <section class="py-8 sm:py-[var(--space-section-md)] bg-background border-t border-border overflow-x-hidden">
-    <div class="mx-auto max-w-4xl px-4 sm:px-6 min-w-0 w-full">
-      <h2 class="font-display text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Isi Artikel</h2>
-      <div class="wp-content prose prose-sm max-w-none text-foreground-muted leading-relaxed" set:html={post.content.rendered} />
+    <div class="mx-auto max-w-6xl px-4 sm:px-6 w-full">
+      <div class="flex gap-10 items-start">
+
+        <!-- Table of Contents — sticky sidebar (desktop only) -->
+        <aside id="toc-sidebar" class="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
+          <div class="rounded-xl border border-border bg-background-secondary p-5">
+            <p class="text-xs font-semibold uppercase tracking-widest text-foreground-muted mb-3 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+              Daftar Isi
+            </p>
+            <nav id="toc-nav" aria-label="Table of contents">
+              <p class="text-sm text-foreground-muted italic">Memuat...</p>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- Article body -->
+        <div class="flex-1 min-w-0">
+          <h2 class="font-display text-xl sm:text-2xl font-bold text-foreground mb-4 sm:mb-6">Isi Artikel</h2>
+          <div id="article-content" class="wp-content prose prose-sm max-w-none text-foreground-muted leading-relaxed" set:html={post.content.rendered} />
+        </div>
+
+      </div>
     </div>
   </section>
 
@@ -270,6 +290,76 @@ const breadcrumbSchema = {
     </section>
   )}
 </PageLayout>
+
+<script>
+  function buildToc() {
+    const content = document.getElementById('article-content');
+    const nav = document.getElementById('toc-nav');
+    if (!content || !nav) return;
+
+    const headings = Array.from(content.querySelectorAll('h2, h3'));
+    if (headings.length === 0) {
+      const sidebar = document.getElementById('toc-sidebar');
+      if (sidebar) sidebar.style.display = 'none';
+      return;
+    }
+
+    // Assign IDs to headings that don't have one
+    headings.forEach((heading, i) => {
+      if (!heading.id) {
+        heading.id = `heading-${i}-${heading.textContent?.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '').slice(0, 50)}`;
+      }
+    });
+
+    // Build TOC HTML
+    nav.innerHTML = '';
+    const ul = document.createElement('ul');
+    ul.className = 'flex flex-col gap-0.5';
+
+    headings.forEach((heading) => {
+      const isH3 = heading.tagName === 'H3';
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent?.trim() || '';
+      a.className = [
+        'block text-sm leading-snug py-1 transition-colors duration-150 rounded',
+        isH3 ? 'pl-4 text-foreground-muted hover:text-brand-500' : 'text-foreground-muted hover:text-brand-500 font-medium',
+        'toc-link',
+      ].join(' ');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', `#${heading.id}`);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    nav.appendChild(ul);
+
+    // Highlight active heading on scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          const link = nav.querySelector(`a[href="#${id}"]`);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            nav.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('text-brand-500', 'font-semibold'));
+            link.classList.add('text-brand-500', 'font-semibold');
+          }
+        });
+      },
+      { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+    );
+
+    headings.forEach((h) => observer.observe(h));
+  }
+
+  buildToc();
+  document.addEventListener('astro:page-load', buildToc);
+</script>
 
 <style is:global>
   .wp-content {
