@@ -197,7 +197,11 @@ const buttonId = `${menuId}-button`;
           <slot name="logo" />
         ) : (
           <a href="/" class="flex items-center gap-2" aria-label={siteConfig.name}>
-            <Logo size={size === 'sm' ? 'lg' : 'xl'} class="h-10 w-auto lg:h-12" forceDark={isInvert} />
+            <Logo size="md" class="h-7 w-auto" forceDark={isInvert} />
+            <span class={cn(
+              'text-sm font-semibold leading-tight hidden sm:block',
+              isFloating ? 'hdr-invert-text' : 'text-foreground'
+            )}>PT. Jowoland Bore Pile</span>
           </a>
         ))
     }
