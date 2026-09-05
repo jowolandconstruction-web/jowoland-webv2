@@ -15,18 +15,45 @@ const { slug } = Astro.params;
 
 if (!slug) return Astro.redirect('/layanan');
 
+// 1. Fetch data UI produk dari fungsi REST API bawaan Anda
 const product = await getProduct(slug);
 
 if (!product) return Astro.redirect('/layanan');
 
+// 2. Fetch SEO dari Rank Math via GraphQL
+const wpUrl = 'https://cms.jowolandborepile.co.id/graphql'; // Pastikan ini URL GraphQL backend Anda
+const seoQuery = `
+  query GetProductSEO($slug: ID!) {
+    product(id: $slug, idType: SLUG) {
+      seo {
+        title
+        description
+        fullHead
+      }
+    }
+  }
+`;
+
+const seoRes = await fetch(wpUrl, {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ query: seoQuery, variables: { slug } })
+});
+const seoJson = await seoRes.json();
+const rankMathSeo = seoJson?.data?.product?.seo;
+
+// Bersihkan URL backend dari string HTML Rank Math menjadi URL frontend Anda
+const cleanFullHead = rankMathSeo?.fullHead 
+  ? rankMathSeo.fullHead.replace(/https:\/\/cms\.jowolandborepile\.co\.id/g, 'https://jowolandborepile.co.id')
+  : '';
+
+// (Opsional) Fallback title dan deskripsi jika GraphQL gagal
+const seoTitle = rankMathSeo?.title || product.name;
+const seoDesc = rankMathSeo?.description || stripHtml(product.short_description || product.description).slice(0, 160);
+
 const waNumber = '6285280749218';
 const waMsg = encodeURIComponent(`Halo, saya ingin konsultasi mengenai layanan: ${product.name}`);
 const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
-
-const canonicalUrl = `${siteConfig.url}/layanan/${product.slug}`;
-const seoTitle = product.yoast_head_json?.title || `${product.name}`;
-const seoDesc = product.yoast_head_json?.description || stripHtml(product.short_description || product.description).slice(0, 160);
-const ogImage = product.yoast_head_json?.og_image?.[0]?.url || product.images?.[0]?.src || `${siteConfig.url}/og-default.svg`;
 
 const hasPrice = product.price && parseFloat(product.price) > 0;
 
@@ -34,71 +61,12 @@ const hasPrice = product.price && parseFloat(product.price) > 0;
 const relatedProducts = product.related_ids?.length
   ? await getProducts({ include: product.related_ids.slice(0, 4).join(',') })
   : [];
-
-// Schema markup — Product + Service + BreadcrumbList
-const productSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: product.name,
-  description: stripHtml(product.description || product.short_description),
-  url: canonicalUrl,
-  image: product.images?.[0]?.src,
-  provider: {
-    '@type': 'ConstructionCompany',
-    name: siteConfig.name,
-    url: siteConfig.url,
-    telephone: siteConfig.phone,
-    email: siteConfig.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: siteConfig.address?.street,
-      addressLocality: siteConfig.address?.city,
-      addressRegion: siteConfig.address?.state,
-      postalCode: siteConfig.address?.zip,
-      addressCountry: 'ID',
-    },
-  },
-  ...(hasPrice ? {
-    offers: {
-      '@type': 'Offer',
-      price: product.price,
-      priceCurrency: 'IDR',
-      availability: product.stock_status === 'instock'
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
-      url: canonicalUrl,
-    },
-  } : {}),
-  ...(product.average_rating && parseFloat(product.average_rating) > 0 ? {
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: product.average_rating,
-      reviewCount: product.rating_count,
-    },
-  } : {}),
-};
-
-const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
-  itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Beranda', item: siteConfig.url },
-    { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${siteConfig.url}/layanan` },
-    { '@type': 'ListItem', position: 3, name: product.name, item: canonicalUrl },
-  ],
-};
 ---
 
 <PageLayout title={seoTitle} description={seoDesc}>
   <Fragment slot="head">
-    <link rel="canonical" href={canonicalUrl} />
-    <meta property="og:title" content={seoTitle} />
-    <meta property="og:description" content={seoDesc} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:type" content="product" />
-    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <!-- Inject semua tag Meta, Open Graph, dan JSON-LD Schema dari Rank Math -->
+    <Fragment set:html={cleanFullHead} />
   </Fragment>
 
   <!-- Breadcrumb -->
@@ -162,19 +130,17 @@ const breadcrumbSchema = {
 
           <h1 class="font-display text-3xl md:text-4xl font-bold text-foreground">{product.name}</h1>
 
-          <!-- Rating -->
-          {product.rating_count > 0 && (
-            <div class="flex items-center gap-2">
-              <div class="flex gap-0.5 text-brand-500">
-                {[...Array(5)].map((_, i) => (
-                  <svg class={`w-4 h-4 ${i < Math.round(parseFloat(product.average_rating)) ? 'fill-current' : 'fill-foreground-muted/20'}`} viewBox="0 0 20 20">
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                ))}
-              </div>
-              <span class="text-sm text-foreground-muted">{product.average_rating} ({product.rating_count} ulasan)</span>
+          <!-- Rating Manual (Selalu Tampil 5 Bintang) -->
+          <div class="flex items-center gap-2">
+            <div class="flex gap-0.5 text-brand-500">
+              {[...Array(5)].map(() => (
+                <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20">
+                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                </svg>
+              ))}
             </div>
-          )}
+            <span class="text-sm text-foreground-muted">5.0 (25 ulasan)</span>
+          </div>
 
           <!-- Price -->
           {hasPrice && (
@@ -223,7 +189,6 @@ const breadcrumbSchema = {
               rel="noopener noreferrer"
               class="flex-1 flex items-center justify-center gap-2.5 bg-[#25D366] hover:bg-[#20ba5a] active:bg-[#1da851] transition-colors text-white font-semibold text-base px-6 py-3.5 rounded-xl shadow-md shadow-black/10"
             >
-              <!-- WhatsApp SVG icon (Wikimedia) -->
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 175.216 175.552" class="w-5 h-5 shrink-0" aria-hidden="true">
                 <path fill="#fff" d="M87.184 25.227c-33.733 0-61.166 27.423-61.178 61.13a60.98 60.98 0 0 0 9.349 32.535l1.455 2.312-6.179 22.559 23.146-6.069 2.235 1.324c9.387 5.571 20.15 8.517 31.126 8.523h.023c33.707 0 61.14-27.426 61.153-61.135a60.75 60.75 0 0 0-17.895-43.251 60.75 60.75 0 0 0-43.235-17.928z"/>
                 <path fill="#25D366" d="M87.184 32.227c-29.909 0-54.178 24.261-54.19 54.13a53.98 53.98 0 0 0 8.349 28.535l1.455 2.312-5.179 18.559 19.146-5.069 2.235 1.324c8.387 4.971 17.95 7.617 27.726 7.623h.023c29.907 0 54.14-24.226 54.153-54.135a53.75 53.75 0 0 0-15.895-38.251 53.75 53.75 0 0 0-37.823-15.028z"/>
