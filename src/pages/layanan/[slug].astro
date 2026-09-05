@@ -24,7 +24,7 @@ const waMsg = encodeURIComponent(`Halo, saya ingin konsultasi mengenai layanan: 
 const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
 
 const canonicalUrl = `${siteConfig.url}/layanan/${product.slug}`;
-const seoTitle = product.yoast_head_json?.title || `${product.name} | PT. Jowo Land Construction`;
+const seoTitle = product.yoast_head_json?.title || `${product.name}`;
 const seoDesc = product.yoast_head_json?.description || stripHtml(product.short_description || product.description).slice(0, 160);
 const ogImage = product.yoast_head_json?.og_image?.[0]?.url || product.images?.[0]?.src || `${siteConfig.url}/og-default.svg`;
 
