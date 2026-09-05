@@ -17,9 +17,20 @@ interface Props {
   nofollow?: boolean;
   showScrollProgress?: boolean;
   eagerReveal?: boolean;
+  disableDefaultSeo?: boolean; // Tambahan untuk Rank Math
 }
 
-const { title, description, image, imageAlt, noindex, nofollow, showScrollProgress = false, eagerReveal = false } = Astro.props;
+const { 
+  title, 
+  description, 
+  image, 
+  imageAlt, 
+  noindex, 
+  nofollow, 
+  showScrollProgress = false, 
+  eagerReveal = false,
+  disableDefaultSeo = false // Default tetap false untuk halaman lain
+} = Astro.props;
 
 ---
 
@@ -31,7 +42,11 @@ const { title, description, image, imageAlt, noindex, nofollow, showScrollProgre
   noindex={noindex}
   nofollow={nofollow}
   eagerReveal={eagerReveal}
+  disableDefaultSeo={disableDefaultSeo}
 >
+  <!-- Teruskan slot "head" dari halaman [slug].astro ke BaseLayout -->
+  <slot name="head" slot="head" />
+
   <Header
     slot="header"
     position="fixed"
@@ -64,7 +79,7 @@ const { title, description, image, imageAlt, noindex, nofollow, showScrollProgre
       {
         title: 'Layanan',
         links: [
-          { label: 'Jasa Bore Pile', href: '/layanan' },
+          { label: 'Jasa Bore Pile', href: '/' },
           { label: 'Straus Pile', href: '/layanan' },
           { label: 'Mini Crane', href: '/layanan' },
           { label: 'Survey & Konsultasi', href: '/contact' },
