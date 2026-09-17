@@ -258,10 +258,30 @@ const breadcrumbSchema = {
 
   <!-- Full Description -->
   {product.description && (
-    <section class="py-[var(--space-section-md)] bg-background border-t border-border">
-      <div class="mx-auto max-w-4xl px-6">
-        <h2 class="font-display text-2xl font-bold text-foreground mb-6">Deskripsi Layanan</h2>
-        <div class="prose prose-sm max-w-none text-foreground-muted leading-relaxed" set:html={product.description} />
+    <section class="py-[var(--space-section-md)] bg-background border-t border-border overflow-x-hidden">
+      <div class="mx-auto max-w-6xl px-6 w-full">
+        <div class="flex gap-10 items-start">
+
+          <!-- Table of Contents — fixed sidebar (desktop only) -->
+          <aside id="toc-sidebar" class="hidden lg:block w-64 shrink-0 self-start toc-sidebar-fixed">
+            <div id="toc-sidebar-inner" class="rounded-xl border border-border bg-background-secondary p-5">
+              <p class="text-xs font-semibold uppercase tracking-widest text-foreground-muted mb-3 flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                Daftar Isi
+              </p>
+              <nav id="toc-nav" aria-label="Table of contents">
+                <p class="text-sm text-foreground-muted italic">Memuat...</p>
+              </nav>
+            </div>
+          </aside>
+
+          <!-- Article body -->
+          <div class="flex-1 min-w-0">
+            <h2 class="font-display text-2xl font-bold text-foreground mb-6 sm:mb-8">Deskripsi Layanan</h2>
+            <div id="product-description-content" class="prose prose-sm max-w-none text-foreground-muted leading-relaxed wp-content" set:html={product.description} />
+          </div>
+
+        </div>
       </div>
     </section>
   )}
@@ -296,3 +316,326 @@ const breadcrumbSchema = {
     </section>
   )}
 </PageLayout>
+
+<script>
+  let stickyStartY = -1;  // document-absolute Y: sidebar top reaches fixed top band
+  let stickyBottomY = -1; // document-absolute Y: sidebar bottom - inner height (pin stops)
+  const TOP_OFFSET_PX = 96;    // 6rem
+  const BOTTOM_GAP_PX = 32;   // 2rem breathing room above Related Products / Footer
+
+  function measureStickyBounds() {
+    const sidebar = document.getElementById('toc-sidebar');
+    const inner = document.getElementById('toc-sidebar-inner');
+    if (!sidebar || !inner) {
+      stickyStartY = -1;
+      stickyBottomY = -1;
+      return;
+    }
+    const asideRect = sidebar.getBoundingClientRect();
+    stickyStartY = window.scrollY + asideRect.top;
+    const innerHeight = inner.offsetHeight;
+    const asideBottomY = window.scrollY + asideRect.bottom;
+    stickyBottomY = asideBottomY - innerHeight - BOTTOM_GAP_PX - TOP_OFFSET_PX;
+  }
+
+  function resetTocInnerStyles(inner: HTMLElement) {
+    inner.style.position = '';
+    inner.style.top = '';
+    inner.style.left = '';
+    inner.style.right = '';
+    inner.style.width = '';
+    inner.style.maxHeight = '';
+    inner.style.overflowY = '';
+    inner.style.zIndex = '';
+    inner.style.transform = '';
+  }
+
+  function syncFixedTocSidebar() {
+    const sidebar = document.getElementById('toc-sidebar');
+    const inner = document.getElementById('toc-sidebar-inner');
+    if (!sidebar || !inner) return;
+    if (stickyStartY < 0 || stickyBottomY < 0) measureStickyBounds();
+
+    if (window.innerWidth < 1024) {
+      resetTocInnerStyles(inner);
+      return;
+    }
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const scrollAnchorY = window.scrollY + TOP_OFFSET_PX;
+
+    // State 1: above the sticky band — render inline so it doesn't overlap product hero
+    if (scrollAnchorY < stickyStartY) {
+      resetTocInnerStyles(inner);
+      inner.style.width = '100%';
+      return;
+    }
+
+    // State 3: below the sticky band — anchor to bottom of the aside (Related Products / Footer boundary)
+    if (stickyBottomY > -1 && window.scrollY >= stickyBottomY) {
+      resetTocInnerStyles(inner);
+      inner.style.width = sidebarRect.width + 'px';
+      const targetTranslate =
+        (sidebarRect.bottom - BOTTOM_GAP_PX - inner.offsetHeight) - sidebarRect.top;
+      inner.style.transform = `translate3d(0, ${Math.max(0, targetTranslate)}px, 0)`;
+      return;
+    }
+
+    // State 2: sweet spot — pin to fixed top band
+    inner.style.position = 'fixed';
+    inner.style.top = TOP_OFFSET_PX + 'px';
+    inner.style.left = sidebarRect.left + 'px';
+    inner.style.right = (document.documentElement.clientWidth - sidebarRect.right) + 'px';
+    inner.style.width = sidebarRect.width + 'px';
+    inner.style.maxHeight = `calc(100vh - ${TOP_OFFSET_PX + 32}px)`;
+    inner.style.overflowY = 'auto';
+    inner.style.zIndex = '30';
+    inner.style.transform = '';
+  }
+
+  function buildToc() {
+    const content = document.getElementById('product-description-content');
+    const nav = document.getElementById('toc-nav');
+    if (!content || !nav) return;
+
+    const headings = Array.from(content.querySelectorAll('h2, h3'));
+    if (headings.length === 0) {
+      const sidebar = document.getElementById('toc-sidebar');
+      if (sidebar) sidebar.style.display = 'none';
+      return;
+    }
+
+    // Assign IDs to headings that don't have one
+    headings.forEach((heading, i) => {
+      if (!heading.id) {
+        heading.id = `heading-${i}-${heading.textContent?.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '').slice(0, 50)}`;
+      }
+    });
+
+    // Build TOC HTML
+    nav.innerHTML = '';
+    const ul = document.createElement('ul');
+    ul.className = 'flex flex-col gap-0.5';
+
+    headings.forEach((heading) => {
+      const isH3 = heading.tagName === 'H3';
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = `#${heading.id}`;
+      a.textContent = heading.textContent?.trim() || '';
+      a.className = [
+        'block text-sm leading-snug py-1 transition-colors duration-150 rounded',
+        isH3 ? 'pl-4 text-foreground-muted hover:text-brand-500' : 'text-foreground-muted hover:text-brand-500 font-medium',
+        'toc-link',
+      ].join(' ');
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById(heading.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        history.pushState(null, '', `#${heading.id}`);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+
+    nav.appendChild(ul);
+
+    // Highlight active heading on scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.id;
+          const link = nav.querySelector(`a[href="#${id}"]`);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            nav.querySelectorAll('.toc-link').forEach((l) => l.classList.remove('text-brand-500', 'font-semibold'));
+            link.classList.add('text-brand-500', 'font-semibold');
+          }
+        });
+      },
+      { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+    );
+
+    headings.forEach((h) => observer.observe(h));
+
+    measureStickyBounds();
+    syncFixedTocSidebar();
+  }
+
+  let tocRaf = 0;
+  const scheduleTocSync = () => {
+    if (tocRaf) cancelAnimationFrame(tocRaf);
+    tocRaf = requestAnimationFrame(syncFixedTocSidebar);
+  };
+  const scheduleTocReMeasure = () => {
+    measureStickyBounds();
+    scheduleTocSync();
+  };
+  window.addEventListener('resize', scheduleTocReMeasure, { passive: true });
+  window.addEventListener('scroll', scheduleTocSync, { passive: true });
+  window.addEventListener('load', scheduleTocReMeasure, { once: true });
+
+  buildToc();
+  document.addEventListener('astro:page-load', () => {
+    stickyStartY = -1;
+    stickyBottomY = -1;
+    buildToc();
+    scheduleTocReMeasure();
+  });
+</script>
+
+<style is:global>
+  .wp-content {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  .wp-content * {
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .wp-content h2 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content h3 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-foreground);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .wp-content p {
+    margin-bottom: 1rem;
+    line-height: 1.75;
+  }
+
+  .wp-content ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content ul li {
+    margin-bottom: 0.25rem;
+  }
+
+  .wp-content ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content ol li {
+    margin-bottom: 0.25rem;
+  }
+
+  .wp-content a {
+    color: var(--color-brand-500);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .wp-content a:hover {
+    color: var(--color-brand-400);
+  }
+
+  .wp-content img,
+  .wp-content video,
+  .wp-content iframe,
+  .wp-content embed,
+  .wp-content object {
+    max-width: 100% !important;
+    height: auto !important;
+    border-radius: 0.75rem;
+  }
+
+  .wp-content img {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .wp-content figure,
+  .wp-content .wp-block-image,
+  .wp-content .wp-block-embed,
+  .wp-content .wp-block-table {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .wp-content .wp-block-embed__wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  .wp-content .wp-block-embed iframe {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .wp-content blockquote {
+    border-left: 4px solid var(--color-brand-500);
+    padding-left: 1rem;
+    font-style: italic;
+    color: var(--color-foreground-muted);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content table {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content th {
+    background-color: var(--color-background-tertiary);
+    font-weight: 600;
+    color: var(--color-foreground);
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .wp-content td {
+    padding: 0.5rem;
+    border: 1px solid var(--color-border);
+  }
+
+  .wp-content pre {
+    background: var(--color-background-secondary);
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .wp-content code {
+    background: var(--color-background-tertiary);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+  }
+
+  .wp-content pre code {
+    background: none;
+    padding: 0;
+  }
+</style>

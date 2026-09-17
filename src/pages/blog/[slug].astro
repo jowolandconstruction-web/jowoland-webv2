@@ -292,20 +292,27 @@ const breadcrumbSchema = {
 </PageLayout>
 
 <script>
-  let stickyStartY = -1; // document-absolute Y where the sidebar placeholder reaches the fixed top band
-  const TOP_OFFSET_PX = 96; // 6rem, matches CSS fixed TOC top
+  let stickyStartY = -1;  // document-absolute Y: sidebar top reaches fixed top band
+  let stickyBottomY = -1; // document-absolute Y: sidebar bottom - inner height (pin stops)
+  const TOP_OFFSET_PX = 96;    // 6rem
+  const BOTTOM_GAP_PX = 32;   // 2rem breathing room above next section
 
-  function measureStickyStartY() {
+  function measureStickyBounds() {
     const sidebar = document.getElementById('toc-sidebar');
-    if (!sidebar) {
+    const inner = document.getElementById('toc-sidebar-inner');
+    if (!sidebar || !inner) {
       stickyStartY = -1;
+      stickyBottomY = -1;
       return;
     }
-    // sidebar is inside section.Full-Content. We compute its current document-absolute
-    // top by combining viewport rect with current scroll. Value holds only while
-    // the page layout is stable, so we recompute on resize/load (content size changes).
-    const rect = sidebar.getBoundingClientRect();
-    stickyStartY = window.scrollY + rect.top;
+    const asideRect = sidebar.getBoundingClientRect();
+    stickyStartY = window.scrollY + asideRect.top;
+    // Bottom stop point: bottom edge of aside (article content ends here) minus
+    // rendered inner height minus a small gap. Beyond this we unpin so the TOC
+    // no longer floats over Related Posts / CTA / Footer.
+    const innerHeight = inner.offsetHeight;
+    const asideBottomY = window.scrollY + asideRect.bottom;
+    stickyBottomY = asideBottomY - innerHeight - BOTTOM_GAP_PX - TOP_OFFSET_PX;
   }
 
   function resetTocInnerStyles(inner: HTMLElement) {
@@ -317,34 +324,50 @@ const breadcrumbSchema = {
     inner.style.maxHeight = '';
     inner.style.overflowY = '';
     inner.style.zIndex = '';
+    inner.style.transform = '';
   }
 
   function syncFixedTocSidebar() {
     const sidebar = document.getElementById('toc-sidebar');
     const inner = document.getElementById('toc-sidebar-inner');
     if (!sidebar || !inner) return;
-    if (stickyStartY < 0) measureStickyStartY();
+    if (stickyStartY < 0 || stickyBottomY < 0) measureStickyBounds();
 
     if (window.innerWidth < 1024) {
-      // Below lg breakpoint — the aside is display:none anyway
       resetTocInnerStyles(inner);
       return;
     }
 
     const sidebarRect = sidebar.getBoundingClientRect();
-    // When the scroll has pushed the sidebar's natural top up into / past the
-    // TOP_OFFSET band, pin the inner card. Otherwise keep the inner rendered
-    // in its natural place so it stays aligned with the article content and
-    // does not overlap the hero sections above.
-    const shouldPin = window.scrollY + TOP_OFFSET_PX >= stickyStartY;
+    const scrollAnchorY = window.scrollY + TOP_OFFSET_PX;
 
-    if (!shouldPin) {
+    // === State 1: still above the sticky band ===
+    // Render inline in the grid so it scrolls WITH the article header,
+    // never overlaps the hero / ArticleHero above the article.
+    if (scrollAnchorY < stickyStartY) {
       resetTocInnerStyles(inner);
-      // Still need the card to fill the aside column so widths stay stable.
       inner.style.width = '100%';
       return;
     }
 
+    // === State 3: scrolled PAST the article — unpin, anchor to bottom of the aside ===
+    // Using translate3d to shift the card downward within the aside (which is
+    // still in the grid and extends the full height of the article column).
+    // The card visually sits just above the end of the article content, so it
+    // does not bleed onto Related Posts / CTA / Footer below.
+    if (stickyBottomY > -1 && window.scrollY >= stickyBottomY) {
+      resetTocInnerStyles(inner);
+      inner.style.width = sidebarRect.width + 'px';
+      // Translate = (bottom of aside - gap - inner height) - current top of aside in viewport
+      const targetTranslate =
+        (sidebarRect.bottom - BOTTOM_GAP_PX - inner.offsetHeight) - sidebarRect.top;
+      inner.style.transform = `translate3d(0, ${Math.max(0, targetTranslate)}px, 0)`;
+      return;
+    }
+
+    // === State 2: in the sweet spot between Start and Bottom ===
+    // Pin the card to the fixed top band. Position & width are copied from the
+    // placeholder aside so alignment with the responsive grid stays perfect.
     inner.style.position = 'fixed';
     inner.style.top = TOP_OFFSET_PX + 'px';
     inner.style.left = sidebarRect.left + 'px';
@@ -353,6 +376,7 @@ const breadcrumbSchema = {
     inner.style.maxHeight = `calc(100vh - ${TOP_OFFSET_PX + 32}px)`;
     inner.style.overflowY = 'auto';
     inner.style.zIndex = '30';
+    inner.style.transform = '';
   }
 
   function buildToc() {
@@ -419,8 +443,8 @@ const breadcrumbSchema = {
 
     headings.forEach((h) => observer.observe(h));
 
-    // After content has settled, re-measure sticky anchor and sync
-    measureStickyStartY();
+    // After content has settled, re-measure sticky bounds and sync
+    measureStickyBounds();
     syncFixedTocSidebar();
   }
 
@@ -431,7 +455,7 @@ const breadcrumbSchema = {
     tocRaf = requestAnimationFrame(syncFixedTocSidebar);
   };
   const scheduleTocReMeasure = () => {
-    measureStickyStartY();
+    measureStickyBounds();
     scheduleTocSync();
   };
   window.addEventListener('resize', scheduleTocReMeasure, { passive: true });
@@ -442,6 +466,7 @@ const breadcrumbSchema = {
   document.addEventListener('astro:page-load', () => {
     // Reset state across Astro view transitions
     stickyStartY = -1;
+    stickyBottomY = -1;
     buildToc();
     scheduleTocReMeasure();
   });
