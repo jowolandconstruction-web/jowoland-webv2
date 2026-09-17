@@ -6,9 +6,8 @@ import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import ImageCtaBand from '@/components/patterns/ImageCtaBand.astro';
-import { getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml, getProducts, formatPrice } from '@/lib/wordpress';
+import { stripHtml, getProducts, formatPrice } from '@/lib/wordpress';
 
-const posts = await getPosts({ per_page: 3, orderby: 'date', order: 'desc' });
 const featuredProducts = await getProducts({ per_page: 3, orderby: 'menu_order', order: 'asc' });
 
 const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
@@ -649,76 +648,6 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
     </div>
   </section>
 
-  <!-- Blog -->
-  {posts.length > 0 && (
-    <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
-      <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
-        <div class="flex flex-col items-center gap-6 text-center" data-reveal>
-          <Badge variant="brand" pill>Blog</Badge>
-          <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-            Informasi Seputar Bore Pile
-          </h2>
-        </div>
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post, i) => {
-            const img = getFeaturedImage(post);
-            const cats = getPostCategories(post);
-            const excerpt = stripHtml(post.excerpt.rendered).slice(0, 140);
-            return (
-              <a href={`/blog/${post.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
-                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
-                  {img ? (
-                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
-                      <img
-                        src={img.src}
-                        alt={img.alt}
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                        width="400"
-                        height="225"
-                      />
-                    </div>
-                  ) : (
-                    <div class="aspect-video rounded-t-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center">
-                      <Icon name="file-text" class="w-10 h-10 text-brand-500/40" />
-                    </div>
-                  )}
-                  <div class="flex flex-1 flex-col p-5">
-                    {cats.length > 0 && (
-                      <div class="flex flex-wrap gap-1.5 mb-2">
-                        {cats.slice(0, 2).map((cat) => (
-                          <Badge variant="brand" pill class="text-xs">{cat}</Badge>
-                        ))}
-                      </div>
-                    )}
-                    <h2 class="font-display text-base font-bold text-foreground leading-snug mb-2 group-hover:text-brand-500 transition-colors" set:html={post.title.rendered} />
-                    {excerpt && (
-                      <p class="text-sm text-foreground-muted leading-relaxed flex-1">{excerpt}…</p>
-                    )}
-                    <div class="flex items-center justify-between mt-4 pt-3 border-t border-border">
-                      <time class="text-xs text-foreground-muted" datetime={post.date}>
-                        {formatWPDate(post.date)}
-                      </time>
-                      <span class="inline-flex items-center gap-1 text-xs font-medium text-brand-500 group-hover:gap-2 transition-all">
-                        Baca <Icon name="arrow-right" size="sm" />
-                      </span>
-                    </div>
-                  </div>
-                </Card>
-              </a>
-            );
-          })}
-        </div>
-        <div class="flex justify-center">
-          <Button variant="outline" href="/blog">
-            Lihat Semua Blog
-            <Icon name="arrow-right" size="sm" />
-          </Button>
-        </div>
-      </div>
-    </section>
-  )}
-
   <!-- Penutup & Hubungi Kami -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
     <ImageCtaBand
@@ -772,10 +701,28 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
   }
   function initCounters() {
     const counters = document.querySelectorAll('.autocount');
-    counters.forEach(counter => {
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(function (counter) {
+        if (counter.dataset.animated === 'true') return;
+        counter.dataset.animated = 'true';
+        animateCounter(counter);
+      });
+      return;
+    }
+    const observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          const counter = entry.target;
+          if (counter.dataset.animated === 'true') return;
+          counter.dataset.animated = 'true';
+          animateCounter(counter);
+          observer.unobserve(counter);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function (counter) {
       if (counter.dataset.animated === 'true') return;
-      counter.dataset.animated = 'true';
-      animateCounter(counter);
+      observer.observe(counter);
     });
   }
   if (document.readyState === 'loading') {

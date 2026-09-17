@@ -73,14 +73,16 @@ const headingId = `toc-heading-${Math.random().toString(36).slice(2, 9)}`;
 )}
 
 <style>
-  /* Sticky positioning is opt-in (sidebar layout). The 6rem offset clears
-     the fixed header so the TOC scrolls into a comfortable reading band
-     and stays there as the article scrolls past. */
+  /* Fixed positioning for sidebar TOC. JS measures the parent aside and
+     copies its width + horizontal offset so the fixed TOC stays perfectly
+     aligned with where the sidebar grid cell would be, even after the
+     article ends and the page continues to Related Posts / CTA / Footer. */
   .toc-sticky {
-    position: sticky;
+    position: fixed;
     top: 6rem;
     max-height: calc(100vh - 8rem);
     overflow-y: auto;
+    z-index: 30;
   }
 
   .toc-link[data-active='true'] {
@@ -162,4 +164,53 @@ const headingId = `toc-heading-${Math.random().toString(36).slice(2, 9)}`;
 
     for (const h of headings) io.observe(h);
   }
+</script>
+
+<script>
+  // Sidebar TOC fixed-position layout sync. When the TOC has `.toc-sticky`,
+  // its CSS sets `position: fixed; top: 6rem` but leaves width + horizontal
+  // offset to this script. We read the rendered position of the parent
+  // <aside> (which lives in the article grid and acts as the layout
+  // reference) and mirror those coordinates onto the fixed TOC so it
+  // visually stays in the sidebar column, even after the article ends
+  // and the grid scrolls out of view.
+  function syncFixedToc(toc: HTMLElement) {
+    const parent = toc.parentElement;
+    if (!parent) return;
+    const rect = parent.getBoundingClientRect();
+    toc.style.width = rect.width + 'px';
+    // Mirror whichever side is flush with the grid, based on RTL mode
+    // and which column the aside lives in. Using both left + right lets
+    // us preserve subpixel alignment on zoomed / HiDPI displays.
+    toc.style.left = rect.left + 'px';
+    toc.style.right = (document.documentElement.clientWidth - rect.right) + 'px';
+  }
+
+  function initFixedTocs() {
+    const fixedTocs = document.querySelectorAll<HTMLElement>('.toc-sticky[data-toc]');
+    if (fixedTocs.length === 0) return;
+
+    fixedTocs.forEach((toc) => syncFixedToc(toc));
+
+    let raf = 0;
+    const onResize = () => {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        fixedTocs.forEach((toc) => syncFixedToc(toc));
+      });
+    };
+
+    window.addEventListener('resize', onResize, { passive: true });
+    document.addEventListener('astro:page-load', onResize);
+    // After fonts + images settle, re-sync once more to catch any
+    // layout shift that nudged the grid.
+    window.addEventListener('load', onResize, { once: true });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFixedTocs);
+  } else {
+    initFixedTocs();
+  }
+  document.addEventListener('astro:page-load', initFixedTocs);
 </script>

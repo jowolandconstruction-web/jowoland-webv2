@@ -200,9 +200,9 @@ const breadcrumbSchema = {
     <div class="mx-auto max-w-6xl px-4 sm:px-6 w-full">
       <div class="flex gap-10 items-start">
 
-        <!-- Table of Contents — sticky sidebar (desktop only) -->
-        <aside id="toc-sidebar" class="hidden lg:block w-64 shrink-0 sticky top-24 self-start">
-          <div class="rounded-xl border border-border bg-background-secondary p-5">
+        <!-- Table of Contents — fixed sidebar (desktop only) -->
+        <aside id="toc-sidebar" class="hidden lg:block w-64 shrink-0 self-start toc-sidebar-fixed">
+          <div id="toc-sidebar-inner" class="rounded-xl border border-border bg-background-secondary p-5">
             <p class="text-xs font-semibold uppercase tracking-widest text-foreground-muted mb-3 flex items-center gap-2">
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
               Daftar Isi
@@ -292,6 +292,69 @@ const breadcrumbSchema = {
 </PageLayout>
 
 <script>
+  let stickyStartY = -1; // document-absolute Y where the sidebar placeholder reaches the fixed top band
+  const TOP_OFFSET_PX = 96; // 6rem, matches CSS fixed TOC top
+
+  function measureStickyStartY() {
+    const sidebar = document.getElementById('toc-sidebar');
+    if (!sidebar) {
+      stickyStartY = -1;
+      return;
+    }
+    // sidebar is inside section.Full-Content. We compute its current document-absolute
+    // top by combining viewport rect with current scroll. Value holds only while
+    // the page layout is stable, so we recompute on resize/load (content size changes).
+    const rect = sidebar.getBoundingClientRect();
+    stickyStartY = window.scrollY + rect.top;
+  }
+
+  function resetTocInnerStyles(inner: HTMLElement) {
+    inner.style.position = '';
+    inner.style.top = '';
+    inner.style.left = '';
+    inner.style.right = '';
+    inner.style.width = '';
+    inner.style.maxHeight = '';
+    inner.style.overflowY = '';
+    inner.style.zIndex = '';
+  }
+
+  function syncFixedTocSidebar() {
+    const sidebar = document.getElementById('toc-sidebar');
+    const inner = document.getElementById('toc-sidebar-inner');
+    if (!sidebar || !inner) return;
+    if (stickyStartY < 0) measureStickyStartY();
+
+    if (window.innerWidth < 1024) {
+      // Below lg breakpoint — the aside is display:none anyway
+      resetTocInnerStyles(inner);
+      return;
+    }
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    // When the scroll has pushed the sidebar's natural top up into / past the
+    // TOP_OFFSET band, pin the inner card. Otherwise keep the inner rendered
+    // in its natural place so it stays aligned with the article content and
+    // does not overlap the hero sections above.
+    const shouldPin = window.scrollY + TOP_OFFSET_PX >= stickyStartY;
+
+    if (!shouldPin) {
+      resetTocInnerStyles(inner);
+      // Still need the card to fill the aside column so widths stay stable.
+      inner.style.width = '100%';
+      return;
+    }
+
+    inner.style.position = 'fixed';
+    inner.style.top = TOP_OFFSET_PX + 'px';
+    inner.style.left = sidebarRect.left + 'px';
+    inner.style.right = (document.documentElement.clientWidth - sidebarRect.right) + 'px';
+    inner.style.width = sidebarRect.width + 'px';
+    inner.style.maxHeight = `calc(100vh - ${TOP_OFFSET_PX + 32}px)`;
+    inner.style.overflowY = 'auto';
+    inner.style.zIndex = '30';
+  }
+
   function buildToc() {
     const content = document.getElementById('article-content');
     const nav = document.getElementById('toc-nav');
@@ -355,10 +418,33 @@ const breadcrumbSchema = {
     );
 
     headings.forEach((h) => observer.observe(h));
+
+    // After content has settled, re-measure sticky anchor and sync
+    measureStickyStartY();
+    syncFixedTocSidebar();
   }
 
+  // --- Fixed TOC sync (resize / load / scroll / view-transition aware) ---
+  let tocRaf = 0;
+  const scheduleTocSync = () => {
+    if (tocRaf) cancelAnimationFrame(tocRaf);
+    tocRaf = requestAnimationFrame(syncFixedTocSidebar);
+  };
+  const scheduleTocReMeasure = () => {
+    measureStickyStartY();
+    scheduleTocSync();
+  };
+  window.addEventListener('resize', scheduleTocReMeasure, { passive: true });
+  window.addEventListener('scroll', scheduleTocSync, { passive: true });
+  window.addEventListener('load', scheduleTocReMeasure, { once: true });
+
   buildToc();
-  document.addEventListener('astro:page-load', buildToc);
+  document.addEventListener('astro:page-load', () => {
+    // Reset state across Astro view transitions
+    stickyStartY = -1;
+    buildToc();
+    scheduleTocReMeasure();
+  });
 </script>
 
 <style is:global>
