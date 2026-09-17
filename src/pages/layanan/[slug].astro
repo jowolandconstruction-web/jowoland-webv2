@@ -333,7 +333,15 @@ const breadcrumbSchema = {
     }
     const asideRect = sidebar.getBoundingClientRect();
     stickyStartY = window.scrollY + asideRect.top;
-    sectionEndY = window.scrollY + asideRect.bottom;
+    // Boundary: bottom of the PARENT <section> that wraps the description content + TOC.
+    // The fixed inner must never extend past this line.
+    const contentSection = sidebar.closest('section');
+    if (contentSection) {
+      const sectionRect = contentSection.getBoundingClientRect();
+      sectionEndY = window.scrollY + sectionRect.bottom;
+    } else {
+      sectionEndY = window.scrollY + asideRect.bottom;
+    }
   }
 
   function resetTocInnerStyles(inner: HTMLElement) {
