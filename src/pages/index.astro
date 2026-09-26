@@ -105,63 +105,271 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
     </div>
   </Hero>
 
-  <!-- 2. Mengapa Menggunakan Jasa Bore Pile dari PT. Jowo Land Construction? -->
-  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+
+  <!-- 7. Memahami Pondasi Bored Pile (Strauss Pile) -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border overflow-x-hidden">
     <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
       <div class="flex flex-col items-center gap-4 text-center" data-reveal>
-        <Badge variant="brand" pill>Kenapa Kami?</Badge>
+        <Badge variant="brand" pill>Tentang Bore Pile</Badge>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-          Mengapa Menggunakan Jasa Bore Pile dari PT. Jowo Land Construction?
+          Memahami Pondasi Bore Pile (Strauss Pile)
         </h2>
-        <p class="text-lg text-foreground-muted max-w-3xl mx-auto">
-          PT. Jowo Land Construction tidak melihat pekerjaan bore pile sebagai aktivitas membuat lubang dan menuangkan beton saja. Kami melihatnya sebagai proses rekayasa geoteknik yang menentukan masa depan sebuah bangunan. Karena bagi kami, setiap proyek bukan sekadar pekerjaan konstruksi, lebih dari itu, kami melihat pekerjaan bore pile sebagai <strong>REPUTASI</strong>.
+        <p class="text-lg text-foreground-muted max-w-3xl mx-auto leading-relaxed">
+          <a href="https://id.wikipedia.org/wiki/Fondasi_(rekayasa)" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center gap-1 align-baseline font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline underline-offset-4 transition-colors">
+            Merujuk dari Wikipedia
+            <Icon name="external-link" size="xs" class="opacity-80 -mt-0.5" />
+          </a>: pondasi bore pile diklasifikasikan sebagai <strong class="text-foreground font-semibold">pondasi dalam</strong> beton berbentuk tabung silinder. Secara prinsip sejenis dengan tiang pancang (paku bumi) — sama-sama mentransfer beban bangunan menuju lapisan tanah terkeras. Bedanya, bore pile dipasang dengan cara <strong class="text-foreground font-semibold">mengebor tanah dahulu, memasukkan tulangan besi rakitan, lalu mengecor beton di tempat (in-situ)</strong>, bukan dipukul/ditancapkan seperti tiang pancang.
+        </p>
+        <p class="text-foreground-muted max-w-3xl mx-auto leading-relaxed">
+          Karena prosesnya mengekstraksi tanah (bukan mendesak tanah), bore pile <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-sm font-medium border border-brand-500/20"><Icon name="zap" size="xs" class="shrink-0" />Minim Getaran</span> dan jauh lebih aman untuk bangunan yang berdempetan dengan lahan tetangga.
+        </p>
+        <p class="text-foreground-muted max-w-3xl mx-auto leading-relaxed">
+          Untuk lebih memahami pondasi bore pile silahkan kunjungi halaman ini: <a href="https://jowolandborepile.co.id/blog/detail-pondasi-bore-pile" class="inline-flex items-center gap-1 font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline underline-offset-4 transition-colors">Pondasi Bore Pile <Icon name="arrow-right" size="xs" class="opacity-80" /></a>
         </p>
       </div>
-      <div class="grid gap-6 md:grid-cols-2">
-        <Card variant="elevated" padding="lg" data-reveal>
-          <h3 class="text-xl font-bold text-foreground mb-4">Keunggulan PT. Jowo Land Construction Sebagai Kontraktor Bore Pile</h3>
-          <ul class="flex flex-col gap-4">
-            {[
-              { icon: 'tag', title: 'Transparansi Harga', desc: 'Tidak ada biaya tersembunyi. Lingkup kerja dan spesifikasi pekerjaan tertuang jelas di dalam kontrak kerja.' },
-              { icon: 'settings', title: 'Peralatan Lengkap & Terawat', desc: 'Kami menggunakan unit mesin bor milik sendiri dengan jadwal perawatan rutin.' },
-              { icon: 'users', title: 'SDM & Tenaga Ahli', desc: 'Proyek Anda diawasi langsung oleh Engineer dan operator tersertifikasi di bidang geoteknik.' },
-              { icon: 'shield-check', title: 'Legalitas Penuh', desc: 'Beroperasi resmi dengan NIB, Sertifikasi Kelayakan Alat (SILO), dan SIO Operator dari Kemenaker.' },
-            ].map((item) => (
-              <li class="flex items-start gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0 mt-0.5">
-                  <Icon name={item.icon} size="sm" />
+
+      <!-- Expandable: Pelajari Selengkapnya -->
+      <div class="max-w-5xl mx-auto w-full" data-reveal>
+        <details class="group/about-bore group">
+          <summary class="list-none [&::-webkit-details-marker]:hidden cursor-pointer">
+            <Card variant="elevated" padding="lg" class="!p-0 overflow-hidden border border-border hover:border-brand-500/30 transition-all duration-300">
+              <div class="relative">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent opacity-60"></div>
+                <div class="flex items-center justify-between gap-4 px-5 sm:px-7 py-4 sm:py-5">
+                  <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                    <div class="w-11 h-11 rounded-2xl shrink-0 bg-gradient-to-br from-brand-500/25 via-brand-500/10 to-brand-500/0 flex items-center justify-center text-brand-600 dark:text-brand-400 ring-1 ring-brand-500/20">
+                      <Icon name="book-open" size="md" />
+                    </div>
+                    <div class="min-w-0">
+                      <p class="text-sm uppercase tracking-widest text-foreground-muted/70 font-semibold">Konten Lengkap</p>
+                      <p class="font-display text-lg sm:text-xl font-bold text-foreground">Pelajari Selengkapnya Tentang Bore Pile</p>
+                    </div>
+                  </div>
+                  <div class="w-11 h-11 shrink-0 rounded-xl flex items-center justify-center bg-background-tertiary border border-border transition-all duration-300 group-open/about-bore:bg-brand-500 group-open/about-bore:border-brand-500 group-open/about-bore:shadow-lg group-open/about-bore:shadow-brand-500/20">
+                    <Icon name="chevron-down" size="md" class="text-foreground-muted transition-transform duration-300 group-open/about-bore:rotate-180 group-open/about-bore:text-white" />
+                  </div>
                 </div>
+              </div>
+            </Card>
+          </summary>
+
+          <!-- Konten expandable -->
+          <div class="mt-4 grid gap-6">
+            <!-- Klasifikasi & Perbandingan Manual vs Mesin -->
+            <Card variant="elevated" padding="lg" class="relative overflow-hidden">
+              <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
+              <div class="relative grid gap-6">
                 <div>
-                  <p class="text-sm font-semibold text-foreground">{item.title}</p>
-                  <p class="text-sm text-foreground-muted leading-relaxed mt-0.5">{item.desc}</p>
+                  <div class="inline-flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500/15 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+                      <Icon name="layers" size="sm" />
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-foreground">Dari Segi Cara Pengerjaan — Dua Kategori Utama</h3>
+                  </div>
+                  <p class="text-foreground-muted leading-relaxed">Bore pile terbagi menjadi dua kategori besar yang disesuaikan dengan skala, akses lahan, dan kapasitas beban proyek Anda.</p>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </Card>
-        <Card variant="elevated" padding="lg" data-reveal data-reveal-delay="1">
-          <h3 class="text-xl font-bold text-foreground mb-4">Standar Teknik yang Digunakan</h3>
-          <p class="text-foreground-muted mb-4">
-            Sebagai komitmen pada keamanan dan ketepatan, seluruh pengerjaan pondasi kami tunduk pada standar teknik sipil yang berlaku di Indonesia (SNI), yaitu:
-          </p>
-          <ul class="flex flex-col gap-2">
-            <li class="flex items-center gap-2">
-              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
-              <span class="text-foreground">SNI 8460:2017 (Persyaratan Perancangan Geoteknik)</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
-              <span class="text-foreground">SNI 2847:2019 (Persyaratan Beton Struktural untuk Bangunan Gedung)</span>
-            </li>
-            <li class="flex items-center gap-2">
-              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
-              <span class="text-foreground">SNI 03-1726-2012 (Tata Cara Perancangan Ketahanan Gempa)</span>
-            </li>
-          </ul>
-        </Card>
+
+                <div class="overflow-hidden rounded-2xl border border-border">
+                  <div class="grid grid-cols-5 text-xs sm:text-sm font-semibold text-foreground bg-background-tertiary/70 uppercase tracking-wide">
+                    <div class="col-span-1 px-4 sm:px-5 py-4 flex items-center">Aspek</div>
+                    <div class="col-span-2 px-4 sm:px-5 py-4 border-l border-border flex items-center gap-2 text-brand-700 dark:text-brand-300">
+                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
+                        <Icon name="hard-hat" size="xs" />
+                      </span>
+                      Manual (Strauss Pile)
+                    </div>
+                    <div class="col-span-2 px-4 sm:px-5 py-4 border-l border-border flex items-center gap-2 text-indigo-700 dark:text-indigo-300">
+                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 shrink-0">
+                        <Icon name="settings" size="xs" />
+                      </span>
+                      Mesin (Mini Crane / Hydraulic Rig)
+                    </div>
+                  </div>
+                  {[
+                    { aspect: 'Alat', a: 'Manual, tanpa mesin besar', b: 'Mesin mini crane / alat berat hydraulic rig', aIcon: 'wrench', bIcon: 'drill' },
+                    { aspect: 'Cocok untuk', a: 'Lahan sempit, akses terbatas, proyek skala menengah', b: 'Kedalaman & kapasitas beban lebih besar', aIcon: 'map-pin', bIcon: 'building-2' },
+                    { aspect: 'Kecepatan', a: 'Lebih lambat', b: 'Lebih cepat, terutama untuk volume banyak titik', aIcon: 'clock', bIcon: 'zap' },
+                    { aspect: 'Getaran', a: 'Sangat minim', b: 'Minim (tetap lebih terkontrol dibanding tiang pancang)', aIcon: 'activity', bIcon: 'activity' },
+                  ].map((row, i) => (
+                    <div key={i} class={`grid grid-cols-5 text-xs sm:text-sm border-t ${i % 2 === 0 ? 'bg-background/60' : ''}`}>
+                      <div class="col-span-1 px-4 sm:px-5 py-3.5 flex items-center gap-2 font-medium text-foreground/90">
+                        <span class="text-foreground-muted shrink-0">{row.i}</span>
+                        {row.aspect}
+                      </div>
+                      <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
+                        <span class="w-1 h-1.5 rounded-full bg-brand-500/70 mt-2 shrink-0"></span>
+                        <span>{row.a}</span>
+                      </div>
+                      <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
+                        <span class="w-1 h-1.5 rounded-full bg-indigo-500/70 mt-2 shrink-0"></span>
+                        <span>{row.b}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p class="text-sm text-foreground-muted italic flex items-start gap-2 pt-1">
+                  <Icon name="info" size="sm" class="text-brand-500 shrink-0 mt-0.5" />
+                  Untuk memahami lebih dalam jenis-jenis pondasi bore pile beserta teknik pengeborannya, silakan lanjutkan ke bagian di bawah ini.
+                </p>
+              </div>
+            </Card>
+
+            <!-- Metode Pengeboran (3 cards) -->
+            <Card variant="elevated" padding="lg" class="relative overflow-hidden">
+              <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+              <div class="relative grid gap-6">
+                <div>
+                  <div class="inline-flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/15 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+                      <Icon name="droplets" size="sm" />
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-foreground">Metode Pengeboran yang Kami Gunakan</h3>
+                  </div>
+                  <p class="text-foreground-muted leading-relaxed">Selain memilih antara metode manual atau mesin, teknik pengeboran juga harus disesuaikan dengan kondisi tanah di lokasi proyek Anda:</p>
+                </div>
+
+                <div class="grid gap-4 md:grid-cols-3">
+                  {[
+                    {
+                      tag: 'Dry',
+                      title: 'Dry Boring',
+                      desc: 'Digunakan pada kondisi tanah yang cukup kuat dan tidak mudah longsor, tanpa memerlukan bantuan cairan penstabil lubang.',
+                      icon: 'sun',
+                      iconWrap: 'from-amber-500/25 to-amber-500/0 text-amber-600 dark:text-amber-400 ring-amber-500/20',
+                      chip: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20',
+                    },
+                    {
+                      tag: 'Wash',
+                      title: 'Wash Boring',
+                      desc: 'Digunakan pada tanah berpasir atau berair, memanfaatkan tekanan air untuk membantu proses pengangkatan tanah selama pengeboran berlangsung.',
+                      icon: 'waves',
+                      iconWrap: 'from-sky-500/25 to-sky-500/0 text-sky-600 dark:text-sky-400 ring-sky-500/20',
+                      chip: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/20',
+                    },
+                    {
+                      tag: 'Slurry',
+                      title: 'Slurry / Casing Boring',
+                      desc: 'Digunakan pada tanah yang labil dan beresiko longsor, dengan bantuan larutan bentonite atau pipa casing untuk menjaga kestabilan dinding lubang.',
+                      icon: 'shield-check',
+                      iconWrap: 'from-emerald-500/25 to-emerald-500/0 text-emerald-600 dark:text-emerald-400 ring-emerald-500/20',
+                      chip: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/20',
+                    },
+                  ].map((m, i) => (
+                    <div
+                      key={m.tag}
+                      class={`relative group rounded-2xl border border-border bg-background/60 p-5 sm:p-6 flex flex-col gap-3.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:border-brand-500/40 ${i === 1 ? 'md:-mt-2 md:mb-2' : ''}`}
+                      data-reveal
+                      data-reveal-delay={String(i)}
+                    >
+                      <div class="absolute top-4 right-4">
+                        <span class={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border ${m.chip}`}>{m.tag}</span>
+                      </div>
+                      <div class={`w-12 h-12 rounded-2xl shrink-0 bg-gradient-to-br flex items-center justify-center ring-1 ${m.iconWrap}`}>
+                        <Icon name={m.icon} size="lg" />
+                      </div>
+                      <h4 class="font-display text-lg font-bold text-foreground leading-snug mt-1">{m.title}</h4>
+                      <p class="text-sm text-foreground-muted leading-relaxed">{m.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-brand-500/10 via-brand-500/5 to-transparent border border-brand-500/20">
+                  <div class="w-9 h-9 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+                    <Icon name="users" size="sm" />
+                  </div>
+                  <p class="text-sm text-foreground-muted leading-relaxed">
+                    <span class="font-semibold text-foreground">Tim engineer kami</span> akan menentukan teknik yang paling sesuai berdasarkan hasil soil test di lokasi proyek Anda, bukan asal pukul rata satu metode untuk semua kondisi tanah.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </details>
       </div>
     </div>
   </section>
+
+  <!-- 8. Tahapan Pelaksanaan Pekerjaan Bore Pile -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Proses Kerja</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Tahapan Pelaksanaan Pekerjaan Bore Pile
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
+          PT. Jowo Land Construction menerapkan metodologi pelaksanaan yang terstandarisasi ketat sesuai Standar Nasional Indonesia (SNI) dan mematuhi protokol Keselamatan dan Kesehatan Kerja (K3) Konstruksi.
+        </p>
+      </div>
+      <!-- Mobile: single column list -->
+      <div class="flex flex-col gap-5 md:hidden">
+        {[
+          { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
+          { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
+          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
+          { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
+          { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
+          { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
+        ].map((item, i) => (
+          <div class="flex items-start gap-4" data-reveal data-reveal-delay={String(i)}>
+            <div class="w-11 h-11 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
+              <span class="text-white font-bold text-base">{item.step}</span>
+            </div>
+            <Card hover class="flex-1">
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <div>
+                  <h3 class="text-sm font-semibold text-foreground leading-snug">{item.title}</h3>
+                  <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        ))}
+      </div>
+      <!-- Desktop: zigzag timeline -->
+      <div class="relative hidden md:block">
+        <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 via-brand-500 to-brand-500 -translate-x-1/2"></div>
+        <div class="flex flex-col gap-10">
+        {[
+          { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
+          { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
+          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
+          { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
+          { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
+          { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
+        ].map((item, i) => (
+          <div
+            class={`relative flex items-center ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
+            data-reveal
+            data-reveal-delay={String(i)}
+          >
+            <div class="absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-brand-500 border-4 border-background flex items-center justify-center z-20">
+              <span class="text-white font-bold text-lg">{item.step}</span>
+            </div>
+            <div class={`flex-1 ${i % 2 === 0 ? 'pr-20 justify-end' : 'pl-20 justify-start'} flex`}>
+              <Card hover class="w-[calc(50%-4rem)]">
+                <div class="flex items-start gap-4">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
+                    <Icon name={item.icon} size="sm" />
+                  </div>
+                  <div>
+                    <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
+                    <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+        ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
 
   <!-- 3. Dokumentasi dan Portofolio Proyek -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
@@ -697,266 +905,6 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
     </div>
   </section>
 
-  <!-- 7. Memahami Pondasi Bored Pile (Strauss Pile) -->
-  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border overflow-x-hidden">
-    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
-      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
-        <Badge variant="brand" pill>Tentang Bore Pile</Badge>
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-          Memahami Pondasi Bore Pile (Strauss Pile)
-        </h2>
-        <p class="text-lg text-foreground-muted max-w-3xl mx-auto leading-relaxed">
-          <a href="https://id.wikipedia.org/wiki/Fondasi_(rekayasa)" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center gap-1 align-baseline font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline underline-offset-4 transition-colors">
-            Merujuk dari Wikipedia
-            <Icon name="external-link" size="xs" class="opacity-80 -mt-0.5" />
-          </a>: pondasi bore pile diklasifikasikan sebagai <strong class="text-foreground font-semibold">pondasi dalam</strong> beton berbentuk tabung silinder. Secara prinsip sejenis dengan tiang pancang (paku bumi) — sama-sama mentransfer beban bangunan menuju lapisan tanah terkeras. Bedanya, bore pile dipasang dengan cara <strong class="text-foreground font-semibold">mengebor tanah dahulu, memasukkan tulangan besi rakitan, lalu mengecor beton di tempat (in-situ)</strong>, bukan dipukul/ditancapkan seperti tiang pancang.
-        </p>
-        <p class="text-foreground-muted max-w-3xl mx-auto leading-relaxed">
-          Karena prosesnya mengekstraksi tanah (bukan mendesak tanah), bore pile <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-sm font-medium border border-brand-500/20"><Icon name="zap" size="xs" class="shrink-0" />Minim Getaran</span> dan jauh lebih aman untuk bangunan yang berdempetan dengan lahan tetangga.
-        </p>
-      </div>
-
-      <!-- Expandable: Pelajari Selengkapnya -->
-      <div class="max-w-5xl mx-auto w-full" data-reveal>
-        <details class="group/about-bore group" open>
-          <summary class="list-none [&::-webkit-details-marker]:hidden cursor-pointer">
-            <Card variant="elevated" padding="lg" class="!p-0 overflow-hidden border border-border hover:border-brand-500/30 transition-all duration-300">
-              <div class="relative">
-                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent opacity-60"></div>
-                <div class="flex items-center justify-between gap-4 px-5 sm:px-7 py-4 sm:py-5">
-                  <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                    <div class="w-11 h-11 rounded-2xl shrink-0 bg-gradient-to-br from-brand-500/25 via-brand-500/10 to-brand-500/0 flex items-center justify-center text-brand-600 dark:text-brand-400 ring-1 ring-brand-500/20">
-                      <Icon name="book-open" size="md" />
-                    </div>
-                    <div class="min-w-0">
-                      <p class="text-sm uppercase tracking-widest text-foreground-muted/70 font-semibold">Konten Lengkap</p>
-                      <p class="font-display text-lg sm:text-xl font-bold text-foreground">Pelajari Selengkapnya Tentang Bore Pile</p>
-                    </div>
-                  </div>
-                  <div class="w-11 h-11 shrink-0 rounded-xl flex items-center justify-center bg-background-tertiary border border-border transition-all duration-300 group-open/about-bore:bg-brand-500 group-open/about-bore:border-brand-500 group-open/about-bore:shadow-lg group-open/about-bore:shadow-brand-500/20">
-                    <Icon name="chevron-down" size="md" class="text-foreground-muted transition-transform duration-300 group-open/about-bore:rotate-180 group-open/about-bore:text-white" />
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </summary>
-
-          <!-- Konten expandable -->
-          <div class="mt-4 grid gap-6">
-            <!-- Klasifikasi & Perbandingan Manual vs Mesin -->
-            <Card variant="elevated" padding="lg" class="relative overflow-hidden">
-              <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
-              <div class="relative grid gap-6">
-                <div>
-                  <div class="inline-flex items-center gap-2 mb-3">
-                    <div class="w-8 h-8 rounded-lg bg-brand-500/15 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
-                      <Icon name="layers" size="sm" />
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-foreground">Dari Segi Cara Pengerjaan — Dua Kategori Utama</h3>
-                  </div>
-                  <p class="text-foreground-muted leading-relaxed">Bore pile terbagi menjadi dua kategori besar yang disesuaikan dengan skala, akses lahan, dan kapasitas beban proyek Anda.</p>
-                </div>
-
-                <div class="overflow-hidden rounded-2xl border border-border">
-                  <div class="grid grid-cols-5 text-xs sm:text-sm font-semibold text-foreground bg-background-tertiary/70 uppercase tracking-wide">
-                    <div class="col-span-1 px-4 sm:px-5 py-4 flex items-center">Aspek</div>
-                    <div class="col-span-2 px-4 sm:px-5 py-4 border-l border-border flex items-center gap-2 text-brand-700 dark:text-brand-300">
-                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
-                        <Icon name="hard-hat" size="xs" />
-                      </span>
-                      Manual (Strauss Pile)
-                    </div>
-                    <div class="col-span-2 px-4 sm:px-5 py-4 border-l border-border flex items-center gap-2 text-indigo-700 dark:text-indigo-300">
-                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 shrink-0">
-                        <Icon name="settings" size="xs" />
-                      </span>
-                      Mesin (Mini Crane / Hydraulic Rig)
-                    </div>
-                  </div>
-                  {[
-                    { aspect: 'Alat', a: 'Manual, tanpa mesin besar', b: 'Mesin mini crane / alat berat hydraulic rig', aIcon: 'wrench', bIcon: 'drill' },
-                    { aspect: 'Cocok untuk', a: 'Lahan sempit, akses terbatas, proyek skala menengah', b: 'Kedalaman & kapasitas beban lebih besar', aIcon: 'map-pin', bIcon: 'building-2' },
-                    { aspect: 'Kecepatan', a: 'Lebih lambat', b: 'Lebih cepat, terutama untuk volume banyak titik', aIcon: 'clock', bIcon: 'zap' },
-                    { aspect: 'Getaran', a: 'Sangat minim', b: 'Minim (tetap lebih terkontrol dibanding tiang pancang)', aIcon: 'activity', bIcon: 'activity' },
-                  ].map((row, i) => (
-                    <div key={i} class={`grid grid-cols-5 text-xs sm:text-sm border-t ${i % 2 === 0 ? 'bg-background/60' : ''}`}>
-                      <div class="col-span-1 px-4 sm:px-5 py-3.5 flex items-center gap-2 font-medium text-foreground/90">
-                        <span class="text-foreground-muted shrink-0">{row.i}</span>
-                        {row.aspect}
-                      </div>
-                      <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
-                        <span class="w-1 h-1.5 rounded-full bg-brand-500/70 mt-2 shrink-0"></span>
-                        <span>{row.a}</span>
-                      </div>
-                      <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
-                        <span class="w-1 h-1.5 rounded-full bg-indigo-500/70 mt-2 shrink-0"></span>
-                        <span>{row.b}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <p class="text-sm text-foreground-muted italic flex items-start gap-2 pt-1">
-                  <Icon name="info" size="sm" class="text-brand-500 shrink-0 mt-0.5" />
-                  Untuk memahami lebih dalam jenis-jenis pondasi bore pile beserta teknik pengeborannya, silakan lanjutkan ke bagian di bawah ini.
-                </p>
-              </div>
-            </Card>
-
-            <!-- Metode Pengeboran (3 cards) -->
-            <Card variant="elevated" padding="lg" class="relative overflow-hidden">
-              <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
-              <div class="relative grid gap-6">
-                <div>
-                  <div class="inline-flex items-center gap-2 mb-3">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-500/15 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
-                      <Icon name="droplets" size="sm" />
-                    </div>
-                    <h3 class="font-display text-xl font-bold text-foreground">Metode Pengeboran yang Kami Gunakan</h3>
-                  </div>
-                  <p class="text-foreground-muted leading-relaxed">Selain memilih antara metode manual atau mesin, teknik pengeboran juga harus disesuaikan dengan kondisi tanah di lokasi proyek Anda:</p>
-                </div>
-
-                <div class="grid gap-4 md:grid-cols-3">
-                  {[
-                    {
-                      tag: 'Dry',
-                      title: 'Dry Boring',
-                      desc: 'Digunakan pada kondisi tanah yang cukup kuat dan tidak mudah longsor, tanpa memerlukan bantuan cairan penstabil lubang.',
-                      icon: 'sun',
-                      iconWrap: 'from-amber-500/25 to-amber-500/0 text-amber-600 dark:text-amber-400 ring-amber-500/20',
-                      chip: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20',
-                    },
-                    {
-                      tag: 'Wash',
-                      title: 'Wash Boring',
-                      desc: 'Digunakan pada tanah berpasir atau berair, memanfaatkan tekanan air untuk membantu proses pengangkatan tanah selama pengeboran berlangsung.',
-                      icon: 'waves',
-                      iconWrap: 'from-sky-500/25 to-sky-500/0 text-sky-600 dark:text-sky-400 ring-sky-500/20',
-                      chip: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/20',
-                    },
-                    {
-                      tag: 'Slurry',
-                      title: 'Slurry / Casing Boring',
-                      desc: 'Digunakan pada tanah yang labil dan beresiko longsor, dengan bantuan larutan bentonite atau pipa casing untuk menjaga kestabilan dinding lubang.',
-                      icon: 'shield-check',
-                      iconWrap: 'from-emerald-500/25 to-emerald-500/0 text-emerald-600 dark:text-emerald-400 ring-emerald-500/20',
-                      chip: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/20',
-                    },
-                  ].map((m, i) => (
-                    <div
-                      key={m.tag}
-                      class={`relative group rounded-2xl border border-border bg-background/60 p-5 sm:p-6 flex flex-col gap-3.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:border-brand-500/40 ${i === 1 ? 'md:-mt-2 md:mb-2' : ''}`}
-                      data-reveal
-                      data-reveal-delay={String(i)}
-                    >
-                      <div class="absolute top-4 right-4">
-                        <span class={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border ${m.chip}`}>{m.tag}</span>
-                      </div>
-                      <div class={`w-12 h-12 rounded-2xl shrink-0 bg-gradient-to-br flex items-center justify-center ring-1 ${m.iconWrap}`}>
-                        <Icon name={m.icon} size="lg" />
-                      </div>
-                      <h4 class="font-display text-lg font-bold text-foreground leading-snug mt-1">{m.title}</h4>
-                      <p class="text-sm text-foreground-muted leading-relaxed">{m.desc}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div class="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-brand-500/10 via-brand-500/5 to-transparent border border-brand-500/20">
-                  <div class="w-9 h-9 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
-                    <Icon name="users" size="sm" />
-                  </div>
-                  <p class="text-sm text-foreground-muted leading-relaxed">
-                    <span class="font-semibold text-foreground">Tim engineer kami</span> akan menentukan teknik yang paling sesuai berdasarkan hasil soil test di lokasi proyek Anda, bukan asal pukul rata satu metode untuk semua kondisi tanah.
-                  </p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        </details>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. Tahapan Pelaksanaan Pekerjaan Bore Pile -->
-  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
-    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
-      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
-        <Badge variant="brand" pill>Proses Kerja</Badge>
-        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-          Tahapan Pelaksanaan Pekerjaan Bore Pile
-        </h2>
-        <p class="text-lg text-foreground-muted max-w-2xl mx-auto">
-          PT. Jowo Land Construction menerapkan metodologi pelaksanaan yang terstandarisasi ketat sesuai Standar Nasional Indonesia (SNI) dan mematuhi protokol Keselamatan dan Kesehatan Kerja (K3) Konstruksi.
-        </p>
-      </div>
-      <!-- Mobile: single column list -->
-      <div class="flex flex-col gap-5 md:hidden">
-        {[
-          { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
-          { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
-          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
-          { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
-          { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
-          { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
-        ].map((item, i) => (
-          <div class="flex items-start gap-4" data-reveal data-reveal-delay={String(i)}>
-            <div class="w-11 h-11 rounded-full bg-brand-500 flex items-center justify-center shrink-0 mt-0.5">
-              <span class="text-white font-bold text-base">{item.step}</span>
-            </div>
-            <Card hover class="flex-1">
-              <div class="flex items-start gap-3">
-                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
-                  <Icon name={item.icon} size="sm" />
-                </div>
-                <div>
-                  <h3 class="text-sm font-semibold text-foreground leading-snug">{item.title}</h3>
-                  <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
-                </div>
-              </div>
-            </Card>
-          </div>
-        ))}
-      </div>
-      <!-- Desktop: zigzag timeline -->
-      <div class="relative hidden md:block">
-        <div class="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-brand-500 via-brand-500 to-brand-500 -translate-x-1/2"></div>
-        <div class="flex flex-col gap-10">
-        {[
-          { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
-          { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
-          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
-          { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
-          { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
-          { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
-        ].map((item, i) => (
-          <div
-            class={`relative flex items-center ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}
-            data-reveal
-            data-reveal-delay={String(i)}
-          >
-            <div class="absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-brand-500 border-4 border-background flex items-center justify-center z-20">
-              <span class="text-white font-bold text-lg">{item.step}</span>
-            </div>
-            <div class={`flex-1 ${i % 2 === 0 ? 'pr-20 justify-end' : 'pl-20 justify-start'} flex`}>
-              <Card hover class="w-[calc(50%-4rem)]">
-                <div class="flex items-start gap-4">
-                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0">
-                    <Icon name={item.icon} size="sm" />
-                  </div>
-                  <div>
-                    <h3 class="text-base font-semibold text-foreground">{item.title}</h3>
-                    <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">{item.desc}</p>
-                  </div>
-                </div>
-              </Card>
-            </div>
-          </div>
-        ))}
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- 9. Pilihan Metode Alat Bore Pile Sesuai Kebutuhan Proyek Anda -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
@@ -990,7 +938,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
               <div class="flex-1 min-w-0">
                 <h3 class="text-base font-semibold text-foreground">Metode Alat Strauss Pile (Mini Crane / Wash Boring)</h3>
                 <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">
-                  Cocok untuk area dengan akses terbatas dan proyek skala menengah.
+                  Menggunakan mesin bor mini crane yang lebih ringkas namun tetap bertenaga, cocok untuk proyek dengan kedalaman menengah dan akses lokasi yang masih memungkinkan mobilisasi alat berukuran sedang. Kekurangannya: tetap membutuhkan ruang mobilisasi yang lebih luas dibanding metode manual.
                 </p>
               </div>
             </div>
@@ -1015,7 +963,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
               <div class="flex-1 min-w-0">
                 <h3 class="text-base font-semibold text-foreground">Metode Alat Hydraulic Drilling Rig (Alat Berat Bore Pile)</h3>
                 <p class="text-sm text-foreground-muted leading-relaxed mt-1.5">
-                  Cocok untuk proyek besar dengan kebutuhan daya dukung yang tinggi.
+                  Alat berat dengan tenaga hidraulik untuk proyek berskala besar yang membutuhkan kedalaman dan kapasitas daya dukung tinggi, seperti gedung bertingkat atau kawasan industri. Kekurangannya: biaya mobilisasi lebih tinggi dan membutuhkan akses lokasi yang memadai untuk alat berat.
                 </p>
               </div>
             </div>
