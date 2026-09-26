@@ -1033,6 +1033,36 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
           </p>
         </Card>
       </div>
+
+      <!-- Faktor yang Mempengaruhi Harga -->
+      <div class="max-w-4xl mx-auto w-full" data-reveal>
+        <Card variant="elevated" padding="lg">
+          <div class="flex items-start gap-3 mb-5">
+            <div class="w-9 h-9 rounded-xl bg-brand-500/15 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+              <Icon name="info" size="sm" />
+            </div>
+            <h3 class="font-display text-xl font-bold text-foreground pt-0.5">Faktor yang Mempengaruhi Harga Jasa Bore Pile</h3>
+          </div>
+          <ul class="flex flex-col gap-4">
+            {[
+              { icon: 'circle-dot',  label: 'Diameter lubang',      desc: 'Semakin besar diameter, semakin tinggi biaya per meter.' },
+              { icon: 'arrow-down',  label: 'Kedalaman pengeboran',  desc: 'Kedalaman lebih besar membutuhkan waktu dan tenaga lebih banyak.' },
+              { icon: 'layers',      label: 'Kondisi tanah',         desc: 'Tanah berbatu atau keras meningkatkan waktu dan kesulitan pengerjaan.' },
+              { icon: 'map-pin',     label: 'Lokasi proyek',         desc: 'Akses yang sulit dijangkau menambah biaya mobilisasi alat.' },
+            ].map((item) => (
+              <li class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-brand-500/10 flex items-center justify-center text-brand-500 shrink-0 mt-0.5">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-foreground">{item.label}</p>
+                  <p class="text-sm text-foreground-muted mt-0.5">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+      </div>
     </div>
   </section>
 
