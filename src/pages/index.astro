@@ -311,7 +311,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
 
   <!-- 4. Testimoni Klien -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
-    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-10">
       <div class="flex flex-col items-center gap-4 text-center" data-reveal>
         <Badge variant="brand" pill>Testimoni</Badge>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
@@ -321,12 +321,333 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
           Reputasi kami dibangun di atas integritas. Silakan tinjau ulang testimoni nyata klien kami melalui Google Business dan telah terverifikasi.
         </p>
       </div>
-      <div class="max-w-2xl mx-auto w-full" data-reveal>
-        <div id="shapo-widget-4d2ec5382782b8332544" class="w-full"></div>
-      </div>
+
+      <!-- Slider testimoni -->
+      <div class="relative" data-reveal>
+        <!-- Fade edges -->
+        <div class="pointer-events-none absolute inset-y-0 left-0 w-16 z-10 bg-gradient-to-r from-background-secondary to-transparent hidden md:block"></div>
+        <div class="pointer-events-none absolute inset-y-0 right-0 w-16 z-10 bg-gradient-to-l from-background-secondary to-transparent hidden md:block"></div>
+
+        <!-- Viewport -->
+        <div id="testi-viewport" class="overflow-hidden mx-auto">
+          <div id="testi-track" class="flex gap-6 transition-transform duration-500 ease-in-out will-change-transform">
+
+      <!-- Dummy grid to satisfy old closing tags below — real cards start here -->
+      <div class="hidden"></div>
+
+            <!-- Slide 1 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Sangat puas dengan hasil kerja PT. Jowo Land Construction. Bore pile untuk proyek gedung 4 lantai kami dikerjakan tepat waktu dan sesuai spesifikasi teknis. Tim engineer sangat profesional dan responsif."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">BS</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Budi Santoso</p>
+                  <p class="text-sm text-foreground-muted">Kontraktor Swasta · 2 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 2 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Recommended banget! Awalnya saya khawatir soal getaran ke bangunan tetangga, tapi metode bore pile mereka sangat minim getaran. Harga juga transparan dan tidak ada biaya tersembunyi."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">HW</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Hendra Wijaya</p>
+                  <p class="text-sm text-foreground-muted">Owner Ruko · 3 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 3 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Sudah 3 proyek perumahan kami kerjakan bersama Jowo Land. Konsistensi kualitas dan kecepatan pengerjaan sangat kami andalkan. Tim lapangan disiplin dan kooperatif."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">SR</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Siti Rahayu</p>
+                  <p class="text-sm text-foreground-muted">Developer Perumahan · 3 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 4 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Untuk proyek infrastruktur skala besar, kami butuh kontraktor pondasi yang bisa diandalkan. Jowo Land memenuhi standar BUMN kami dengan dokumentasi lengkap dan tenaga ahli bersertifikat."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">AP</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Agus Prasetyo</p>
+                  <p class="text-sm text-foreground-muted">Manajer Proyek BUMN · 4 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 5 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Sebagai arsitek yang sering merekomendasikan subkontraktor ke klien, saya selalu pilih Jowo Land untuk pekerjaan pondasi. Komunikasi teknis mereka sangat baik dan memahami gambar kerja dengan tepat."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">DK</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Dwi Kurniawan</p>
+                  <p class="text-sm text-foreground-muted">Arsitek · 5 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 6 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Gudang logistik saya butuh pondasi kuat untuk beban berat. Jowo Land memberikan solusi bore pile yang pas, harga kompetitif, dan pengerjaan selesai lebih cepat dari jadwal. Mantap!"</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">RF</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Rizky Firmansyah</p>
+                  <p class="text-sm text-foreground-muted">Pemilik Gudang · 6 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 7 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Proyek klinik 3 lantai kami di tanah lempung bermasalah. Jowo Land datang survey, langsung kasih solusi teknis yang tepat. Hasilnya bangunan berdiri kokoh tanpa settlement."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">YH</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Yunita Handayani</p>
+                  <p class="text-sm text-foreground-muted">Owner Klinik · 7 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 8 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Kami subkonkan pekerjaan strauss pile ke Jowo Land untuk proyek perumahan subsidi skala besar. Kapasitas produksi mereka tinggi, quality control ketat, dan laporan harian selalu on time."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">TP</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Teguh Prasetya</p>
+                  <p class="text-sm text-foreground-muted">Kontraktor Nasional · 8 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 9 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Percaya saja sama Jowo Land. Mereka tim yang berpengalaman, punya alat modern, dan yang paling penting: jujur soal kondisi tanah dan solusi terbaik. Tidak ada yang ditutup-tutupi."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">AS</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Andi Setiawan</p>
+                  <p class="text-sm text-foreground-muted">Pengembang Properti · 9 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+            <!-- Slide 10 -->
+            <article class="testi-slide flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex flex-col gap-6 rounded-2xl bg-card border border-brand-500/30 p-8 shadow-md">
+              <div class="flex items-center gap-1.5 text-brand-500">
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              </div>
+              <p class="text-base text-foreground-muted leading-relaxed flex-1">"Kos 4 lantai saya di Semarang pakai jasa bore pile Jowo Land. Tim sangat helpfull menjelaskan proses ke saya yang awam soal konstruksi. Sekarang bangunan sudah berdiri dan tidak ada masalah sama sekali."</p>
+              <div class="flex items-center gap-4 pt-4 border-t border-border">
+                <div class="w-11 h-11 rounded-full bg-brand-500 text-white flex items-center justify-center text-sm font-bold shrink-0">FN</div>
+                <div class="min-w-0 flex-1">
+                  <p class="font-semibold text-foreground">Farida Nurcahyani</p>
+                  <p class="text-sm text-foreground-muted">Owner Kos-Kosan · 10 bulan lalu</p>
+                </div>
+                <svg class="shrink-0 w-6 h-6 text-[#4285F4]" viewBox="0 0 24 24" fill="currentColor" aria-label="Google"><path d="M21.805 10.023H12v3.977h5.617c-.242 1.242-1.484 3.648-5.617 3.648-3.375 0-6.133-2.797-6.133-6.25s2.758-6.25 6.133-6.25c1.922 0 3.211.82 3.945 1.523l2.688-2.602C16.773 2.648 14.578 1.75 12 1.75 6.477 1.75 2 6.227 2 11.75s4.477 10 10 10c5.773 0 9.602-4.055 9.602-9.766 0-.656-.07-1.156-.156-1.484l-.641.523z"/></svg>
+              </div>
+            </article>
+
+          </div><!-- /testi-track -->
+        </div><!-- /testi-viewport -->
+
+        <!-- Tombol navigasi -->
+        <button id="testi-prev" aria-label="Sebelumnya"
+          class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-20 w-11 h-11 rounded-full bg-card border border-brand-500/40 shadow-md flex items-center justify-center text-foreground hover:bg-brand-500 hover:text-white hover:border-brand-500 transition-all duration-200 hidden md:flex">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button id="testi-next" aria-label="Berikutnya"
+          class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-20 w-11 h-11 rounded-full bg-card border border-brand-500/40 shadow-md flex items-center justify-center text-foreground hover:bg-brand-500 hover:text-white hover:border-brand-500 transition-all duration-200 hidden md:flex">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div><!-- /relative -->
+
+      <!-- Dot indicators -->
+      <div id="testi-dots" class="flex justify-center gap-2 mt-2"></div>
+
     </div>
   </section>
-  <script id="shapo-embed-js" type="text/javascript" src="https://cdn.shapo.io/js/embed.js" defer></script>
+
+  <script>
+    (function () {
+      const viewport = document.getElementById('testi-viewport') as HTMLElement;
+      const track = document.getElementById('testi-track') as HTMLElement;
+      const btnPrev = document.getElementById('testi-prev') as HTMLButtonElement;
+      const btnNext = document.getElementById('testi-next') as HTMLButtonElement;
+      const dotsContainer = document.getElementById('testi-dots') as HTMLElement;
+      if (!viewport || !track) return;
+
+      const slides = Array.from(track.querySelectorAll<HTMLElement>('.testi-slide'));
+      const total = slides.length;
+      let current = 0;
+      let perView = 1;
+      let autoTimer: ReturnType<typeof setInterval>;
+
+      function getPerView(): number {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+      }
+
+      function getSlideWidth(): number {
+        if (slides.length === 0) return 0;
+        return slides[0].getBoundingClientRect().width + 24; // +gap(6 * 4px = 24px)
+      }
+
+      function buildDots() {
+        dotsContainer.innerHTML = '';
+        const pages = Math.ceil(total / perView);
+        for (let i = 0; i < pages; i++) {
+          const dot = document.createElement('button');
+          dot.setAttribute('aria-label', `Halaman ${i + 1}`);
+          dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-300 ' +
+            (i === Math.floor(current / perView) ? 'bg-brand-500 w-6' : 'bg-foreground-muted/30 hover:bg-foreground-muted/60');
+          dot.addEventListener('click', () => goTo(i * perView));
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll<HTMLButtonElement>('button');
+        const page = Math.floor(current / perView);
+        dots.forEach((d, i) => {
+          d.className = 'rounded-full transition-all duration-300 ' +
+            (i === page ? 'bg-brand-500 w-6 h-2.5' : 'bg-foreground-muted/30 hover:bg-foreground-muted/60 w-2.5 h-2.5');
+        });
+      }
+
+      function goTo(idx: number) {
+        const maxPage = Math.ceil(total / perView) - 1;
+        current = Math.max(0, Math.min(idx, maxPage * perView));
+        const offset = getSlideWidth() * current;
+        track.style.transform = `translateX(-${offset}px)`;
+        updateDots();
+        if (btnPrev) btnPrev.disabled = current === 0;
+        if (btnNext) btnNext.disabled = current >= maxPage * perView;
+      }
+
+      function init() {
+        perView = getPerView();
+        current = 0;
+        buildDots();
+        goTo(0);
+      }
+
+      function startAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          const maxPage = Math.ceil(total / perView) - 1;
+          goTo(current + perView > maxPage * perView ? 0 : current + perView);
+        }, 5000);
+      }
+
+      btnPrev?.addEventListener('click', () => { goTo(current - perView); startAuto(); });
+      btnNext?.addEventListener('click', () => { goTo(current + perView); startAuto(); });
+
+      // Touch/swipe support
+      let touchStartX = 0;
+      viewport.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          diff > 0 ? goTo(current + perView) : goTo(current - perView);
+          startAuto();
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', () => { init(); startAuto(); });
+
+      init();
+      startAuto();
+    })();
+  </script>
 
   <!-- 5. Klien Kami -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-gray-100 dark:bg-gray-900 border-t border-border">
