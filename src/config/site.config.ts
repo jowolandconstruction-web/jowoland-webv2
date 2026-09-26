@@ -126,7 +126,7 @@ const siteConfig: SiteConfig = {
   url: SITE_URL || 'https://jowolandborepile.co.id',
   ogImage: '/og-default.svg',
   author: 'Achmad Fikri Ibnu Hadi',
-  email: 'info@jowolandborepile.com',
+  email: 'info@jowolandborepile.co.id',
   phone: '0852-8074-9218',
   address: {
     street: 'Karanganyar, Ketitang, Kec. Godong',
@@ -183,10 +183,10 @@ const siteConfig: SiteConfig = {
       imageUrl: '/assets/img/Logo Hutama Bore Pile.webp',
     },
     favicon: {
-      svg: '/favicon.webp',
+      svg: '/Logo-PT-Jowoland-construction.png',
     },
     colors: {
-      themeColor: '#f76707',
+      themeColor: '#4f46e5',
       backgroundColor: '#ffffff',
     },
   },

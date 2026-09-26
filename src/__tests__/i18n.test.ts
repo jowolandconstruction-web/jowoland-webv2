@@ -49,12 +49,12 @@ describe('i18n localizedPath()', () => {
 
 describe('i18n locale helpers', () => {
   it('resolves an unknown locale to the default', () => {
-    expect(resolveLocale('xx')).toBe('en');
-    expect(resolveLocale(undefined)).toBe('en');
+    expect(resolveLocale('xx')).toBe('id');
+    expect(resolveLocale(undefined)).toBe('id');
   });
 
   it('validates a configured locale', () => {
-    expect(isValidLocale('en')).toBe(true);
+    expect(isValidLocale('id')).toBe(true);
     expect(isValidLocale('xx')).toBe(false);
     expect(isValidLocale(undefined)).toBe(false);
   });
@@ -69,22 +69,22 @@ describe('i18n locale helpers', () => {
 
 describe('i18n getLocaleFromPath()', () => {
   it('returns the default locale for the root path', () => {
-    expect(getLocaleFromPath('/')).toBe('en');
+    expect(getLocaleFromPath('/')).toBe('id');
   });
 
   it('returns the default locale when no recognized prefix is present', () => {
-    expect(getLocaleFromPath('/about')).toBe('en');
-    expect(getLocaleFromPath('/blog/hello-world')).toBe('en');
+    expect(getLocaleFromPath('/about')).toBe('id');
+    expect(getLocaleFromPath('/blog/hello-world')).toBe('id');
   });
 
   it('returns the default locale when the first segment is not a configured locale', () => {
-    // Default config only has 'en' active — 'nl' is not recognized
-    expect(getLocaleFromPath('/nl/about')).toBe('en');
-    expect(getLocaleFromPath('/zh-cn/blog')).toBe('en');
+    // Default config only has 'id' active — 'nl' is not recognized
+    expect(getLocaleFromPath('/nl/about')).toBe('id');
+    expect(getLocaleFromPath('/zh-cn/blog')).toBe('id');
   });
 
   it('normalizes paths without a leading slash', () => {
-    expect(getLocaleFromPath('about')).toBe('en');
+    expect(getLocaleFromPath('about')).toBe('id');
   });
 });
 

@@ -10,6 +10,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
+import type { Thing, WithContext } from 'schema-dts';
 
 interface Props {
   title?: string;
@@ -21,6 +22,7 @@ interface Props {
   includeOrgSchema?: boolean;
   includePersonSchema?: boolean;
   includeProfessionalServiceSchema?: boolean;
+  extraSchemas?: WithContext<Thing>[];
 }
 
 const {
@@ -33,6 +35,7 @@ const {
   includeOrgSchema = false,
   includePersonSchema = false,
   includeProfessionalServiceSchema = false,
+  extraSchemas = [],
 } = Astro.props;
 ---
 
@@ -46,6 +49,7 @@ const {
   includeOrgSchema={includeOrgSchema}
   includePersonSchema={includePersonSchema}
   includeProfessionalServiceSchema={includeProfessionalServiceSchema}
+  extraSchemas={extraSchemas}
 >
   <Header
     slot="header"

@@ -16,7 +16,7 @@ export const GET: APIRoute = () => {
       {
         src: branding.favicon.svg,
         sizes: 'any',
-        type: 'image/webp',
+        type: 'image/png',
       },
     ],
   };

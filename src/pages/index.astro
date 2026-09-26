@@ -7,10 +7,44 @@ import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import ImageCtaBand from '@/components/patterns/ImageCtaBand.astro';
 import { stripHtml, getProducts, formatPrice } from '@/lib/wordpress';
+import { createFAQSchema } from '@/lib/schema';
 
 const featuredProducts = await getProducts({ per_page: 3, orderby: 'menu_order', order: 'asc' });
 
 const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
+
+const faqs = [
+  { q: 'Apa perbedaan bore pile manual dan bore pile mesin?', a: 'Bore pile manual (strauss pile) dikerjakan tanpa mesin besar, cocok untuk lahan sempit dan proyek skala menengah. Bore pile mesin menggunakan mini crane atau hydraulic drilling rig, cocok untuk kedalaman dan kapasitas beban lebih besar.' },
+  { q: 'Berapa harga jasa bore pile per meter?', a: 'Harga jasa bore pile berkisar Rp135.000 hingga Rp350.000 per meter, tergantung diameter (30-80 cm) dan metode yang digunakan (mesin mini crane atau alat berat).' },
+  { q: 'Apakah bore pile aman untuk bangunan yang berdempetan?', a: 'Ya. Bore pile bekerja dengan mengekstraksi tanah, bukan memukul/mendesak tanah seperti tiang pancang, sehingga minim getaran dan aman untuk bangunan tetangga yang menempel.' },
+  { q: 'Apa itu dry boring, wash boring, dan slurry boring?', a: 'Dry boring untuk tanah solid; wash boring untuk tanah berpasir/berair dengan bantuan tekanan air; slurry/casing boring untuk tanah labil menggunakan larutan bentonite agar dinding lubang tidak longsor.' },
+  { q: 'Apakah perlu soil test sebelum menentukan metode pondasi?', a: 'Ya, sangat disarankan. Soil test/sondir membantu menentukan kedalaman, diameter, dan metode yang tepat sesuai kondisi tanah aktual di lokasi proyek.' },
+  { q: 'Standar SNI apa yang digunakan untuk pondasi bore pile?', a: 'Kami mengikuti SNI 8460:2017 (perancangan geoteknik), SNI 2847:2019 (beton struktural), dan SNI 1726:2012 (ketahanan gempa).' },
+  { q: 'Apa itu PDA Test, PIT Test, dan Static Load Test?', a: 'PDA Test mengukur daya dukung dinamis pasca-pengecoran, PIT Test mengecek keutuhan beton di dalam tanah, dan Static Load Test memvalidasi daya dukung aktual tiang secara langsung.' },
+  { q: 'Apakah tersedia paket jasa termasuk material?', a: 'Ya, tersedia paket all-in (jasa + besi + beton ready mix) maupun paket jasa saja sesuai kebutuhan proyek Anda.' },
+  { q: 'Wilayah mana saja yang dilayani?', a: 'Kami melayani proyek di Jawa Tengah, Jawa Timur, Jawa Barat, Yogyakarta, Jakarta, Banten, dan Bali.' },
+  { q: 'Apakah bisa konsultasi dan survey lokasi gratis?', a: 'Ya, kami menyediakan konsultasi awal dan tinjauan gambar denah tanpa biaya sebelum kesepakatan kontrak kerja.' },
+  { q: 'Berapa lama pengerjaan bore pile per titik?', a: 'Waktu bervariasi tergantung kedalaman dan jenis tanah; metode mesin (mini crane/hydraulic rig) umumnya lebih cepat dibanding metode manual strauss pile.' },
+  { q: 'Berapa kedalaman ideal bore pile untuk rumah 2 lantai?', a: 'Kedalaman ideal ditentukan dari hasil soil test, bukan angka baku — namun umumnya berkisar 6-12 meter untuk rumah 2 lantai, tergantung kondisi tanah setempat.' },
+  { q: 'Berapa diameter bore pile yang direkomendasikan untuk ruko?', a: 'Diameter 30-40 cm umumnya cukup untuk ruko 2-3 lantai, namun tetap perlu disesuaikan dengan hasil perhitungan struktur dan kondisi tanah.' },
+  { q: 'Apakah bore pile lebih mahal dari tiang pancang?', a: 'Tergantung skala proyek dan kondisi lokasi. Bore pile sering lebih ekonomis untuk proyek dengan akses terbatas karena tidak memerlukan alat pancang besar dan minim getaran.' },
+  { q: 'Bagaimana jika hasil pengerjaan tidak sesuai spesifikasi kontrak?', a: 'Setiap lingkup kerja dan spesifikasi sudah tertuang jelas dalam kontrak kami — bila ditemukan ketidaksesuaian, hal ini dapat ditindaklanjuti sesuai ketentuan kontrak kerja yang disepakati.' },
+  { q: 'Berapa minimal volume pengerjaan untuk satu proyek?', a: 'Silakan hubungi tim kami untuk konsultasi lebih lanjut, karena minimal volume dapat menyesuaikan lokasi dan jenis proyek.' },
+  { q: 'Apakah ada biaya mobilisasi alat ke lokasi proyek?', a: 'Ya, biaya mobilisasi disesuaikan dengan jarak dan aksesibilitas lokasi proyek, dan akan diinformasikan secara transparan sebelum kontrak disepakati.' },
+  { q: 'Bagaimana cara menghitung jumlah titik bore pile yang dibutuhkan?', a: 'Jumlah titik dihitung berdasarkan beban struktur bangunan dan daya dukung tanah hasil soil test — tim engineer kami membantu perhitungan ini saat konsultasi.' },
+  { q: 'Apa saja jenis bangunan yang bisa menggunakan jasa ini?', a: 'Rumah tinggal, ruko, gudang, pabrik, gedung bertingkat, sekolah, dan tempat ibadah — seluruhnya dapat menggunakan bore pile manual maupun mesin sesuai kebutuhan strukturnya.' },
+  { q: 'Apakah PT. Jowo Land Construction pernah mengerjakan proyek BUMN?', a: 'Ya, kami telah dipercaya oleh sejumlah kontraktor besar dan BUMN seperti Hutama Karya, Waskita Karya, dan Wijaya Karya.' },
+  { q: 'Apa risiko memilih kontraktor bore pile dengan harga sangat murah?', a: 'Harga yang jauh di bawah pasar berisiko pada kualitas pengerjaan, ketiadaan uji kualitas pasca-konstruksi, atau operator yang tidak bersertifikat — pekerjaan bore pile membutuhkan skill dan biaya yang tidak sedikit.' },
+  { q: 'Apa itu SIO, SILO, dan NIB dalam legalitas kontraktor?', a: 'NIB adalah izin usaha resmi, SILO adalah sertifikasi kelayakan alat berat, dan SIO adalah sertifikasi operator dari Kemenaker — ketiganya wajib dimiliki kontraktor bore pile yang legal.' },
+  { q: 'Apakah operator alat bor sudah bersertifikat resmi?', a: 'Ya, seluruh operator kami tersertifikasi SIO dari Kemenaker dan proyek diawasi langsung oleh engineer bersertifikat di bidang geoteknik.' },
+  { q: 'Bagaimana cara memesan jasa bore pile melalui WhatsApp?', a: 'Klik tombol WhatsApp di halaman ini, sampaikan lokasi dan gambar denah (jika ada) proyek Anda, dan tim kami akan merespons dengan estimasi awal secara cepat.' },
+  { q: 'Apakah bore pile mempengaruhi bangunan tetangga saat pengeboran?', a: 'Risiko sangat minim karena bore pile bekerja dengan mengekstraksi tanah secara bertahap, berbeda dengan metode pemukulan pada tiang pancang yang berisiko getaran lebih besar.' },
+  { q: 'Apa yang membedakan kontraktor bore pile profesional dan yang kurang berpengalaman?', a: 'Kontraktor profesional memiliki legalitas lengkap, peralatan terawat, tenaga ahli bersertifikat, transparansi kontrak, dan menerapkan uji kualitas pasca-pengecoran (PDA/PIT/Static Load Test), bukan hanya mengandalkan harga murah.' },
+  { q: 'Apakah tersedia garansi untuk pekerjaan bore pile?', a: 'Lingkup jaminan pekerjaan tertuang dalam kontrak kerja yang disepakati di awal proyek, silakan konsultasikan detailnya dengan tim kami.' },
+  { q: 'Apakah bisa request jadwal pengerjaan yang cepat?', a: 'Kami menerima kuota proyek terbatas setiap bulan untuk menjaga kualitas, silakan hubungi kami sesegera mungkin untuk mengamankan jadwal proyek Anda.' },
+];
+
+const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })));
 ---
 
 <LandingLayout
@@ -18,6 +52,7 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
   description="PT. Jowo Land Construction - Kontraktor jasa bore pile & strauss pile profesional sejak 2012. Spesialis geoteknik rekayasa pondasi dengan harga terjangkau, layanan 7 provinsi di Jawa & Bali, dan 98% kepuasan klien."
   image="/og-default.svg"
   includeProfessionalServiceSchema={true}
+  extraSchemas={[faqSchema]}
 >
   <!-- Hero -->
   <Hero layout="centered" size="xl" class="hero-dark-gradient" showScrollIndicator fullHeight>
@@ -392,19 +427,182 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
   </section>
 
   <!-- 7. Memahami Pondasi Bored Pile (Strauss Pile) -->
-  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border overflow-x-hidden">
     <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
       <div class="flex flex-col items-center gap-4 text-center" data-reveal>
         <Badge variant="brand" pill>Tentang Bore Pile</Badge>
         <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
-          Memahami Pondasi Bored Pile (Strauss Pile)
+          Memahami Pondasi Bore Pile (Strauss Pile)
         </h2>
-        <p class="text-lg text-foreground-muted max-w-3xl mx-auto">
-          Pondasi Bored Pile ialah pondasi beton berbentuk tabung silinder, pondasi ini secara prinsip semacam pondasi tiang pancang (paku bumi), namun pemasangannya dimulai dari pengeboran tanah, memasukkan tulangan besi yang telah dirakit, lalu pengecoran di tempat (in-situ).
+        <p class="text-lg text-foreground-muted max-w-3xl mx-auto leading-relaxed">
+          <a href="https://id.wikipedia.org/wiki/Fondasi_(rekayasa)" target="_blank" rel="noopener noreferrer nofollow" class="inline-flex items-center gap-1 align-baseline font-semibold text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 hover:underline underline-offset-4 transition-colors">
+            Merujuk dari Wikipedia
+            <Icon name="external-link" size="xs" class="opacity-80 -mt-0.5" />
+          </a>: pondasi bore pile diklasifikasikan sebagai <strong class="text-foreground font-semibold">pondasi dalam</strong> beton berbentuk tabung silinder. Secara prinsip sejenis dengan tiang pancang (paku bumi) — sama-sama mentransfer beban bangunan menuju lapisan tanah terkeras. Bedanya, bore pile dipasang dengan cara <strong class="text-foreground font-semibold">mengebor tanah dahulu, memasukkan tulangan besi rakitan, lalu mengecor beton di tempat (in-situ)</strong>, bukan dipukul/ditancapkan seperti tiang pancang.
         </p>
-        <p class="text-foreground-muted max-w-3xl mx-auto">
-          Merujuk dari wikipedia: pondasi bore pile diklasifikasikan sebagai pondasi dalam, yang dirancang untuk mentransfer beban struktur menuju lapisan tanah terkeras yang memiliki daya dukung lebih baik.
+        <p class="text-foreground-muted max-w-3xl mx-auto leading-relaxed">
+          Karena prosesnya mengekstraksi tanah (bukan mendesak tanah), bore pile <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-brand-500/10 text-brand-600 dark:text-brand-400 text-sm font-medium border border-brand-500/20"><Icon name="zap" size="xs" class="shrink-0" />Minim Getaran</span> dan jauh lebih aman untuk bangunan yang berdempetan dengan lahan tetangga.
         </p>
+      </div>
+
+      <!-- Expandable: Pelajari Selengkapnya -->
+      <div class="max-w-5xl mx-auto w-full" data-reveal>
+        <details class="group/about-bore group" open>
+          <summary class="list-none [&::-webkit-details-marker]:hidden cursor-pointer">
+            <Card variant="elevated" padding="lg" class="!p-0 overflow-hidden border border-border hover:border-brand-500/30 transition-all duration-300">
+              <div class="relative">
+                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand-500/60 to-transparent opacity-60"></div>
+                <div class="flex items-center justify-between gap-4 px-5 sm:px-7 py-4 sm:py-5">
+                  <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                    <div class="w-11 h-11 rounded-2xl shrink-0 bg-gradient-to-br from-brand-500/25 via-brand-500/10 to-brand-500/0 flex items-center justify-center text-brand-600 dark:text-brand-400 ring-1 ring-brand-500/20">
+                      <Icon name="book-open" size="md" />
+                    </div>
+                    <div class="min-w-0">
+                      <p class="text-sm uppercase tracking-widest text-foreground-muted/70 font-semibold">Konten Lengkap</p>
+                      <p class="font-display text-lg sm:text-xl font-bold text-foreground">Pelajari Selengkapnya Tentang Bore Pile</p>
+                    </div>
+                  </div>
+                  <div class="w-11 h-11 shrink-0 rounded-xl flex items-center justify-center bg-background-tertiary border border-border transition-all duration-300 group-open/about-bore:bg-brand-500 group-open/about-bore:border-brand-500 group-open/about-bore:shadow-lg group-open/about-bore:shadow-brand-500/20">
+                    <Icon name="chevron-down" size="md" class="text-foreground-muted transition-transform duration-300 group-open/about-bore:rotate-180 group-open/about-bore:text-white" />
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </summary>
+
+          <!-- Konten expandable -->
+          <div class="mt-4 grid gap-6">
+            <!-- Klasifikasi & Perbandingan Manual vs Mesin -->
+            <Card variant="elevated" padding="lg" class="relative overflow-hidden">
+              <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-brand-500/10 blur-3xl pointer-events-none"></div>
+              <div class="relative grid gap-6">
+                <div>
+                  <div class="inline-flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500/15 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+                      <Icon name="layers" size="sm" />
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-foreground">Dari Segi Cara Pengerjaan — Dua Kategori Utama</h3>
+                  </div>
+                  <p class="text-foreground-muted leading-relaxed">Bore pile terbagi menjadi dua kategori besar yang disesuaikan dengan skala, akses lahan, dan kapasitas beban proyek Anda.</p>
+                </div>
+
+                <div class="overflow-hidden rounded-2xl border border-border">
+                  <div class="grid grid-cols-5 text-xs sm:text-sm font-semibold text-foreground bg-background-tertiary/70 uppercase tracking-wide">
+                    <div class="col-span-1 px-4 sm:px-5 py-4 flex items-center">Aspek</div>
+                    <div class="col-span-2 px-4 sm:px-5 py-4 border-l border-border flex items-center gap-2 text-brand-700 dark:text-brand-300">
+                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-brand-500/15 text-brand-600 dark:text-brand-400 shrink-0">
+                        <Icon name="hard-hat" size="xs" />
+                      </span>
+                      Manual (Strauss Pile)
+                    </div>
+                    <div class="col-span-2 px-4 sm:px-5 py-4 border-l border-border flex items-center gap-2 text-indigo-700 dark:text-indigo-300">
+                      <span class="inline-flex items-center justify-center w-6 h-6 rounded-md bg-indigo-500/15 text-indigo-600 dark:text-indigo-400 shrink-0">
+                        <Icon name="settings" size="xs" />
+                      </span>
+                      Mesin (Mini Crane / Hydraulic Rig)
+                    </div>
+                  </div>
+                  {[
+                    { aspect: 'Alat', a: 'Manual, tanpa mesin besar', b: 'Mesin mini crane / alat berat hydraulic rig', aIcon: 'wrench', bIcon: 'drill' },
+                    { aspect: 'Cocok untuk', a: 'Lahan sempit, akses terbatas, proyek skala menengah', b: 'Kedalaman & kapasitas beban lebih besar', aIcon: 'map-pin', bIcon: 'building-2' },
+                    { aspect: 'Kecepatan', a: 'Lebih lambat', b: 'Lebih cepat, terutama untuk volume banyak titik', aIcon: 'clock', bIcon: 'zap' },
+                    { aspect: 'Getaran', a: 'Sangat minim', b: 'Minim (tetap lebih terkontrol dibanding tiang pancang)', aIcon: 'activity', bIcon: 'activity' },
+                  ].map((row, i) => (
+                    <div key={i} class={`grid grid-cols-5 text-xs sm:text-sm border-t ${i % 2 === 0 ? 'bg-background/60' : ''}`}>
+                      <div class="col-span-1 px-4 sm:px-5 py-3.5 flex items-center gap-2 font-medium text-foreground/90">
+                        <span class="text-foreground-muted shrink-0">{row.i}</span>
+                        {row.aspect}
+                      </div>
+                      <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
+                        <span class="w-1 h-1.5 rounded-full bg-brand-500/70 mt-2 shrink-0"></span>
+                        <span>{row.a}</span>
+                      </div>
+                      <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
+                        <span class="w-1 h-1.5 rounded-full bg-indigo-500/70 mt-2 shrink-0"></span>
+                        <span>{row.b}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <p class="text-sm text-foreground-muted italic flex items-start gap-2 pt-1">
+                  <Icon name="info" size="sm" class="text-brand-500 shrink-0 mt-0.5" />
+                  Untuk memahami lebih dalam jenis-jenis pondasi bore pile beserta teknik pengeborannya, silakan lanjutkan ke bagian di bawah ini.
+                </p>
+              </div>
+            </Card>
+
+            <!-- Metode Pengeboran (3 cards) -->
+            <Card variant="elevated" padding="lg" class="relative overflow-hidden">
+              <div class="absolute -top-24 -left-24 w-72 h-72 rounded-full bg-indigo-500/10 blur-3xl pointer-events-none"></div>
+              <div class="relative grid gap-6">
+                <div>
+                  <div class="inline-flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 rounded-lg bg-indigo-500/15 flex items-center justify-center text-indigo-600 dark:text-indigo-400 shrink-0">
+                      <Icon name="droplets" size="sm" />
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-foreground">Metode Pengeboran yang Kami Gunakan</h3>
+                  </div>
+                  <p class="text-foreground-muted leading-relaxed">Selain memilih antara metode manual atau mesin, teknik pengeboran juga harus disesuaikan dengan kondisi tanah di lokasi proyek Anda:</p>
+                </div>
+
+                <div class="grid gap-4 md:grid-cols-3">
+                  {[
+                    {
+                      tag: 'Dry',
+                      title: 'Dry Boring',
+                      desc: 'Digunakan pada kondisi tanah yang cukup kuat dan tidak mudah longsor, tanpa memerlukan bantuan cairan penstabil lubang.',
+                      icon: 'sun',
+                      iconWrap: 'from-amber-500/25 to-amber-500/0 text-amber-600 dark:text-amber-400 ring-amber-500/20',
+                      chip: 'bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/20',
+                    },
+                    {
+                      tag: 'Wash',
+                      title: 'Wash Boring',
+                      desc: 'Digunakan pada tanah berpasir atau berair, memanfaatkan tekanan air untuk membantu proses pengangkatan tanah selama pengeboran berlangsung.',
+                      icon: 'waves',
+                      iconWrap: 'from-sky-500/25 to-sky-500/0 text-sky-600 dark:text-sky-400 ring-sky-500/20',
+                      chip: 'bg-sky-500/15 text-sky-700 dark:text-sky-300 border-sky-500/20',
+                    },
+                    {
+                      tag: 'Slurry',
+                      title: 'Slurry / Casing Boring',
+                      desc: 'Digunakan pada tanah yang labil dan beresiko longsor, dengan bantuan larutan bentonite atau pipa casing untuk menjaga kestabilan dinding lubang.',
+                      icon: 'shield-check',
+                      iconWrap: 'from-emerald-500/25 to-emerald-500/0 text-emerald-600 dark:text-emerald-400 ring-emerald-500/20',
+                      chip: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border-emerald-500/20',
+                    },
+                  ].map((m, i) => (
+                    <div
+                      key={m.tag}
+                      class={`relative group rounded-2xl border border-border bg-background/60 p-5 sm:p-6 flex flex-col gap-3.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:border-brand-500/40 ${i === 1 ? 'md:-mt-2 md:mb-2' : ''}`}
+                      data-reveal
+                      data-reveal-delay={String(i)}
+                    >
+                      <div class="absolute top-4 right-4">
+                        <span class={`inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border ${m.chip}`}>{m.tag}</span>
+                      </div>
+                      <div class={`w-12 h-12 rounded-2xl shrink-0 bg-gradient-to-br flex items-center justify-center ring-1 ${m.iconWrap}`}>
+                        <Icon name={m.icon} size="lg" />
+                      </div>
+                      <h4 class="font-display text-lg font-bold text-foreground leading-snug mt-1">{m.title}</h4>
+                      <p class="text-sm text-foreground-muted leading-relaxed">{m.desc}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div class="flex items-start gap-3 p-4 rounded-xl bg-gradient-to-r from-brand-500/10 via-brand-500/5 to-transparent border border-brand-500/20">
+                  <div class="w-9 h-9 rounded-xl bg-brand-500/20 flex items-center justify-center text-brand-600 dark:text-brand-400 shrink-0">
+                    <Icon name="users" size="sm" />
+                  </div>
+                  <p class="text-sm text-foreground-muted leading-relaxed">
+                    <span class="font-semibold text-foreground">Tim engineer kami</span> akan menentukan teknik yang paling sesuai berdasarkan hasil soil test di lokasi proyek Anda, bukan asal pukul rata satu metode untuk semua kondisi tanah.
+                  </p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </details>
       </div>
     </div>
   </section>
@@ -630,11 +828,7 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
       </div>
       <div class="max-w-3xl mx-auto w-full" data-reveal>
         <Card variant="elevated" padding="lg">
-          {[
-            { q: 'Apakah bore pile aman untuk tembok tetangga yang menempel?', a: 'Sangat aman. Bore pile bekerja dengan cara mengekstraksi tanah, bukan memukul atau mendesak tanah. Metode ini minim getaran dan mencegah risiko retaknya bangunan di sebelah lokasi proyek.' },
-            { q: 'Berapa lama proses pengerjaan bore pile?', a: 'Durasi sangat bergantung pada volume (jumlah titik), kedalaman, dan cuaca. Namun, dengan metode mesin (Mini Crane atau Rig), kecepatan produksi kami jauh lebih efisien dibandingkan metode manual.' },
-            { q: 'Apakah PT. Jowo Land menyediakan material juga?', a: 'Ya, kami menyediakan paket All-In (Jasa + Material Besi & Beton Ready Mix) agar klien tidak perlu repot, dengan jaminan spesifikasi material sesuai RAB.' },
-          ].map((item, i) => (
+          {faqs.map((item, i) => (
             <details class="border-b border-border last:border-0" name="faq-borepile">
               <summary class="flex w-full items-center justify-between text-sm py-4 text-left font-medium text-foreground transition-colors hover:text-foreground-secondary cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                 {item.q}

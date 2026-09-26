@@ -50,10 +50,12 @@ const articleSchema = {
     '@type': 'Organization',
     name: siteConfig.name,
     url: siteConfig.url,
-    logo: {
-      '@type': 'ImageObject',
-      url: `${siteConfig.url}/favicon.svg`,
-    },
+    ...(siteConfig.branding.logo.imageUrl ? {
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteConfig.url}${siteConfig.branding.logo.imageUrl}`,
+      },
+    } : {}),
   },
   mainEntityOfPage: {
     '@type': 'WebPage',

@@ -12,7 +12,7 @@ Disallow: /api/
 Disallow: /og/
 
 # Contact information
-Contact: info@jowolandborepile.com
+Contact: info@jowolandborepile.co.id
 
 # Site
 Site: https://jowolandborepile.co.id
