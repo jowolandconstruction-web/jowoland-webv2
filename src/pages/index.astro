@@ -7,7 +7,8 @@ import Card from '@/components/ui/data-display/Card/Card.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import ImageCtaBand from '@/components/patterns/ImageCtaBand.astro';
 import { stripHtml, getProducts, formatPrice } from '@/lib/wordpress';
-import { createFAQSchema } from '@/lib/schema';
+import { createFAQSchema, createBreadcrumbSchema } from '@/lib/schema';
+import siteConfig from '@/config/site.config';
 
 const featuredProducts = await getProducts({ per_page: 3, orderby: 'menu_order', order: 'asc' });
 
@@ -48,21 +49,23 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
 ---
 
 <LandingLayout
-  title="Kontraktor Jasa Pondasi Bored Pile (Strauss Pile)"
-  description="PT. Jowo Land Construction - Kontraktor jasa bore pile & strauss pile profesional sejak 2012. Spesialis geoteknik rekayasa pondasi dengan harga terjangkau, layanan 7 provinsi di Jawa & Bali, dan 98% kepuasan klien."
+  title="Kontraktor Jasa Bore Pile Manual dan Mesin Harga Per Meter"
+  description="Jasa bore pile manual (strauss pile) & mesin (mini crane/hydraulic rig) mulai Rp 135.000/meter. Melayani area Jawa - Bali. Konsultasi gratis via WhatsApp 0852-8074-9218."
   image="/og-default.svg"
+  includeOrgSchema={true}
   includeProfessionalServiceSchema={true}
   extraSchemas={[faqSchema]}
 >
   <!-- Hero -->
-  <Hero layout="centered" size="xl" class="hero-dark-gradient" showScrollIndicator fullHeight>
+  <Hero layout="centered" size="xl" class="hero-dark-gradient hero-wide-desc" showScrollIndicator fullHeight>
     <Badge slot="badge" variant="brand" pill pulse class="dark:text-brand-200">Konsultasi Gratis</Badge>
     <h1 slot="title" class="!text-[clamp(1.8rem,8vw,3rem)] sm:!text-5xl md:!text-6xl lg:!text-7xl">
-      <span class="text-brand-600 dark:text-foreground [-webkit-text-fill-color:currentColor]">Kontraktor Jasa Pondasi</span><br />
-      <span class="text-brand-600 dark:text-foreground [-webkit-text-fill-color:currentColor]">Bored Pile (Strauss Pile)</span>
+      <span class="text-brand-600 dark:text-foreground [-webkit-text-fill-color:currentColor]">Kontraktor Jasa Bore Pile</span><br />
+      <span class="text-brand-600 dark:text-foreground [-webkit-text-fill-color:currentColor]">Manual dan Mesin Harga Per Meter</span>
     </h1>
-    <p slot="description" class="max-w-2xl">
-      PT. Jowo Land Construction Spesialis Geoteknik Rekayasa Pondasi (Jasa Bore Pile dan Strauss Pile).
+    <p slot="description" style="max-width: 56rem;">
+      PT. Jowo Land Construction adalah kontraktor jasa bore pile manual (strauss pile) dan mesin (mini crane &amp; hydraulic drilling rig) yang beroperasi sejak 2012, melayani area Jawa dan Bali. Harga jasa bore pile mulai dari Rp 135.000 per meter untuk metode mesin mini crane, hingga Rp 350.000 per meter untuk alat berat.<br /><br />
+      Bore pile manual (strauss pile) dikerjakan tanpa mesin besar, cocok untuk lahan sempit dan proyek skala kecil. Bore pile mesin menggunakan mini crane atau hydraulic drilling rig, cocok untuk kedalaman dan kapasitas beban lebih besar. Seluruh pekerjaan dilakukan tenaga ahli bersertifikat Kemnaker sesuai SNI 8460:2017.
     </p>
     <Fragment slot="actions">
       <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
@@ -75,36 +78,32 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
         <Icon name="arrow-right" size="sm" />
       </Button>
     </Fragment>
-  </Hero>
 
-  <!-- Quick Trust -->
-  <section class="relative z-10 py-8 bg-background-secondary border-t border-border">
-    <div class="mx-auto max-w-6xl px-6">
-      <div class="grid grid-cols-3 gap-4 text-center">
-        <div class="flex flex-col items-center gap-2 p-4">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 mb-1">
-            <Icon name="thumbs-up" size="sm" />
-          </div>
-          <p class="text-3xl font-bold text-brand-600 autocount" data-target="98" data-suffix="%">0</p>
-          <p class="text-sm font-semibold text-foreground">Kepuasan Klien</p>
+    <!-- Stats glass cards -->
+    <div class="mt-10 grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg mx-auto">
+      <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
+        <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
+          <Icon name="thumbs-up" size="sm" />
         </div>
-        <div class="flex flex-col items-center gap-2 p-4">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 mb-1">
-            <Icon name="users" size="sm" />
-          </div>
-          <p class="text-3xl font-bold text-brand-600 autocount" data-target="168" data-suffix="+">0</p>
-          <p class="text-sm font-semibold text-foreground">Klien Puas</p>
+        <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="98" data-suffix="%">0</p>
+        <p class="text-xs font-medium text-white/70 leading-tight">Kepuasan<br/>Klien</p>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
+        <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
+          <Icon name="users" size="sm" />
         </div>
-        <div class="flex flex-col items-center gap-2 p-4">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 mb-1">
-            <Icon name="hard-hat" size="sm" />
-          </div>
-          <p class="text-3xl font-bold text-brand-600 autocount" data-target="820" data-suffix="+">0</p>
-          <p class="text-sm font-semibold text-foreground">Proyek Selesai</p>
+        <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="168" data-suffix="+">0</p>
+        <p class="text-xs font-medium text-white/70 leading-tight">Klien<br/>Puas</p>
+      </div>
+      <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
+        <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
+          <Icon name="hard-hat" size="sm" />
         </div>
+        <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="820" data-suffix="+">0</p>
+        <p class="text-xs font-medium text-white/70 leading-tight">Proyek<br/>Selesai</p>
       </div>
     </div>
-  </section>
+  </Hero>
 
   <!-- 1. Layanan Jasa Bore Pile -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
@@ -1265,5 +1264,10 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
   }
   @media (prefers-reduced-motion: reduce) {
     .marquee-track { animation: none; }
+  }
+
+  /* Override Hero description wrapper max-width for wide subtitle text */
+  .hero-wide-desc [class*="max-w-xl"] {
+    max-width: 56rem !important;
   }
 </style>
