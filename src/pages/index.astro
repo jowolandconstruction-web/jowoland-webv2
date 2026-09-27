@@ -65,9 +65,33 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
     </h1>
     <p slot="description" style="max-width: 56rem;">
       PT. Jowo Land Construction adalah kontraktor jasa bore pile manual (strauss pile) dan mesin (mini crane &amp; hydraulic drilling rig) yang beroperasi sejak 2012, melayani area Jawa dan Bali. Harga jasa bore pile mulai dari Rp 135.000 per meter untuk metode mesin mini crane, hingga Rp 350.000 per meter untuk alat berat.<br /><br />
-      Bore pile manual (strauss pile) dikerjakan tanpa mesin besar, cocok untuk lahan sempit dan proyek skala kecil. Bore pile mesin menggunakan mini crane atau hydraulic drilling rig, cocok untuk kedalaman dan kapasitas beban lebih besar. Seluruh pekerjaan dilakukan tenaga ahli bersertifikat Kemnaker sesuai SNI 8460:2017.
+      Bore pile manual (strauss pile) dikerjakan tanpa mesin besar, cocok untuk lahan sempit dan proyek skala kecil. Bore pile mesin menggunakan mini crane atau hydraulic drilling rig, cocok untuk kedalaman dan kapasitas beban lebih besar. Seluruh pekerjaan dilakukan tenaga ahli bersertifikat Kemnaker sesuai <a href="https://sitaba.pu.go.id/publikasi/f0bd856e-e3a9-4c02-bd28-a28f90222340" target="_blank" rel="noopener noreferrer nofollow" class="font-semibold underline underline-offset-2">SNI 8460:2017</a>.
     </p>
     <Fragment slot="actions">
+      <!-- Stats glass cards -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg mx-auto mb-2">
+        <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
+          <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
+            <Icon name="thumbs-up" size="sm" />
+          </div>
+          <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="98" data-suffix="%">0</p>
+          <p class="text-xs font-medium text-white/70 leading-tight">Kepuasan<br/>Klien</p>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
+          <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
+            <Icon name="users" size="sm" />
+          </div>
+          <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="168" data-suffix="+">0</p>
+          <p class="text-xs font-medium text-white/70 leading-tight">Klien<br/>Puas</p>
+        </div>
+        <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
+          <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
+            <Icon name="hard-hat" size="sm" />
+          </div>
+          <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="820" data-suffix="+">0</p>
+          <p class="text-xs font-medium text-white/70 leading-tight">Proyek<br/>Selesai</p>
+        </div>
+      </div>
       <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
         <Icon name="message-circle" size="sm" />
         Hubungi via WhatsApp
@@ -78,31 +102,6 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
         <Icon name="arrow-right" size="sm" />
       </Button>
     </Fragment>
-
-    <!-- Stats glass cards -->
-    <div class="mt-10 grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg mx-auto">
-      <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
-        <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
-          <Icon name="thumbs-up" size="sm" />
-        </div>
-        <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="98" data-suffix="%">0</p>
-        <p class="text-xs font-medium text-white/70 leading-tight">Kepuasan<br/>Klien</p>
-      </div>
-      <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
-        <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
-          <Icon name="users" size="sm" />
-        </div>
-        <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="168" data-suffix="+">0</p>
-        <p class="text-xs font-medium text-white/70 leading-tight">Klien<br/>Puas</p>
-      </div>
-      <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
-        <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
-          <Icon name="hard-hat" size="sm" />
-        </div>
-        <p class="text-2xl sm:text-3xl font-bold text-white autocount" data-target="820" data-suffix="+">0</p>
-        <p class="text-xs font-medium text-white/70 leading-tight">Proyek<br/>Selesai</p>
-      </div>
-    </div>
   </Hero>
 
 
@@ -371,6 +370,66 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
   </section>
 
 
+  <!-- 2. Mengapa Menggunakan Jasa Bore Pile dari PT. Jowo Land Construction? -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
+    <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
+      <div class="flex flex-col items-center gap-4 text-center" data-reveal>
+        <Badge variant="brand" pill>Kenapa Kami?</Badge>
+        <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground">
+          Mengapa Menggunakan Jasa Bore Pile dari PT. Jowo Land Construction?
+        </h2>
+        <p class="text-lg text-foreground-muted max-w-3xl mx-auto">
+          PT. Jowo Land Construction tidak melihat pekerjaan bore pile sebagai aktivitas membuat lubang dan menuangkan beton saja. Kami melihatnya sebagai proses rekayasa geoteknik yang menentukan masa depan sebuah bangunan. Karena bagi kami, setiap proyek bukan sekadar pekerjaan konstruksi, lebih dari itu, kami melihat pekerjaan bore pile sebagai <strong>REPUTASI</strong>.
+        </p>
+      </div>
+      <div class="grid gap-6 md:grid-cols-2">
+        <Card variant="elevated" padding="lg" data-reveal>
+          <h3 class="text-xl font-bold text-foreground mb-4">Keunggulan PT. Jowo Land Construction Sebagai Kontraktor Bore Pile</h3>
+          <ul class="flex flex-col gap-4">
+            {[
+              { icon: 'tag', title: 'Transparansi Harga', desc: 'Tidak ada biaya tersembunyi. Lingkup kerja dan spesifikasi pekerjaan tertuang jelas di dalam kontrak kerja.' },
+              { icon: 'settings', title: 'Peralatan Lengkap & Terawat', desc: 'Kami menggunakan unit mesin bor milik sendiri dengan jadwal perawatan rutin.' },
+              { icon: 'users', title: 'SDM & Tenaga Ahli', desc: 'Proyek Anda diawasi langsung oleh Engineer dan operator tersertifikasi di bidang geoteknik.' },
+              { icon: 'shield-check', title: 'Legalitas Penuh', desc: 'Beroperasi resmi dengan NIB, Sertifikasi Kelayakan Alat (SILO), dan SIO Operator dari Kemenaker.' },
+            ].map((item) => (
+              <li class="flex items-start gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-500/5 flex items-center justify-center text-brand-500 shrink-0 mt-0.5">
+                  <Icon name={item.icon} size="sm" />
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-foreground">{item.title}</p>
+                  <p class="text-sm text-foreground-muted leading-relaxed mt-0.5">{item.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Card>
+        <Card variant="elevated" padding="lg" data-reveal data-reveal-delay="1">
+          <h3 class="text-xl font-bold text-foreground mb-4">Standar Teknik yang Digunakan</h3>
+          <p class="text-foreground-muted mb-4">
+            Sebagai komitmen pada keamanan dan ketepatan, seluruh pengerjaan pondasi kami tunduk pada standar teknik sipil yang berlaku di Indonesia (SNI), yaitu:
+          </p>
+          <ul class="flex flex-col gap-2">
+            <li class="flex items-center gap-2">
+              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
+              <span class="text-foreground">
+                <a href="https://sitaba.pu.go.id/publikasi/f0bd856e-e3a9-4c02-bd28-a28f90222340" target="_blank" rel="noopener noreferrer nofollow" class="font-semibold text-brand-600 dark:text-brand-400 hover:underline underline-offset-4 transition-colors">SNI 8460:2017</a> (Persyaratan Perancangan Geoteknik)
+              </span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
+              <span class="text-foreground">SNI 2847:2019 (Persyaratan Beton Struktural untuk Bangunan Gedung)</span>
+            </li>
+            <li class="flex items-center gap-2">
+              <Icon name="check-circle" class="w-5 h-5 text-brand-600 shrink-0" />
+              <span class="text-foreground">SNI 03-1726-2012 (Tata Cara Perancangan Ketahanan Gempa)</span>
+            </li>
+          </ul>
+        </Card>
+      </div>
+    </div>
+  </section>
+
   <!-- 3. Dokumentasi dan Portofolio Proyek -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
     <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
@@ -385,22 +444,36 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
       </div>
       <div class="grid gap-6 md:grid-cols-3">
         {[
-          { title: 'Proyek 1', src: 'https://www.youtube.com/embed/-70H0vUf4Kg' },
-          { title: 'Proyek 2', src: 'https://www.youtube.com/embed/0zNIc-Xth8I' },
-          { title: 'Proyek 3', src: 'https://www.youtube.com/embed/p0AQB72czxk' },
+          { title: 'Proyek 1', src: 'https://www.youtube.com/embed/-70H0vUf4Kg',  id: '-70H0vUf4Kg' },
+          { title: 'Proyek 2', src: 'https://www.youtube.com/embed/0zNIc-Xth8I',  id: '0zNIc-Xth8I' },
+          { title: 'Proyek 3', src: 'https://www.youtube.com/embed/p0AQB72czxk',  id: 'p0AQB72czxk' },
         ].map((video, i) => (
           <Card hover data-reveal data-reveal-delay={String(i % 3)} padding="none" class="overflow-hidden">
-            <div class="aspect-video">
-              <iframe
-                src={video.src}
-                title={video.title}
-                class="w-full h-full"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                referrerpolicy="strict-origin-when-cross-origin"
-                allowfullscreen
+            <div
+              class="yt-facade relative cursor-pointer bg-black overflow-hidden"
+              style="width:300px; height:600px; max-width:100%;"
+              data-videoid={video.id}
+              data-src={video.src}
+              role="button"
+              tabindex="0"
+              aria-label={`Putar video ${video.title}`}
+            >
+              <img
+                src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                alt={`Thumbnail ${video.title}`}
+                width="300"
+                height="600"
                 loading="lazy"
-              ></iframe>
+                class="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+              />
+              <!-- Play button overlay -->
+              <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl">
+                  <svg class="w-7 h-7 text-red-600 ml-1" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </div>
+              </div>
             </div>
           </Card>
         ))}
@@ -1176,6 +1249,44 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
   document.addEventListener('astro:page-load', initCounters);
 </script>
 
+<script is:inline>
+  (function () {
+    function initYtFacade() {
+      document.querySelectorAll('.yt-facade').forEach(function (facade) {
+        if (facade.dataset.ytInit) return;
+        facade.dataset.ytInit = 'true';
+        function loadVideo() {
+          var src = facade.getAttribute('data-src');
+          var iframe = document.createElement('iframe');
+          iframe.setAttribute('src', src + '?autoplay=1&rel=0');
+          iframe.setAttribute('title', facade.getAttribute('aria-label') || 'YouTube video');
+          iframe.setAttribute('frameborder', '0');
+          iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+          iframe.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+          iframe.setAttribute('allowfullscreen', '');
+          iframe.style.width = '100%';
+          iframe.style.height = '100%';
+          iframe.style.position = 'absolute';
+          iframe.style.inset = '0';
+          facade.innerHTML = '';
+          facade.style.position = 'relative';
+          facade.appendChild(iframe);
+        }
+        facade.addEventListener('click', loadVideo);
+        facade.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadVideo(); }
+        });
+      });
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initYtFacade);
+    } else {
+      initYtFacade();
+    }
+    document.addEventListener('astro:page-load', initYtFacade);
+  })();
+</script>
+
 <style>
   details[open] > summary .faq-icon {
     transform: rotate(180deg);
@@ -1198,5 +1309,22 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
   /* Override Hero description wrapper max-width for wide subtitle text */
   .hero-wide-desc [class*="max-w-xl"] {
     max-width: 56rem !important;
+  }
+
+  /* Force actions wrapper to stack vertically: stats cards above buttons */
+  .hero-wide-desc .flex.w-full.flex-col.gap-4 {
+    flex-direction: column !important;
+    align-items: center;
+    width: 100% !important;
+    max-width: 32rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Override actions wrapper so stats cards stack above buttons */
+  .hero-wide-desc [class*="sm:flex-row"] {
+    flex-direction: column !important;
+    align-items: center;
+    width: 100%;
   }
 </style>
