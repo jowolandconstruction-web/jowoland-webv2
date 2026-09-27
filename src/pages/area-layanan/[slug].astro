@@ -1,7 +1,7 @@
 ---
 /**
  * Product detail page — fetches live from WooCommerce
- * URL: /layanan/[slug]
+ * URL: /area-layanan/[slug]
  */
 import PageLayout from '@/layouts/PageLayout.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
@@ -13,17 +13,17 @@ import siteConfig from '@/config/site.config';
 
 const { slug } = Astro.params;
 
-if (!slug) return Astro.redirect('/layanan');
+if (!slug) return Astro.redirect('/area-layanan');
 
 const product = await getProduct(slug);
 
-if (!product) return Astro.redirect('/layanan');
+if (!product) return Astro.redirect('/area-layanan');
 
 const waNumber = '6285280749218';
 const waMsg = encodeURIComponent(`Halo, saya ingin konsultasi mengenai layanan: ${product.name}`);
 const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
 
-const canonicalUrl = `${siteConfig.url}/layanan/${product.slug}`;
+const canonicalUrl = `${siteConfig.url}/area-layanan/${product.slug}`;
 const seoTitle = product.yoast_head_json?.title || `${product.name} | PT. Jowo Land Construction`;
 const seoDesc = product.yoast_head_json?.description || stripHtml(product.short_description || product.description).slice(0, 160);
 const ogImage = product.yoast_head_json?.og_image?.[0]?.url || product.images?.[0]?.src || `${siteConfig.url}/og-default.svg`;
@@ -83,7 +83,7 @@ const breadcrumbSchema = {
   '@type': 'BreadcrumbList',
   itemListElement: [
     { '@type': 'ListItem', position: 1, name: 'Beranda', item: siteConfig.url },
-    { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${siteConfig.url}/layanan` },
+    { '@type': 'ListItem', position: 2, name: 'Layanan', item: `${siteConfig.url}/area-layanan` },
     { '@type': 'ListItem', position: 3, name: product.name, item: canonicalUrl },
   ],
 };
@@ -107,7 +107,7 @@ const breadcrumbSchema = {
       <ol class="flex items-center gap-2 text-sm text-foreground-muted flex-wrap">
         <li><a href="/" class="hover:text-brand-500 transition-colors">Beranda</a></li>
         <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50" /></li>
-        <li><a href="/layanan" class="hover:text-brand-500 transition-colors">Layanan</a></li>
+        <li><a href="/area-layanan" class="hover:text-brand-500 transition-colors">Layanan</a></li>
         <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50" /></li>
         <li class="text-foreground font-medium truncate max-w-[200px]">{product.name}</li>
       </ol>
@@ -153,7 +153,7 @@ const breadcrumbSchema = {
           {product.categories?.length > 0 && (
             <div class="flex flex-wrap gap-2">
               {product.categories.map((cat) => (
-                <a href={`/layanan?kategori=${cat.slug}`} class="group">
+                <a href={`/area-layanan?kategori=${cat.slug}`} class="group">
                   <Badge variant="brand" pill class="group-hover:opacity-80 transition-opacity cursor-pointer">{cat.name}</Badge>
                 </a>
               ))}
@@ -277,7 +277,6 @@ const breadcrumbSchema = {
 
           <!-- Article body -->
           <div class="flex-1 min-w-0">
-            <h2 class="font-display text-2xl font-bold text-foreground mb-6 sm:mb-8">Deskripsi Layanan</h2>
             <div id="product-description-content" class="prose prose-sm max-w-none text-foreground-muted leading-relaxed wp-content" set:html={product.description} />
           </div>
 
@@ -295,7 +294,7 @@ const breadcrumbSchema = {
         </h2>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {relatedProducts.map((rp, i) => (
-            <a href={`/layanan/${rp.slug}`} class="group block" data-reveal data-reveal-delay={String(i)}>
+            <a href={`/area-layanan/${rp.slug}`} class="group block" data-reveal data-reveal-delay={String(i)}>
               <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
                 {rp.images?.[0] && (
                   <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">

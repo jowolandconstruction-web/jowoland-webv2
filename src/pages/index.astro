@@ -68,8 +68,8 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
       Bore pile manual (strauss pile) dikerjakan tanpa mesin besar, cocok untuk lahan sempit dan proyek skala kecil. Bore pile mesin menggunakan mini crane atau hydraulic drilling rig, cocok untuk kedalaman dan kapasitas beban lebih besar. Seluruh pekerjaan dilakukan tenaga ahli bersertifikat Kemnaker sesuai <a href="https://sitaba.pu.go.id/publikasi/f0bd856e-e3a9-4c02-bd28-a28f90222340" target="_blank" rel="noopener noreferrer nofollow" class="font-semibold underline underline-offset-2">SNI 8460:2017</a>.
     </p>
     <Fragment slot="actions">
-      <!-- Stats glass cards -->
-      <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg mx-auto mb-2">
+      <!-- Stats glass cards — di atas tombol -->
+      <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg">
         <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
           <div class="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center text-brand-400 mb-0.5">
             <Icon name="thumbs-up" size="sm" />
@@ -92,15 +92,18 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
           <p class="text-xs font-medium text-white/70 leading-tight">Proyek<br/>Selesai</p>
         </div>
       </div>
-      <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
-        <Icon name="message-circle" size="sm" />
-        Hubungi via WhatsApp
-        <Icon name="arrow-right" size="sm" />
-      </Button>
-      <Button size="lg" variant="outline" href="/contact">
-        Konsultasi Gratis
-        <Icon name="arrow-right" size="sm" />
-      </Button>
+      <!-- Tombolo — di bawah counter, dibungkus flex-row sendiri -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center w-full">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer">
+          <Icon name="message-circle" size="sm" />
+          Hubungi via WhatsApp
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+        <Button size="lg" variant="outline" href="/contact">
+          Konsultasi Gratis
+          <Icon name="arrow-right" size="sm" />
+        </Button>
+      </div>
     </Fragment>
   </Hero>
 
@@ -485,7 +488,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
             const desc = stripHtml(product.short_description || product.description).slice(0, 120);
             const hasPrice = product.price && parseFloat(product.price) > 0;
             return (
-              <a href={`/layanan/${product.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
+              <a href={`/area-layanan/${product.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
                 <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
                   {img && (
                     <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
@@ -948,15 +951,17 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
       </div>
       <div class="flex flex-wrap gap-2 justify-center" data-reveal>
         {[
-          'Jawa Tengah',
-          'Jawa Timur',
-          'Jawa Barat',
-          'Yogyakarta',
-          'Jakarta',
-          'Banten',
-          'Bali',
+          { label: 'Jawa Tengah', href: 'https://jowolandborepile.co.id/area-layanan/jawa-tengah' },
+          { label: 'Jawa Timur',  href: 'https://jowolandborepile.co.id/area-layanan/jawa-timur' },
+          { label: 'Jawa Barat',  href: 'https://jowolandborepile.co.id/area-layanan/jawa-barat' },
+          { label: 'Yogyakarta',  href: 'https://jowolandborepile.co.id/area-layanan/jasa-bore-pile-jogja' },
+          { label: 'Jakarta',     href: 'https://jowolandborepile.co.id/area-layanan/jasa-bore-pile-jakarta' },
+          { label: 'Banten',      href: 'https://jowolandborepile.co.id/area-layanan/banten' },
+          { label: 'Bali',        href: 'https://jowolandborepile.co.id/area-layanan/jasa-bore-pile-bali' },
         ].map((provinsi) => (
-          <Badge variant="brand" pill class="text-base px-4 py-2">{provinsi}</Badge>
+          <a href={provinsi.href} class="hover:opacity-80 transition-opacity">
+            <Badge variant="brand" pill class="text-base px-4 py-2">{provinsi.label}</Badge>
+          </a>
         ))}
       </div>
       <div class="rounded-2xl overflow-hidden border border-border shadow-sm" data-reveal>
@@ -1164,11 +1169,21 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
     </div>
   </section>
 
+  <!-- Penutup -->
+  <section class="relative z-10 py-[var(--space-section-md)] bg-background border-t border-border">
+    <div class="mx-auto max-w-3xl px-6 text-center" data-reveal>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">Penutup</h2>
+      <p class="text-lg text-foreground-muted leading-relaxed">
+        Saat Anda ingin memilih kontraktor penyedia jasa bore pile dan strauss pile terbaik, pilihlah kontraktor bore pile yang memiliki reputasi terbaik, terpercaya, berpengalaman, bersertifikat resmi, dengan transparansi harga, dan memiliki tenaga ahli teknik sipil di bidang rekayasa pondasi seperti PT. Jowo Land Construction.
+      </p>
+    </div>
+  </section>
+
   <!-- Penutup & Hubungi Kami -->
   <section class="relative z-10 py-[var(--space-section-md)] bg-background-secondary border-t border-border">
     <ImageCtaBand
-      backgroundImage="https://images.unsplash.com/photo-1748956628042-b73331e0b479?w=1920&h=800&fit=crop&q=80&auto=format"
-      imageAlt="Pekerja konstruksi di lokasi pembangunan gedung dengan tower crane"
+      backgroundImage="/assets/img/Jasa Bore Pile Profesional Terbaik _ PT Jowo Land Construction.webp"
+      imageAlt="Jasa Bore Pile Profesional Terbaik - PT Jowo Land Construction"
     >
       <Badge variant="brand" pill class="mb-6">Hubungi Kami</Badge>
       <h2 class="font-display text-4xl font-bold text-foreground mb-4 text-balance">
@@ -1194,6 +1209,18 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
       <div class="mt-8 pt-6 border-t border-border">
         <p class="font-semibold text-foreground mb-2">Respon Cepat via WhatsApp 24 Jam</p>
         <p class="text-foreground-muted">Alamat Kantor Pusat: PT. Jowo Land Construction, Karanganyar, Ketitang, Kec. Godong, Kabupaten Grobogan, Jawa Tengah 58162</p>
+        <div class="mt-4 rounded-xl overflow-hidden border border-border/30 shadow-md">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4837899.7044045795!2d108.7631283658552!3d-8.038650905433666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70bf00218fef47%3A0xeef1fe09f77ee82c!2sPT.%20Jowo%20Land%20Construction%20-%20Jasa%20Bore%20Pile%20%26%20Strauss%20Pile!5e1!3m2!1sid!2skr!4v1790514052505!5m2!1sid!2skr"
+            width="600"
+            height="450"
+            style="border:0; width:100%; display:block;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            title="Lokasi PT. Jowo Land Construction - Jasa Bore Pile & Strauss Pile"
+          ></iframe>
+        </div>
       </div>
     </ImageCtaBand>
   </section>
@@ -1311,20 +1338,10 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
     max-width: 56rem !important;
   }
 
-  /* Force actions wrapper to stack vertically: stats cards above buttons */
-  .hero-wide-desc .flex.w-full.flex-col.gap-4 {
+  /* Force hero actions column on homepage so counter sits above buttons */
+  .hero-wide-desc .animate-hero-stagger > div[class*="flex"][class*="gap-4"] {
     flex-direction: column !important;
-    align-items: center;
     width: 100% !important;
-    max-width: 32rem;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  /* Override actions wrapper so stats cards stack above buttons */
-  .hero-wide-desc [class*="sm:flex-row"] {
-    flex-direction: column !important;
-    align-items: center;
-    width: 100%;
+    align-items: center !important;
   }
 </style>

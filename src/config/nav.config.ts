@@ -26,7 +26,7 @@ export interface LegalLink {
 }
 
 export const navItems: NavItem[] = [
-  { label: 'Layanan', href: '/layanan', order: 1 },
+  { label: 'Layanan', href: '/area-layanan', order: 1 },
   { label: 'Portofolio', href: '/projects', order: 2 },
   { label: 'Blog', href: '/blog', order: 3 },
   { label: 'Tentang Kami', href: '/about', order: 4 },
@@ -34,7 +34,7 @@ export const navItems: NavItem[] = [
 ];
 
 export const footerNavItems: NavItem[] = [
-  { label: 'Layanan', href: '/layanan', order: 1 },
+  { label: 'Layanan', href: '/area-layanan', order: 1 },
   { label: 'Portofolio', href: '/projects', order: 2 },
   { label: 'Blog', href: '/blog', order: 3 },
   { label: 'Tentang Kami', href: '/about', order: 4 },
