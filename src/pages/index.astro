@@ -68,6 +68,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
       Bore pile manual (strauss pile) dikerjakan tanpa mesin besar, cocok untuk lahan sempit dan proyek skala kecil. Bore pile mesin menggunakan mini crane atau hydraulic drilling rig, cocok untuk kedalaman dan kapasitas beban lebih besar. Seluruh pekerjaan dilakukan tenaga ahli bersertifikat Kemnaker sesuai <a href="https://sitaba.pu.go.id/publikasi/f0bd856e-e3a9-4c02-bd28-a28f90222340" target="_blank" rel="noopener noreferrer nofollow" class="font-semibold underline underline-offset-2">SNI 8460:2017</a>.
     </p>
     <Fragment slot="actions">
+      <div class="flex flex-col items-center gap-6 w-full">
       <!-- Stats glass cards — di atas tombol -->
       <div class="grid grid-cols-3 gap-3 sm:gap-4 w-full max-w-lg">
         <div class="flex flex-col items-center gap-1.5 rounded-2xl border border-white/20 bg-white/10 backdrop-blur-md px-3 py-4 text-center shadow-lg">
@@ -103,6 +104,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
           Konsultasi Gratis
           <Icon name="arrow-right" size="sm" />
         </Button>
+      </div>
       </div>
     </Fragment>
   </Hero>
