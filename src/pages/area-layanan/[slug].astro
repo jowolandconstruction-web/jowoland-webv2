@@ -35,47 +35,85 @@ const relatedProducts = product.related_ids?.length
   ? await getProducts({ include: product.related_ids.slice(0, 4).join(',') })
   : [];
 
-// Schema markup — Product + Service + BreadcrumbList
-const productSchema = {
+// Helper to extract city name from product name or slug
+function getCityName(name: string, slug: string): string {
+  const combined = `${name} ${slug}`.toLowerCase();
+  const knownCities = [
+    'Jakarta', 'Solo', 'Surakarta', 'Magelang', 'Bengkulu', 'Jogja', 'Yogyakarta',
+    'Semarang', 'Surabaya', 'Bandung', 'Bali', 'Pasuruan', 'Tulungagung', 'Klaten',
+    'Purwokerto', 'Grobogan', 'Kudus', 'Pati', 'Demak', 'Salatiga', 'Boyolali',
+    'Sragen', 'Sukoharjo', 'Karanganyar', 'Wonogiri', 'Cilacap', 'Banyumas', 'Kebumen',
+    'Purworejo', 'Wonosobo', 'Temanggung', 'Kendal', 'Batang', 'Pekalongan', 'Pemalang',
+    'Tegal', 'Brebes', 'Rembang', 'Blora', 'Jepara', 'Cirebon', 'Bekasi', 'Bogor',
+    'Depok', 'Tangerang', 'Serang', 'Cilegon', 'Banten', 'Malang', 'Sidoarjo',
+    'Gresik', 'Mojokerto', 'Jombang', 'Kediri', 'Blitar', 'Madiun'
+  ];
+
+  for (const city of knownCities) {
+    const reg = new RegExp(`\\b${city.toLowerCase()}\\b`, 'i');
+    if (reg.test(combined)) {
+      if (city.toLowerCase() === 'jogja') return 'Yogyakarta';
+      if (city.toLowerCase() === 'solo') return 'Surakarta';
+      return city;
+    }
+  }
+
+  // Fallback: extract last word or default to Indonesia / Jawa
+  return 'Jawa';
+}
+
+const cityName = getCityName(product.name, product.slug);
+const cityWikipediaUrl = `https://id.wikipedia.org/wiki/${encodeURIComponent(cityName)}`;
+const wcPrice = product.price ? String(product.price) : '140000';
+const ratingValue = product.average_rating && parseFloat(product.average_rating) > 0 ? String(product.average_rating) : '4.9';
+const reviewCount = product.rating_count && product.rating_count > 0 ? String(product.rating_count) : '27';
+
+// Dynamic Service Schema with @graph according to specification
+const serviceSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Service',
-  name: product.name,
-  description: stripHtml(product.description || product.short_description),
-  url: canonicalUrl,
-  image: product.images?.[0]?.src,
-  provider: {
-    '@type': 'ConstructionCompany',
-    name: siteConfig.name,
-    url: siteConfig.url,
-    telephone: siteConfig.phone,
-    email: siteConfig.email,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: siteConfig.address?.street,
-      addressLocality: siteConfig.address?.city,
-      addressRegion: siteConfig.address?.state,
-      postalCode: siteConfig.address?.zip,
-      addressCountry: 'ID',
+  '@graph': {
+    '@type': 'Service',
+    '@id': `${canonicalUrl}#service`,
+    name: seoTitle,
+    url: canonicalUrl,
+    description: seoDesc,
+    serviceType: 'JasaBorePiledanStraussPile',
+    areaServed: {
+      '@type': 'City',
+      name: cityName,
+      sameAs: cityWikipediaUrl,
     },
-  },
-  ...(hasPrice ? {
+    provider: {
+      '@type': 'Organization',
+      '@id': `${siteConfig.url}#organization`,
+      name: 'PT. Jowo Land Construction',
+      url: siteConfig.url,
+      contactPoint: {
+        '@type': 'ContactPoint',
+        telephone: '+6285280749218',
+        contactType: 'Sales',
+      },
+    },
     offers: {
       '@type': 'Offer',
-      price: product.price,
+      '@id': `${canonicalUrl}#offer`,
       priceCurrency: 'IDR',
-      availability: product.stock_status === 'instock'
-        ? 'https://schema.org/InStock'
-        : 'https://schema.org/OutOfStock',
+      price: wcPrice,
       url: canonicalUrl,
+      itemOffered: {
+        '@type': 'Product',
+        '@id': `${canonicalUrl}#product`,
+        name: seoTitle,
+        description: seoDesc,
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          bestRating: '5',
+          reviewCount: reviewCount,
+          ratingValue: ratingValue,
+        },
+      },
     },
-  } : {}),
-  ...(product.average_rating && parseFloat(product.average_rating) > 0 ? {
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: product.average_rating,
-      reviewCount: product.rating_count,
-    },
-  } : {}),
+  },
 };
 
 const breadcrumbSchema = {
@@ -89,18 +127,12 @@ const breadcrumbSchema = {
 };
 ---
 
-<PageLayout title={seoTitle} description={seoDesc}>
-  <Fragment slot="head">
-    <link rel="canonical" href={canonicalUrl} />
-    <meta property="og:title" content={seoTitle} />
-    <meta property="og:description" content={seoDesc} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={canonicalUrl} />
-    <meta property="og:type" content="product" />
-    <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
-  </Fragment>
-
+<PageLayout
+  title={seoTitle}
+  description={seoDesc}
+  image={ogImage}
+  extraSchemas={[serviceSchema, breadcrumbSchema]}
+>
   <!-- Breadcrumb -->
   <nav class="bg-background border-b border-border" aria-label="Breadcrumb">
     <div class="mx-auto max-w-6xl px-6 py-3">

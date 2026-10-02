@@ -9,6 +9,8 @@ import Badge from '@/components/ui/data-display/Badge/Badge.astro';
 import Card from '@/components/ui/data-display/Card/Card.astro';
 import { Hero } from '@/components/hero';
 import ContactForm from '@/components/patterns/ContactForm.astro';
+import { Image } from 'astro:assets';
+import founderImage from '@/assets/images/founder.jpg';
 
 const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
 
@@ -37,7 +39,7 @@ const channels = [
   description="Hubungi PT. Jowo Land Construction untuk konsultasi, survey lokasi, dan penawaran jasa bore pile profesional di Jawa, Jakarta, Banten, dan Bali."
   eagerReveal
 >
-  <Hero layout="centered" size="sm" class="isolate" showHeroHalo>
+  <Hero layout="centered" size="md" class="isolate" showHeroHalo>
     <Badge slot="badge" variant="brand" pill>
       <Icon name="message-circle" size="sm" />
       Hubungi Kami
@@ -48,6 +50,43 @@ const channels = [
     <p slot="description">
       PT. Jowo Land Construction siap membantu kebutuhan bore pile dan strauss pile untuk berbagai proyek konstruksi dengan respon cepat 24 jam.
     </p>
+
+    <!-- Centered Founder Photo & Profile Showcase -->
+    <div class="mt-6 flex flex-col items-center text-center">
+      <div class="relative group">
+        <!-- Glow halo around founder image -->
+        <div class="absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-brand-500/40 via-brand-400/20 to-brand-600/40 blur-lg opacity-75 group-hover:opacity-100 transition duration-500"></div>
+        <div class="relative w-44 h-56 sm:w-52 sm:h-64 md:w-60 md:h-72 rounded-2xl overflow-hidden border-2 border-brand-500/40 shadow-2xl bg-background-secondary">
+          <Image
+            src={founderImage}
+            alt="Achmad Fikri Ibnu Hadi - Founder & Director PT. Jowo Land Construction"
+            width={480}
+            height={576}
+            class="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500 ease-out"
+            loading="eager"
+            fetchpriority="high"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-2.5 inset-x-2 text-center text-white">
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-brand-500/90 text-white shadow-sm backdrop-blur-sm">
+              Founder & Director
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4">
+        <h3 class="font-display text-xl sm:text-2xl font-bold text-foreground">
+          Achmad Fikri Ibnu Hadi
+        </h3>
+        <p class="text-sm font-medium text-foreground-muted mt-0.5">
+          PT. Jowo Land Construction
+        </p>
+        <p class="text-xs sm:text-sm text-brand-500 font-semibold italic mt-1">
+          "Spesialis Geoteknik Rekayasa Pondasi"
+        </p>
+      </div>
+    </div>
   </Hero>
 
   <!-- Kontak Section -->

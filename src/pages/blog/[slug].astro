@@ -21,45 +21,55 @@ if (!post) return Astro.redirect('/blog');
 
 const img = getFeaturedImage(post);
 const cats = getPostCategories(post);
-const authorName = post._embedded?.author?.[0]?.name || siteConfig.name;
+const authorName = post._embedded?.author?.[0]?.name || siteConfig.author || 'Achmad Fikri Ibnu Hadi, S.T.';
 const excerpt = stripHtml(post.excerpt.rendered);
 
-const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
+const primaryTaxonomyTerms = cats.length > 0 ? cats[0] : 'Konstruksi';
+const tagNames = post._embedded?.['wp:term']?.[1]?.map((t) => t.name) ?? [];
+const keywords = tagNames.length > 0 ? tagNames.join(', ') : (cats.join(', ') || 'Bore Pile, Strauss Pile, Konstruksi Pondasi');
 
 const canonicalUrl = `${siteConfig.url}/blog/${post.slug}`;
 const seoTitle = post.yoast_head_json?.title || `${stripHtml(post.title.rendered)} | PT. Jowo Land Construction`;
 const seoDesc = post.yoast_head_json?.description || excerpt.slice(0, 160);
 const ogImage = post.yoast_head_json?.og_image?.[0]?.url || img?.src || `${siteConfig.url}/og-default.svg`;
+const postThumbnail = ogImage;
+
+// Format date to ISO with timezone (Y-m-dTH:i:sP)
+function formatIsoWithTimezone(dateStr: string): string {
+  try {
+    const d = new Date(dateStr);
+    return isNaN(d.getTime()) ? dateStr : d.toISOString();
+  } catch {
+    return dateStr;
+  }
+}
+
+const datePublished = formatIsoWithTimezone(post.date);
+const dateModified = formatIsoWithTimezone(post.modified);
+
+const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
 
 const recentPosts = await getPosts({ per_page: 4, exclude: String(post.id) });
 
+// Dynamic Article Schema with @graph according to specification
 const articleSchema = {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: stripHtml(post.title.rendered),
-  description: seoDesc,
-  url: canonicalUrl,
-  image: ogImage,
-  datePublished: post.date,
-  dateModified: post.modified,
-  author: {
-    '@type': 'Person',
-    name: authorName,
-  },
-  publisher: {
-    '@type': 'Organization',
-    name: siteConfig.name,
-    url: siteConfig.url,
-    ...(siteConfig.branding.logo.imageUrl ? {
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteConfig.url}${siteConfig.branding.logo.imageUrl}`,
-      },
-    } : {}),
-  },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': canonicalUrl,
+  '@graph': {
+    '@type': 'Article',
+    articleSection: primaryTaxonomyTerms,
+    headline: seoTitle,
+    description: seoDesc,
+    keywords: keywords,
+    author: {
+      '@type': 'Person',
+      name: authorName,
+    },
+    datePublished: datePublished,
+    dateModified: dateModified,
+    image: {
+      '@type': 'ImageObject',
+      url: postThumbnail,
+    },
   },
 };
 
@@ -74,7 +84,12 @@ const breadcrumbSchema = {
 };
 ---
 
-<PageLayout title={seoTitle} description={seoDesc}>
+<PageLayout
+  title={seoTitle}
+  description={seoDesc}
+  image={ogImage}
+  extraSchemas={[articleSchema, breadcrumbSchema]}
+>
   <Fragment slot="head">
     <link rel="canonical" href={canonicalUrl} />
     <meta property="og:title" content={seoTitle} />
@@ -82,10 +97,8 @@ const breadcrumbSchema = {
     <meta property="og:image" content={ogImage} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:type" content="article" />
-    <meta property="article:published_time" content={post.date} />
-    <meta property="article:modified_time" content={post.modified} />
-    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+    <meta property="article:published_time" content={datePublished} />
+    <meta property="article:modified_time" content={dateModified} />
   </Fragment>
 
   <!-- Breadcrumb -->

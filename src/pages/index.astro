@@ -193,9 +193,8 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
                     { aspect: 'Kecepatan', a: 'Lebih lambat', b: 'Lebih cepat, terutama untuk volume banyak titik', aIcon: 'clock', bIcon: 'zap' },
                     { aspect: 'Getaran', a: 'Sangat minim', b: 'Minim (tetap lebih terkontrol dibanding tiang pancang)', aIcon: 'activity', bIcon: 'activity' },
                   ].map((row, i) => (
-                    <div key={i} class={`grid grid-cols-5 text-xs sm:text-sm border-t ${i % 2 === 0 ? 'bg-background/60' : ''}`}>
+                    <div class={`grid grid-cols-5 text-xs sm:text-sm border-t ${i % 2 === 0 ? 'bg-background/60' : ''}`}>
                       <div class="col-span-1 px-4 sm:px-5 py-3.5 flex items-center gap-2 font-medium text-foreground/90">
-                        <span class="text-foreground-muted shrink-0">{row.i}</span>
                         {row.aspect}
                       </div>
                       <div class="col-span-2 px-4 sm:px-5 py-3.5 border-l border-border flex items-start gap-2.5 text-foreground-muted">
@@ -259,7 +258,6 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
                     },
                   ].map((m, i) => (
                     <div
-                      key={m.tag}
                       class={`relative group rounded-2xl border border-border bg-background/60 p-5 sm:p-6 flex flex-col gap-3.5 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 hover:border-brand-500/40 ${i === 1 ? 'md:-mt-2 md:mb-2' : ''}`}
                       data-reveal
                       data-reveal-delay={String(i)}
@@ -309,7 +307,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
         {[
           { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
           { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
-          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
+          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu). Mobilisasi Alat dan Tenaga Tim lapangan kami akan memobilisasi alat dan tenaga dari gudang (workshop) PT. Jowo Land Construction menuju ke lokasi proyek.' },
           { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
           { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
           { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
@@ -339,7 +337,7 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
         {[
           { step: '1', icon: 'search', title: 'Analisa Soil Test Terhadap Daya Dukung Tanah', desc: 'Kami mengawali setiap proyek dengan analisa data penyelidikan tanah (seperti hasil Sondir atau Boring Log). Langkah ini sangat krusial untuk mengetahui stratigrafi dan karakteristik jenis tanah.' },
           { step: '2', icon: 'map-pin', title: 'Survey Lokasi', desc: 'Tim engineer kami melakukan peninjauan ke lokasi secara langsung. Tujuannya adalah memetakan topografi, mengidentifikasi risiko pada bangunan sekitar, dan menentukan akses mobilisasi peralatan bor.' },
-          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu).' },
+          { step: '3', icon: 'drill', title: 'Pengeboran', desc: 'Proses penggalian tanah dilakukan menggunakan metode dan mata bor (auger, bucket, atau coring) yang disesuaikan dengan jenis tanah (lempung, pasir, atau berbatu). Mobilisasi Alat dan Tenaga Tim lapangan kami akan memobilisasi alat dan tenaga dari gudang (workshop) PT. Jowo Land Construction menuju ke lokasi proyek.' },
           { step: '4', icon: 'settings', title: 'Fabrikasi Besi', desc: 'Kami melakukan perakitan tulangan baja berbentuk silinder secara in-situ. Proses ini sangat memperhatikan spesifikasi diameter besi utama dan jarak sengkang (spiral) sesuai gambar kerja (DED).' },
           { step: '5', icon: 'droplet', title: 'Pengecoran', desc: 'Penuangan beton bermutu tinggi (misal: K-250 hingga K-350) wajib menggunakan pipa tremi (apabila lubang berair). Pipa ini dimasukkan hingga ke dasar lubang untuk mendorong lumpur keluar.' },
           { step: '6', icon: 'check-circle', title: 'Finishing dan Quality Control', desc: 'Sebagai jaminan mutu struktural, kami menyediakan layanan pengujian pondasi pasca-pengecoran, meliputi PDA Test, PIT Test, dan Static Load Test.' },
