@@ -10,7 +10,7 @@ import { stripHtml, getProducts, formatPrice } from '@/lib/wordpress';
 import { createFAQSchema, createBreadcrumbSchema } from '@/lib/schema';
 import siteConfig from '@/config/site.config';
 
-const featuredProducts = await getProducts({ per_page: 3, orderby: 'menu_order', order: 'asc' });
+const featuredProducts = await getProducts({ per_page: 20, orderby: 'menu_order', order: 'asc' });
 
 const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
 
@@ -482,58 +482,80 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
         ))}
       </div>
       {featuredProducts.length > 0 && (
-        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {featuredProducts.map((product, i) => {
-            const img = product.images?.[0];
-            const desc = stripHtml(product.short_description || product.description).slice(0, 120);
-            const hasPrice = product.price && parseFloat(product.price) > 0;
-            return (
-              <a href={`/area-layanan/${product.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
-                <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
-                  {img && (
-                    <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
-                      <img
-                        src={img.src}
-                        alt={img.alt || product.name}
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                        loading="lazy"
-                        width="400"
-                        height="225"
-                      />
-                    </div>
-                  )}
-                  <div class="flex flex-1 flex-col p-5">
-                    <div class="flex items-start justify-between gap-2 mb-2">
-                      <h3 class="font-display text-base font-bold text-foreground leading-snug">{product.name}</h3>
-                      {product.on_sale && (
-                        <Badge variant="brand" pill class="shrink-0 text-xs">Promo</Badge>
-                      )}
-                    </div>
-                    {desc && (
-                      <p class="text-sm text-foreground-muted leading-relaxed mb-3 flex-1">{desc}…</p>
-                    )}
-                    <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
-                      {hasPrice ? (
-                        <div>
-                          {product.on_sale && product.regular_price && (
-                            <p class="text-xs text-foreground-muted line-through">{formatPrice(product.regular_price)}</p>
-                          )}
-                          <p class="text-sm font-bold text-brand-500">{formatPrice(product.price)}</p>
+        <div class="relative" data-reveal>
+
+          <!-- Viewport -->
+          <div id="woo-viewport" class="overflow-hidden mx-auto">
+            <div id="woo-track" class="flex gap-6 transition-transform duration-500 ease-in-out will-change-transform">
+              {featuredProducts.map((product, i) => {
+                const img = product.images?.[0];
+                const desc = stripHtml(product.short_description || product.description).slice(0, 120);
+                const hasPrice = product.price && parseFloat(product.price) > 0;
+                return (
+                  <a
+                    href={`/area-layanan/${product.slug}`}
+                    class="woo-slide group flex-none w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] block"
+                  >
+                    <Card variant="elevated" padding="none" class="flex flex-col h-full">
+                      {img && (
+                        <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
+                          <img
+                            src={img.src}
+                            alt={img.alt || product.name}
+                            class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                            width="400"
+                            height="225"
+                          />
                         </div>
-                      ) : (
-                        <p class="text-sm text-foreground-muted italic">Hubungi untuk harga</p>
                       )}
-                      <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 group-hover:gap-2 transition-all">
-                        Detail <Icon name="arrow-right" size="sm" />
-                      </span>
-                    </div>
-                  </div>
-                </Card>
-              </a>
-            );
-          })}
+                      <div class="flex flex-1 flex-col p-5">
+                        <div class="flex items-start justify-between gap-2 mb-2">
+                          <h3 class="font-display text-base font-bold text-foreground leading-snug">{product.name}</h3>
+                          {product.on_sale && (
+                            <Badge variant="brand" pill class="shrink-0 text-xs">Promo</Badge>
+                          )}
+                        </div>
+                        {desc && (
+                          <p class="text-sm text-foreground-muted leading-relaxed mb-3 flex-1">{desc}…</p>
+                        )}
+                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-border">
+                          {hasPrice ? (
+                            <div>
+                              {product.on_sale && product.regular_price && (
+                                <p class="text-xs text-foreground-muted line-through">{formatPrice(product.regular_price)}</p>
+                              )}
+                              <p class="text-sm font-bold text-brand-500">{formatPrice(product.price)}</p>
+                            </div>
+                          ) : (
+                            <p class="text-sm text-foreground-muted italic">Hubungi untuk harga</p>
+                          )}
+                          <span class="inline-flex items-center gap-1 text-sm font-medium text-brand-500 group-hover:gap-2 transition-all">
+                            Detail <Icon name="arrow-right" size="sm" />
+                          </span>
+                        </div>
+                      </div>
+                    </Card>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+
+          <!-- Tombol navigasi -->
+          <button id="woo-prev" aria-label="Sebelumnya"
+            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-20 w-11 h-11 rounded-full bg-card border border-brand-500/40 shadow-md flex items-center justify-center text-foreground hover:bg-brand-500 hover:text-white hover:border-brand-500 transition-all duration-200 hidden md:flex">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button id="woo-next" aria-label="Berikutnya"
+            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-20 w-11 h-11 rounded-full bg-card border border-brand-500/40 shadow-md flex items-center justify-center text-foreground hover:bg-brand-500 hover:text-white hover:border-brand-500 transition-all duration-200 hidden md:flex">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
         </div>
       )}
+
+      <!-- Dot indicators woo -->
+      <div id="woo-dots" class="flex justify-center gap-2 mt-4"></div>
       <div class="text-center">
         <Button variant="outline" href="/projects">
           Lihat Seluruh Proyek Terbaru Kami
@@ -860,6 +882,101 @@ const faqSchema = createFAQSchema(faqs.map(f => ({ question: f.q, answer: f.a })
           const maxPage = Math.ceil(total / perView) - 1;
           goTo(current + perView > maxPage * perView ? 0 : current + perView);
         }, 5000);
+      }
+
+      btnPrev?.addEventListener('click', () => { goTo(current - perView); startAuto(); });
+      btnNext?.addEventListener('click', () => { goTo(current + perView); startAuto(); });
+
+      // Touch/swipe support
+      let touchStartX = 0;
+      viewport.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+      viewport.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          diff > 0 ? goTo(current + perView) : goTo(current - perView);
+          startAuto();
+        }
+      }, { passive: true });
+
+      window.addEventListener('resize', () => { init(); startAuto(); });
+
+      init();
+      startAuto();
+    })();
+  </script>
+
+  <script>
+    // Woo Products Slider
+    (function () {
+      const viewport = document.getElementById('woo-viewport') as HTMLElement;
+      const track = document.getElementById('woo-track') as HTMLElement;
+      const btnPrev = document.getElementById('woo-prev') as HTMLButtonElement;
+      const btnNext = document.getElementById('woo-next') as HTMLButtonElement;
+      const dotsContainer = document.getElementById('woo-dots') as HTMLElement;
+      if (!viewport || !track) return;
+
+      const slides = Array.from(track.querySelectorAll<HTMLElement>('.woo-slide'));
+      const total = slides.length;
+      let current = 0;
+      let perView = 1;
+      let autoTimer: ReturnType<typeof setInterval>;
+
+      function getPerView(): number {
+        if (window.innerWidth >= 1024) return 3;
+        if (window.innerWidth >= 768) return 2;
+        return 1;
+      }
+
+      function getSlideWidth(): number {
+        if (slides.length === 0) return 0;
+        return slides[0].getBoundingClientRect().width + 24; // +gap(6 * 4px = 24px)
+      }
+
+      function buildDots() {
+        dotsContainer.innerHTML = '';
+        const pages = Math.ceil(total / perView);
+        for (let i = 0; i < pages; i++) {
+          const dot = document.createElement('button');
+          dot.setAttribute('aria-label', `Halaman ${i + 1}`);
+          dot.className = 'w-2.5 h-2.5 rounded-full transition-all duration-300 ' +
+            (i === Math.floor(current / perView) ? 'bg-brand-500 w-6' : 'bg-foreground-muted/30 hover:bg-foreground-muted/60');
+          dot.addEventListener('click', () => goTo(i * perView));
+          dotsContainer.appendChild(dot);
+        }
+      }
+
+      function updateDots() {
+        const dots = dotsContainer.querySelectorAll<HTMLButtonElement>('button');
+        const page = Math.floor(current / perView);
+        dots.forEach((d, i) => {
+          d.className = 'rounded-full transition-all duration-300 ' +
+            (i === page ? 'bg-brand-500 w-6 h-2.5' : 'bg-foreground-muted/30 hover:bg-foreground-muted/60 w-2.5 h-2.5');
+        });
+      }
+
+      function goTo(idx: number) {
+        const maxPage = Math.ceil(total / perView) - 1;
+        current = Math.max(0, Math.min(idx, maxPage * perView));
+        const offset = getSlideWidth() * current;
+        track.style.transform = `translateX(-${offset}px)`;
+        updateDots();
+        if (btnPrev) btnPrev.disabled = current === 0;
+        if (btnNext) btnNext.disabled = current >= maxPage * perView;
+      }
+
+      function init() {
+        perView = getPerView();
+        current = 0;
+        buildDots();
+        goTo(0);
+      }
+
+      function startAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => {
+          const maxPage = Math.ceil(total / perView) - 1;
+          goTo(current + perView > maxPage * perView ? 0 : current + perView);
+        }, 4500);
       }
 
       btnPrev?.addEventListener('click', () => { goTo(current - perView); startAuto(); });
