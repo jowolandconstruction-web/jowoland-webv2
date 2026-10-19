@@ -122,8 +122,8 @@ export interface SiteConfig {
 const siteConfig: SiteConfig = {
   name: 'PT. Jowo Land Construction',
   description:
-    'PT. Jowo Land Construction - Kontraktor jasa bore pile & strauss pile profesional sejak 2012. Spesialis geoteknik rekayasa pondasi dengan harga terjangkau, layanan 7 provinsi di Jawa & Bali, dan 98% kepuasan klien.',
-  url: SITE_URL || 'https://jowolandborepile.co.id',
+    'PT. Jowo Land Construction adalah kontraktor jasa bore pile manual (strauss pile) dan mesin (mini crane &amp; hydraulic drilling rig) yang beroperasi sejak 2012, melayani area Jawa dan Bali.',
+  url: SITE_URL || 'https://jowolandborepile.co.id/',
   ogImage: '/og-default.svg',
   author: 'Achmad Fikri Ibnu Hadi',
   email: 'info@jowolandborepile.co.id',
@@ -180,7 +180,7 @@ const siteConfig: SiteConfig = {
   branding: {
     logo: {
       alt: 'PT. Jowo Land Construction',
-      imageUrl: '/assets/img/Logo Hutama Bore Pile.webp',
+      imageUrl: '/assets/img/Logo-PT-Jowoland-construction.png',
     },
     favicon: {
       svg: '/Logo-PT-Jowoland-construction.png',
