@@ -1,4 +1,5 @@
 import en from './en.json';
+import id from './id.json';
 import nl from './nl.json';
 import i18nConfig from '../config/i18n.config';
 
@@ -10,6 +11,7 @@ export type Locale = string;
 export type Dictionary = typeof en;
 
 const dictionaries: Record<string, Dictionary> = {
+  id: id as Dictionary,
   en: en as Dictionary,
   nl: nl as Dictionary,
 };

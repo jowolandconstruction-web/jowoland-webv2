@@ -24,7 +24,7 @@ export function createWebsiteSchema(): WithContext<WebSite> {
 }
 
 /**
- * Create Person schema for Astro Rocket
+ * Create Person schema for PT. Jowo Land Construction founder
  */
 export function createPersonSchema(): WithContext<Person> {
   return {

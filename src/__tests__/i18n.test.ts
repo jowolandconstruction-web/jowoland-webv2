@@ -20,8 +20,8 @@ describe('i18n t() helper', () => {
   });
 
   it('falls back to the default-locale string when the locale has no entry', () => {
-    // 'de' has no dictionary loaded yet — should fall back to English
-    expect(t('common.readMore', 'de')).toBe('Read more');
+    // 'de' has no dictionary loaded yet — should fall back to default locale (id)
+    expect(t('common.readMore', 'de')).toBe('Baca selengkapnya');
   });
 
   it('returns the key itself when no translation exists in any dictionary', () => {

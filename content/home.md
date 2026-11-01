@@ -1,15 +1,15 @@
-Meta title	: Kontraktor Jasa Pondasi Bored Pile (Strauss Pile)
-Meta des	: PT. Jowo Land Construction merupakan kontraktor jasa bore pile & strauss pile profesional dan berpengalaman sejak 2012, dengan harga per meter murah.
+Meta title	: Kontraktor Jasa Bore Pile Manual dan Mesin Harga Per Meter
+Meta des	: PT. Jowo Land Construction adalah kontraktor jasa bore pile manual (strauss pile) & mesin (mini crane/hydraulic rig) sejak 2012. Harga mulai Rp 135.000/meter. Melayani Jawa–Bali.
 Schema	: organisasi local business, product.
 
-(H1) Kontraktor Jasa Pondasi Bored Pile (Strauss Pile)
+(H1) Kontraktor Jasa Bore Pile Manual dan Mesin Harga Per Meter
 PT. Jowo Land Construction Spesialis Geoteknik Rekayasa Pondasi (Jasa Bore Pile dan Strauss Pile).
 98% Kepuasan | 168+ Klien | 820+ Proyek Selesai
 [CTA]
 
 
-(H2) Memahami Pondasi Bored Pile (Strauss Pile)
-Pondasi Bored Pile ialah pondasi beton berbentuk tabung silinder, pondasi ini secara prinsip semacam pondasi tiang pancang (paku bumi), namun pemasangannya dimulai dari pengeboran tanah, memasukkan tulangan besi yang telah dirakit, lalu pengecoran di tempat (in-situ).
+(H2) Memahami Pondasi Bore Pile (Strauss Pile)
+Pondasi Bore Pile ialah pondasi beton berbentuk tabung silinder, pondasi ini secara prinsip semacam pondasi tiang pancang (paku bumi), namun pemasangannya dimulai dari pengeboran tanah, memasukkan tulangan besi yang telah dirakit, lalu pengecoran di tempat (in-situ).
  
 Merujuk dari wikipedia: pondasi bore pile diklasifikasikan sebagai pondasi dalam, yang dirancang untuk mentransfer beban struktur menuju lapisan tanah terkeras yang memiliki daya dukung lebih baik. untuk lebih memahami pondasi bored pile silahkan kunjungi halaman ini: [CTA: Pondasi Bore Pile]
 
@@ -33,7 +33,7 @@ Berikut tabel harga jasa bore pile sebagai acuan dasar secara umum:
 
 Diameter Lubang (Ø)
 Alat Mesin Mini Crane
-Alat Berat Excavator
+Hydraulic Drilling Rig
 30 cm
 Rp135.000/m¹
 Rp185.000/m¹
@@ -58,8 +58,10 @@ Rp350.000/m¹
 (H2) Pilihan Metode Alat Bore Pile Sesuai Kebutuhan Proyek Anda
 Kami dari PT. Jowo Land Construction paham, setiap proyek memiliki spek, anggaran, dan jenis tanah yang berbeda, sehingga alat yang digunakan-pun harus menyesuaikan kebutuhan tersebut. Berikut jenis alat yang dapat anda pilih:
 (H3) Metode Alat Strauss Pile (Mini Crane / Wash Boring)
+Menggunakan mesin bor mini crane yang lebih ringkas namun tetap bertenaga, cocok untuk proyek dengan kedalaman menengah dan akses lokasi yang masih memungkinkan mobilisasi alat berukuran sedang. Ideal untuk rumah tinggal, ruko 2–3 lantai, dan proyek di area dengan akses terbatas.
 
 (H3) Metode Alat Hydraulic Drilling Rig (Alat Berat Bore Pile)
+Alat berat dengan tenaga hidraulik untuk proyek berskala besar yang membutuhkan kedalaman dan kapasitas daya dukung tinggi, seperti gedung bertingkat, gudang industri, atau kawasan pabrik. Membutuhkan akses lokasi yang memadai untuk mobilisasi alat berat.
 (H2) Mengapa Menggunakan Jasa Bore Pile dari PT. Jowo Land Construction?
 PT. Jowo Land Construction tidak melihat pekerjaan bore pile sebagai aktivitas membuat lubang dan menuangkan beton saja. Kami melihatnya sebagai proses rekayasa geoteknik yang menentukan masa depan sebuah bangunan. Karena bagi kami, setiap proyek bukan sekadar pekerjaan konstruksi, lebih dari itu, kami melihat pekerjaan bore pile sebagai REPUTASI.
 (H3) Keunggulan PT. Jowo Land Construction Sebagai Kontraktor Bore Pile

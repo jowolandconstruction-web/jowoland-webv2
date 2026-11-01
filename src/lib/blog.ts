@@ -6,6 +6,7 @@
  * conventions without drifting.
  */
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { defaultLocale } from '@/i18n';
 
 /** Number of regular (non-featured) posts shown per blog index page. */
 export const BLOG_POSTS_PER_PAGE = 12;
@@ -35,12 +36,12 @@ export function findTagBySlug(slug: string, allTags: string[]): string | undefin
  * Strip the locale prefix from a blog entry's id to get its URL slug
  * (e.g. "en/welcome" → "welcome").
  */
-export function getPostSlug(postId: string, locale = 'en'): string {
+export function getPostSlug(postId: string, locale = defaultLocale): string {
   return postId.replace(new RegExp(`^${locale}/`), '');
 }
 
 /** URL path for an individual blog post. */
-export function getPostUrl(postId: string, locale = 'en'): string {
+export function getPostUrl(postId: string, locale = defaultLocale): string {
   return `/blog/${getPostSlug(postId, locale)}`;
 }
 
@@ -49,7 +50,7 @@ export function getPostUrl(postId: string, locale = 'en'): string {
  * out in production, kept visible in dev so authors can preview them.
  */
 export async function getPublishedPosts(
-  locale = 'en',
+  locale = defaultLocale,
 ): Promise<CollectionEntry<'blog'>[]> {
   const all = await getCollection('blog', ({ data }) => {
     return data.locale === locale && (import.meta.env.PROD ? data.draft !== true : true);

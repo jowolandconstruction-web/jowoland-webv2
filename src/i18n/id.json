@@ -1,0 +1,82 @@
+{
+  "nav": {
+    "skipToContent": "Lewati ke konten",
+    "openMenu": "Buka menu",
+    "closeMenu": "Tutup menu",
+    "selectLanguage": "Pilih bahasa",
+    "currentLanguage": "Bahasa saat ini"
+  },
+  "common": {
+    "readMore": "Baca selengkapnya",
+    "loading": "Memuat…",
+    "backToTop": "Kembali ke atas",
+    "search": "Cari",
+    "submit": "Kirim",
+    "cancel": "Batal",
+    "next": "Selanjutnya",
+    "previous": "Sebelumnya"
+  },
+  "blog": {
+    "title": "Blog",
+    "description": "Artikel dan informasi terbaru",
+    "readingTime": "{minutes} menit baca",
+    "publishedOn": "Diterbitkan pada {date}",
+    "updatedOn": "Diperbarui pada {date}",
+    "writtenBy": "Ditulis oleh {author}",
+    "tagsLabel": "Tag",
+    "featured": "Unggulan",
+    "draft": "Draf",
+    "noPostsFound": "Tidak ada artikel ditemukan.",
+    "tableOfContents": "Daftar isi",
+    "shareThisPost": "Bagikan artikel ini"
+  },
+  "projects": {
+    "title": "Proyek",
+    "description": "Portofolio proyek yang telah dikerjakan",
+    "viewProject": "Lihat proyek",
+    "viewSource": "Lihat sumber",
+    "noProjectsFound": "Tidak ada proyek ditemukan."
+  },
+  "pagination": {
+    "page": "Halaman {current} dari {total}",
+    "previousPage": "Halaman sebelumnya",
+    "nextPage": "Halaman selanjutnya"
+  },
+  "errors": {
+    "pageNotFound": "Halaman tidak ditemukan",
+    "pageNotFoundMessage": "Halaman yang Anda cari tidak ada atau telah dipindahkan.",
+    "goHome": "Kembali ke beranda"
+  },
+  "newsletter": {
+    "heading": "Berlangganan buletin",
+    "description": "Dapatkan update informasi langsung di email Anda.",
+    "emailPlaceholder": "email@anda.com",
+    "subscribe": "Berlangganan",
+    "subscribing": "Memproses…",
+    "success": "Terima kasih! Silakan cek kotak masuk email Anda.",
+    "error": "Terjadi kesalahan. Silakan coba lagi."
+  },
+  "contact": {
+    "heading": "Hubungi Kami",
+    "name": "Nama",
+    "email": "Email",
+    "subject": "Subjek",
+    "message": "Pesan",
+    "send": "Kirim pesan",
+    "sending": "Mengirim…",
+    "success": "Terima kasih! Pesan Anda telah terkirim.",
+    "error": "Terjadi kesalahan. Silakan coba lagi."
+  },
+  "theme": {
+    "selectTheme": "Pilih tema",
+    "lightMode": "Mode terang",
+    "darkMode": "Mode gelap",
+    "systemMode": "Sistem",
+    "toggleTheme": "Ganti tema"
+  },
+  "footer": {
+    "copyright": "© {year} {name}. Semua hak dilindungi.",
+    "builtWith": "PT. Jowo Land Construction"
+  }
+}
+

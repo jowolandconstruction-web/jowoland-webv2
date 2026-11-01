@@ -180,7 +180,7 @@ const siteConfig: SiteConfig = {
   branding: {
     logo: {
       alt: 'PT. Jowo Land Construction',
-      imageUrl: '/assets/img/Logo Hutama Bore Pile.webp',
+      imageUrl: '/assets/img/logo-pt-jowo-land-construction.png',
     },
     favicon: {
       svg: '/Logo-PT-Jowoland-construction.png',
