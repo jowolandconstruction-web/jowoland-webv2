@@ -30,7 +30,7 @@
 
 Astro Rocket is a **launch-ready starter theme** for web designers, developers, bloggers, and anyone who needs a portfolio website. Every page is already built and styled — you change the text and content, and your site is ready to go live.
 
-It ships with a full blog, a complete component library, a built-in SEO layer, dark mode, a contact form, and 12 colour themes you can switch with one click. It's built on Astro 6 and Tailwind CSS v4.
+It ships with a full blog, a complete component library, a built-in SEO layer, a fixed light appearance, a contact form, and 12 colour themes you can switch with one click. It's built on Astro 6 and Tailwind CSS v4.
 
 **[Live demo → astrorocket.dev](https://astrorocket.dev)** · **[Built by Hans Martens → hansmartens.dev](https://hansmartens.dev)**
 
@@ -51,7 +51,7 @@ The following changes were made to the free Velocity theme to create Astro Rocke
 | **Blog image gradients** | Plain image containers | Every blog cover and card uses a brand-color gradient background that updates live when the active theme changes |
 | **Icon system** | Basic SVG `Icon` component | Unified `Icon` component powered by Iconify — 350+ Lucide UI icons + 3000+ Simple Icons brand icons |
 | **Typing effect** | Not included | Hero section includes an animated typing effect |
-| **Colour mode** | Binary `localStorage` toggle | 3-state picker — System / Light / Dark in `localStorage`, with `prefers-color-scheme` live tracking under 'System' (see [Colour Mode](#colour-mode)) |
+| **Colour mode** | Binary `localStorage` toggle | Light appearance is fixed; the header retains the independent colour-palette selector |
 | **Target audience** | Developers & agencies | Web designers, developers, bloggers, and portfolio sites |
 | **Ready to launch** | Boilerplate starting point | Fully styled pages — replace the text and your site is live |
 | **Maintained by** | Southwell Media | Hans Martens |
@@ -74,7 +74,7 @@ The following changes were made to the free Velocity theme to create Astro Rocke
 | **Page Animations** | Smooth page transitions via Astro View Transitions, scroll-triggered counter and score animations, scroll-reactive header, card hover effects, and a full suite of UI micro-animations — all with reduced-motion support |
 | **SEO Toolkit** | Meta tags, JSON-LD structured data, sitemap, and robots.txt |
 | **Static OG Image** | A polished default Open Graph image serves as social preview for all pages — no build-time generation required |
-| **Colour Mode** | 3-state picker — **System / Light / Dark** with `localStorage` persistence and live OS-preference tracking under 'System'; surfaced as a pill dropdown in the header (and inside the mobile menu) |
+| **Colour Mode** | Fixed light appearance regardless of operating-system preference |
 | **Content Collections** | Type-safe blog, pages, authors, and FAQs with Zod validation |
 | **API Routes** | Contact form and newsletter endpoints with validation |
 | **Table of Contents** | Optional table of contents on blog posts, auto-generated from MDX headings, with three layouts: inline card, sticky desktop sidebar, or `auto` (sidebar on `xl+`, inline card below). Includes `IntersectionObserver` scroll-spy. Off by default; per-post `toc: false` in frontmatter hides on a single post |
@@ -210,7 +210,7 @@ astro-rocket/
 │   │   │   ├── content/     # CodeBlock
 │   │   │   └── marketing/   # Logo, CTA, NpmCopyButton, SocialProof, TerminalDemo
 │   │   ├── patterns/        # Composed patterns (ContactForm, SearchInput, StatCard, etc.)
-│   │   ├── layout/          # Header, Footer, Navigation, ThemeModeDropdown, ThemeSelector(Dropdown)
+│   │   ├── layout/          # Header, Footer, Navigation, ThemeSelector(Dropdown)
 │   │   ├── seo/             # SEO, JsonLd, Breadcrumbs
 │   │   ├── blog/            # Blog-specific components
 │   │   └── landing/         # Landing page components
@@ -361,37 +361,7 @@ OKLCH values are `oklch(lightness chroma hue)`. To shift your brand to blue, cha
 
 ### Colour Mode
 
-Astro Rocket ships a 3-state colour-mode system — **System / Light / Dark** — instead of a binary toggle. The user's choice is persisted in `localStorage` under the key `theme`, and the resolved appearance is applied via the `.dark` class on `<html>`. Under `'system'`, the page tracks `window.matchMedia('(prefers-color-scheme: dark)')` live, so flipping the OS theme updates the page in real time without a reload.
-
-State contract:
-
-| Storage / DOM | Values | Role |
-|---|---|---|
-| `localStorage.theme` | `'system' \| 'light' \| 'dark'` | The user's saved choice (default `'system'`) |
-| `<html data-theme-mode="…">` | mirrors the saved mode | Drives the trigger icon (monitor / sun / moon) via CSS |
-| `<html>.dark` | present or absent | Resolved appearance — Tailwind dark variant keys off this |
-
-Defaults are seeded directly on the `<html>` element in `src/layouts/BaseLayout.astro` so JS-disabled visitors still see a sensible state:
-
-```html
-<html lang="en" class="scroll-smooth dark" data-theme="blue" data-theme-mode="system">
-```
-
-Flash-of-wrong-theme is prevented by an inline `<script>` in `<head>` that runs synchronously before body paint, reads `localStorage.theme`, and reconciles `data-theme-mode` + `.dark`. The same script also re-applies on `astro:before-swap` / `astro:after-swap` to handle view transitions, and subscribes once to the OS-preference media query.
-
-The picker is exposed as a pill-shaped dropdown in the header — `ThemeModeDropdown` — and re-rendered inside the mobile menu below the `md` breakpoint, so both desktop and mobile users get the full 3-state picker:
-
-```astro
----
-import ThemeModeDropdown from '@/components/layout/ThemeModeDropdown.astro';
----
-
-<ThemeModeDropdown />
-```
-
-The full design — bootstrap script, dropdown anatomy, the live "Currently dark/light" sub-line under 'System', and how two component instances stay state-synced — is written up in the [System, Light, Dark blog post](https://astrorocket.dev/blog/colour-mode-system).
-
-> **Why `localStorage` for colour mode but `sessionStorage` for the colour palette?** They serve different intents. The colour mode is the user's accessibility / preference setting and should survive reloads and new tabs — `localStorage`. The 12-swatch colour palette is a brand-discovery toy that should reset on every new visit so first impressions stay on-brand — `sessionStorage`. Keeping them on different storage tiers is intentional, not accidental.
+The site uses a fixed light appearance regardless of the visitor's operating-system preference. The header's colour-theme selector only changes the brand palette and remains independent from the page appearance.
 
 ### WCAG Contrast Requirements
 
@@ -518,7 +488,7 @@ Astro Rocket includes 57 components across 7 categories. All UI components use [
 | Category | Count | Components |
 |----------|-------|------------|
 | Hero | 1 | Hero section with centered/split layouts, grid pattern, and typing effect |
-| Layout | 6 | Header (with scroll progress bar), Footer, ThemeModeDropdown, ThemeSelector, ThemeSelectorDropdown, Analytics |
+| Layout | 5 | Header (with scroll progress bar), Footer, ThemeSelector, ThemeSelectorDropdown, Analytics |
 | Blog | 4 | ArticleHero, BlogCard, ShareButtons, RelatedPosts |
 | Landing | 5 | Credibility, LighthouseScores, TechStack, FeatureTabs, and more |
 | SEO | 3 | SEO, JsonLd, Breadcrumbs |

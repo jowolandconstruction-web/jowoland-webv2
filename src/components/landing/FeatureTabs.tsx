@@ -9,9 +9,9 @@ interface TabContent {
 
 const tabContent: Record<string, TabContent> = {
   theming: {
-    title: 'Design Tokens & Dark Mode',
+    title: 'Design Tokens & Colour Themes',
     content:
-      "Complete design system using Tailwind v4's CSS-first configuration with built-in dark mode. Semantic color tokens, system preference detection, and localStorage persistence.",
+      "Complete design system using Tailwind v4's CSS-first configuration. Semantic color tokens and live palette selection keep branding consistent across the site.",
   },
   seo: {
     title: 'Automated SEO Handling',
@@ -419,7 +419,7 @@ function CodeBlock({ code, filename, lang }: { code: string; filename: string; l
 
 // Tab definitions with icons for VerticalTabs
 const tabs: VerticalTab[] = [
-  { id: 'theming', label: 'Theming', description: 'Design tokens & dark mode', icon: Palette },
+  { id: 'theming', label: 'Theming', description: 'Design tokens & color themes', icon: Palette },
   { id: 'seo', label: 'SEO & Meta', description: 'OG images & structured data', icon: Search },
   { id: 'perf', label: 'Performance', description: 'Zero JS by default', icon: Zap },
   {

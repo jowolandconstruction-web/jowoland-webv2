@@ -15,7 +15,6 @@
  * - Dynamic navigation from nav.config.ts (default) or custom nav prop
  * - Optional CTA button with customization
  * - Mobile menu with Escape key support
- * - Theme toggle
  * - GitHub/action buttons
  * - Full slot support for customization
  * - Inverted color scheme for use on dark/image backgrounds
@@ -28,7 +27,6 @@ import { headerVariants, headerInnerVariants } from './header.variants';
 import Button from '@/components/ui/form/Button/Button.astro';
 import Icon from '@/components/ui/primitives/Icon/Icon.astro';
 import Logo from '@/components/ui/marketing/Logo/Logo.astro';
-import ThemeModeDropdown from '@/components/layout/ThemeModeDropdown.astro';
 import ThemeSelector from '@/components/layout/ThemeSelector.astro';
 import ThemeSelectorDropdown from '@/components/layout/ThemeSelectorDropdown.astro';
 import LanguageSwitcher from '@/components/layout/LanguageSwitcher.astro';
@@ -60,7 +58,6 @@ interface Props extends HTMLAttributes<'header'> {
   showCta?: boolean;
   cta?: { label?: string; href?: string; icon?: string; trailingIcon?: string };
   actions?: HeaderAction[];
-  showThemeToggle?: boolean;
   showThemeSelector?: boolean;
   showMobileMenu?: boolean;
   showActiveState?: boolean;
@@ -91,7 +88,6 @@ const {
   showCta = false,
   cta = { label: 'Start a project', href: '/contact' },
   actions = [],
-  showThemeToggle = true,
   showThemeSelector = true,
   showMobileMenu = true,
   showSocialLinks = false,
@@ -244,12 +240,6 @@ const buttonId = `${menuId}-button`;
           <slot name="actions" />
         ) : (
           <>
-            {showThemeToggle && (
-              <div class="flex">
-                <ThemeModeDropdown class={isFloating ? 'hdr-invert-text' : undefined} />
-              </div>
-            )}
-
             {showThemeSelector && (
               <div class="hidden lg:flex">
                 <ThemeSelectorDropdown class={isFloating ? 'hdr-invert-text' : undefined} />
@@ -1161,9 +1151,7 @@ const buttonId = `${menuId}-button`;
   }
 
   /* End at `transform: none` (not translateY(0)) so each row drops its
-     stacking context after the entry animation. Otherwise the
-     ThemeModeDropdown panel's z-50 is trapped inside its row and the
-     colour-theme swatches in the next row paint through it. */
+     stacking context after the entry animation. */
   @keyframes mobileMenuItemIn {
     from {
       opacity: 0;
@@ -1175,12 +1163,4 @@ const buttonId = `${menuId}-button`;
     }
   }
 
-  /* While the theme-mode dropdown is open, promote its row to a positioned
-     stacking context above sibling rows. The row sits in a non-flex
-     <section>, so a bare `z-index` is inert — `position: relative` is what
-     lets the panel paint above the colour-theme swatches below it. */
-  .mobile-menu-stagger:has(.ttg-panel:not(.hidden)) {
-    position: relative;
-    z-index: 60;
-  }
 </style>

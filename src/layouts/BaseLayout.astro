@@ -64,7 +64,7 @@ const locale = getLocaleFromPath(Astro.url.pathname);
 ---
 
 <!doctype html>
-<html lang={locale} class="scroll-smooth" data-theme="blue" data-theme-mode="light">
+<html lang={locale} class="scroll-smooth" data-theme="blue">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -111,34 +111,10 @@ const locale = getLocaleFromPath(Astro.url.pathname);
 
 
 
-    <!-- Theme bootstrap (runs before body paint; no flash of wrong theme).
-         Implements a 3-state colour-mode contract:
-           localStorage.theme ∈ {'system','light','dark'}  (default 'system')
-           <html data-theme-mode="…">                      (mirrors saved mode)
-           <html class="dark">                              (resolved appearance)
-         When mode === 'system', <html>.dark tracks prefers-color-scheme live. -->
+    <!-- Keep the palette preference in sync across regular and Astro navigations. -->
     <script is:inline>
       (function () {
         const COLOR_THEMES = ['orange', 'amber', 'lime', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'magenta'];
-        const VALID_MODES = ['system', 'light', 'dark'];
-
-        function getMode() {
-          try {
-            const stored = localStorage.getItem('theme');
-            if (VALID_MODES.indexOf(stored) !== -1) return stored;
-          } catch { /* private mode / disabled storage */ }
-          return 'light';
-        }
-
-        function applyMode(el) {
-          const mode = getMode();
-          el.setAttribute('data-theme-mode', mode);
-          const isDark =
-            mode === 'dark' ||
-            (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-          if (isDark) el.classList.add('dark');
-          else el.classList.remove('dark');
-        }
 
         function applyColorTheme(el) {
           try {
@@ -151,31 +127,18 @@ const locale = getLocaleFromPath(Astro.url.pathname);
         }
 
         function applyTheme(el) {
-          applyMode(el);
+          el.classList.remove('dark');
           applyColorTheme(el);
         }
 
         applyTheme(document.documentElement);
 
-        if (!window.__themeListenersInit) {
-          window.__themeListenersInit = true;
-
-          // Live-update when the OS flips colour scheme AND the user is on 'system'.
-          const mql = window.matchMedia('(prefers-color-scheme: dark)');
-          const onSchemeChange = function () {
-            if (getMode() === 'system') applyMode(document.documentElement);
-          };
-          if (mql.addEventListener) mql.addEventListener('change', onSchemeChange);
-          else if (mql.addListener) mql.addListener(onSchemeChange); // Safari < 14
-
-          // Re-apply across Astro view transitions (no flash on swap).
-          document.addEventListener('astro:before-swap', function (e) {
-            applyTheme(e.newDocument.documentElement);
-          });
-          document.addEventListener('astro:after-swap', function () {
-            applyTheme(document.documentElement);
-          });
-        }
+        document.addEventListener('astro:before-swap', function (e) {
+          applyTheme(e.newDocument.documentElement);
+        });
+        document.addEventListener('astro:after-swap', function () {
+          applyTheme(document.documentElement);
+        });
       })();
     </script>
   </head>

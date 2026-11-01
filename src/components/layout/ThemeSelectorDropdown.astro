@@ -190,16 +190,10 @@ const themes = [
       }
     });
 
-    // Toggle dropdown — close Pill A first so only one panel is ever open.
+    // Toggle the color-theme dropdown.
     trigger.addEventListener('click', (e) => {
       e.stopPropagation();
       const willOpen = panel.classList.contains('hidden');
-      // Close Pill A (theme-mode) panels
-      document.querySelectorAll<HTMLElement>('.ttg-panel').forEach((p) => p.classList.add('hidden'));
-      document.querySelectorAll<HTMLButtonElement>('.ttg-trigger').forEach((t) => {
-        t.setAttribute('aria-expanded', 'false');
-        t.querySelector('.ttg-chevron')?.classList.remove('rotate-180');
-      });
       if (willOpen) {
         panel.classList.remove('hidden');
         trigger.setAttribute('aria-expanded', 'true');
