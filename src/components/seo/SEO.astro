@@ -32,7 +32,29 @@ const {
   nofollow = false,
 } = Astro.props;
 
-const pageTitle = title ? `${title} — ${siteConfig.name}` : siteConfig.name;
+function formatPageTitle(rawTitle?: string): string {
+  if (!rawTitle) return siteConfig.name;
+
+  const siteName = siteConfig.name;
+  // Hapus jika rawTitle sudah diakhiri oleh pemisah + nama situs (misal: "Title | PT. Jowo Land Construction" atau "Title — PT. Jowo Land Construction")
+  const escapedSiteName = siteName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const trailingSitePattern = new RegExp(`\\s*([—–\\|-]|&mdash;|&ndash;)\\s*${escapedSiteName}\\s*$`, 'i');
+  const cleaned = rawTitle.replace(trailingSitePattern, '').trim();
+
+  // Jika setelah dibersihkan sama dengan nama situs, kembalikan nama situs saja
+  if (cleaned.toLowerCase() === siteName.toLowerCase()) {
+    return siteName;
+  }
+
+  // Jika nama situs masih ada di dalam title (misal "Tentang PT. Jowo Land Construction"), jangan tambahkan lagi
+  if (cleaned.toLowerCase().includes(siteName.toLowerCase())) {
+    return cleaned;
+  }
+
+  return `${cleaned} — ${siteName}`;
+}
+
+const pageTitle = formatPageTitle(title);
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -46,13 +68,13 @@ if (image) {
 
 const robotsContent = [noindex ? 'noindex' : 'index', nofollow ? 'nofollow' : 'follow'].join(', ');
 
-// Normalize BCP-47 locale (e.g. "en") to OG language_TERRITORY format (e.g. "en_US")
+// Normalize BCP-47 locale (e.g. "id") to OG language_TERRITORY format (e.g. "id_ID")
 const localeMap: Record<string, string> = {
-  en: 'en_US', fr: 'fr_FR', de: 'de_DE', es: 'es_ES', it: 'it_IT',
+  id: 'id_ID', en: 'en_US', fr: 'fr_FR', de: 'de_DE', es: 'es_ES', it: 'it_IT',
   pt: 'pt_BR', nl: 'nl_NL', ja: 'ja_JP', ko: 'ko_KR', zh: 'zh_CN',
   ru: 'ru_RU', ar: 'ar_SA', hi: 'hi_IN', pl: 'pl_PL', sv: 'sv_SE',
 };
-const rawLocale = Astro.currentLocale || 'en_US';
+const rawLocale = Astro.currentLocale || defaultLocale || 'id';
 const locale = rawLocale.includes('_') || rawLocale.includes('-')
   ? rawLocale.replace('-', '_')
   : (localeMap[rawLocale] || `${rawLocale}_${rawLocale.toUpperCase()}`);

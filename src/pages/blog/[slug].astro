@@ -29,7 +29,7 @@ const tagNames = post._embedded?.['wp:term']?.[1]?.map((t) => t.name) ?? [];
 const keywords = tagNames.length > 0 ? tagNames.join(', ') : (cats.join(', ') || 'Bore Pile, Strauss Pile, Konstruksi Pondasi');
 
 const canonicalUrl = `${siteConfig.url}/blog/${post.slug}`;
-const seoTitle = post.yoast_head_json?.title || `${stripHtml(post.title.rendered)} | PT. Jowo Land Construction`;
+const seoTitle = post.yoast_head_json?.title || stripHtml(post.title.rendered);
 const seoDesc = post.yoast_head_json?.description || excerpt.slice(0, 160);
 const ogImage = post.yoast_head_json?.og_image?.[0]?.url || img?.src || `${siteConfig.url}/og-default.svg`;
 const postThumbnail = ogImage;
