@@ -14,7 +14,7 @@ interface Props {
   description?: string;
   image?: string;
   imageAlt?: string;
-  /** Jika false, judul dipakai persis tanpa menambahkan "— <nama situs>". */
+  /** Jika true, judul diberi tambahan "— <nama situs>". Default: false. */
   suffix?: boolean;
   noindex?: boolean;
   nofollow?: boolean;
@@ -23,7 +23,7 @@ interface Props {
   extraSchemas?: any[];
 }
 
-const { title, description, image, imageAlt, suffix = true, noindex, nofollow, showScrollProgress = false, eagerReveal = false, extraSchemas = [] } = Astro.props;
+const { title, description, image, imageAlt, suffix = false, noindex, nofollow, showScrollProgress = false, eagerReveal = false, extraSchemas = [] } = Astro.props;
 
 const waLink = whatsappLink();
 

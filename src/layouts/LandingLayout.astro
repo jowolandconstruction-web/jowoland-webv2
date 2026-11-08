@@ -18,7 +18,7 @@ interface Props {
   description?: string;
   image?: string;
   imageAlt?: string;
-  /** Jika false, judul dipakai persis tanpa menambahkan "— <nama situs>". */
+  /** Jika true, judul diberi tambahan "— <nama situs>". Default: false. */
   suffix?: boolean;
   noindex?: boolean;
   nofollow?: boolean;
@@ -33,7 +33,7 @@ const {
   description,
   image,
   imageAlt,
-  suffix = true,
+  suffix = false,
   noindex = false,
   nofollow = false,
   includeOrgSchema = false,

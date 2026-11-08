@@ -13,9 +13,8 @@ interface Props {
   image?: string;
   imageAlt?: string;
   /**
-   * Jika `false`, judul dipakai persis seperti ditulis tanpa menambahkan
-   * "— <nama situs>" di belakangnya. Berguna untuk judul yang sudah
-   * memuat nama brand. Default: `true`.
+   * Jika `true`, "— <nama situs>" ditambahkan di belakang judul.
+   * Default: `false` — judul tidak lagi diberi embel-embel nama brand.
    */
   suffix?: boolean;
   article?: {
@@ -33,7 +32,7 @@ const {
   description = siteConfig.defaultMetaDescription,
   image,
   imageAlt,
-  suffix = true,
+  suffix = false,
   article,
   noindex = false,
   nofollow = false,
@@ -71,21 +70,19 @@ function normalizeForCompare(text: string): string {
 /**
  * Bersihkan judul halaman:
  * 1. Decode entitas HTML & normalisasi spasi.
- * 2. Buang segmen brand yang menempel di akhir judul (berulang) memakai
+ * 2. Buang segmen nama brand yang menempel di akhir judul (berulang) memakai
  *    perbandingan tanpa tanda baca/spasi.
- * 3. Tambahkan "— <nama situs>" satu kali saja (kecuali suffix={false}
- *    atau judul sudah memuat nama situs).
+ * 3. Tambahkan "— <nama situs>" satu kali saja bila suffix diaktifkan.
+ *    Secara default tidak ditambahkan, jadi judul bebas dari nama brand.
  */
-function formatPageTitle(rawTitle?: string, addSuffix = true): string {
+function formatPageTitle(rawTitle?: string, addSuffix = false): string {
   const siteName = siteConfig.name;
   if (!rawTitle) return siteName;
 
-  const cleaned = decodeHtmlEntities(rawTitle);
-  if (!addSuffix) return cleaned || siteName;
+  let title = decodeHtmlEntities(rawTitle);
 
   const normalizedSite = normalizeForCompare(siteName);
   const separators = ['—', '–', '|', '-', '·', ':'];
-  let title = cleaned;
   let changed = true;
   while (changed) {
     changed = false;
@@ -98,8 +95,10 @@ function formatPageTitle(rawTitle?: string, addSuffix = true): string {
       }
     }
   }
+  if (!title) title = decodeHtmlEntities(rawTitle);
 
-  if (!title) return siteName;
+  if (!addSuffix) return title;
+
   const normalizedTitle = normalizeForCompare(title);
   if (normalizedTitle === normalizedSite || normalizedTitle.includes(normalizedSite)) {
     return title;
