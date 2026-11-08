@@ -192,5 +192,5 @@ export function formatPrice(price: string): string {
   const num = parseFloat(price);
   if (isNaN(num)) return price;
   const formatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
-  return `${formatted} / M'`;
+  return `${formatted} /M`;
 }
