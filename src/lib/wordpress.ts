@@ -187,9 +187,10 @@ export function formatWPDate(dateStr: string): string {
   });
 }
 
-/** Format price in IDR */
+/** Format price in IDR (harga jasa bore pile dihitung per meter lari) */
 export function formatPrice(price: string): string {
   const num = parseFloat(price);
   if (isNaN(num)) return price;
-  return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+  const formatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', maximumFractionDigits: 0 }).format(num);
+  return `${formatted} / M'`;
 }
