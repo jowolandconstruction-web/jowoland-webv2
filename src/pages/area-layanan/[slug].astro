@@ -10,20 +10,19 @@ import Card from '@/components/ui/data-display/Card/Card.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import { getProduct, getProducts, formatPrice, stripHtml } from '@/lib/wordpress';
 import siteConfig from '@/config/site.config';
+import { whatsappLink, phoneE164 } from '@/config/contact';
 
 const { slug } = Astro.params;
 
-if (!slug) return Astro.redirect('/area-layanan');
+if (!slug) return Astro.redirect('/area-layanan/');
 
 const product = await getProduct(slug);
 
-if (!product) return Astro.redirect('/area-layanan');
+if (!product) return Astro.redirect('/area-layanan/');
 
-const waNumber = '6285280749218';
-const waMsg = encodeURIComponent(`Halo, saya ingin konsultasi mengenai layanan: ${product.name}`);
-const waLink = `https://wa.me/${waNumber}?text=${waMsg}`;
+const waLink = whatsappLink(`Halo, saya ingin konsultasi mengenai layanan: ${product.name}`);
 
-const canonicalUrl = `${siteConfig.url}/area-layanan/${product.slug}`;
+const canonicalUrl = `${siteConfig.url}/area-layanan/${product.slug}/`;
 const seoTitle = product.yoast_head_json?.title || product.name;
 const seoDesc = product.yoast_head_json?.description || stripHtml(product.short_description || product.description).slice(0, 160);
 const ogImage = product.yoast_head_json?.og_image?.[0]?.url || product.images?.[0]?.src || `${siteConfig.url}/og-default.svg`;
@@ -90,7 +89,7 @@ const serviceSchema = {
       url: siteConfig.url,
       contactPoint: {
         '@type': 'ContactPoint',
-        telephone: '+6285280749218',
+        telephone: phoneE164,
         contactType: 'Sales',
       },
     },
@@ -139,7 +138,7 @@ const breadcrumbSchema = {
       <ol class="flex items-center gap-2 text-sm text-foreground-muted flex-wrap">
         <li><a href="/" class="hover:text-brand-500 transition-colors">Beranda</a></li>
         <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50" /></li>
-        <li><a href="/area-layanan" class="hover:text-brand-500 transition-colors">Layanan</a></li>
+        <li><a href="/area-layanan/" class="hover:text-brand-500 transition-colors">Layanan</a></li>
         <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50" /></li>
         <li class="text-foreground font-medium truncate max-w-[200px]">{product.name}</li>
       </ol>
@@ -185,7 +184,7 @@ const breadcrumbSchema = {
           {product.categories?.length > 0 && (
             <div class="flex flex-wrap gap-2">
               {product.categories.map((cat) => (
-                <a href={`/area-layanan?kategori=${cat.slug}`} class="group">
+                <a href={`/area-layanan/?kategori=${cat.slug}`} class="group">
                   <Badge variant="brand" pill class="group-hover:opacity-80 transition-opacity cursor-pointer">{cat.name}</Badge>
                 </a>
               ))}
@@ -263,7 +262,7 @@ const breadcrumbSchema = {
               </svg>
               Pesan Sekarang
             </a>
-            <Button size="lg" variant="outline" href="/contact" class="flex-1">
+            <Button size="lg" variant="outline" href="/contact/" class="flex-1">
               <Icon name="mail" size="sm" />
               Kirim Inquiry
             </Button>
@@ -326,7 +325,7 @@ const breadcrumbSchema = {
         </h2>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {relatedProducts.map((rp, i) => (
-            <a href={`/area-layanan/${rp.slug}`} class="group block" data-reveal data-reveal-delay={String(i)}>
+            <a href={`/area-layanan/${rp.slug}/`} class="group block" data-reveal data-reveal-delay={String(i)}>
               <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
                 {rp.images?.[0] && (
                   <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">

@@ -7,12 +7,15 @@
 import BaseLayout from './BaseLayout.astro';
 import Header from '@/components/layout/Header.astro';
 import Footer from '@/components/layout/Footer.astro';
+import { whatsappLink } from '@/config/contact';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
   imageAlt?: string;
+  /** Jika false, judul dipakai persis tanpa menambahkan "— <nama situs>". */
+  suffix?: boolean;
   noindex?: boolean;
   nofollow?: boolean;
   showScrollProgress?: boolean;
@@ -20,7 +23,9 @@ interface Props {
   extraSchemas?: any[];
 }
 
-const { title, description, image, imageAlt, noindex, nofollow, showScrollProgress = false, eagerReveal = false, extraSchemas = [] } = Astro.props;
+const { title, description, image, imageAlt, suffix = true, noindex, nofollow, showScrollProgress = false, eagerReveal = false, extraSchemas = [] } = Astro.props;
+
+const waLink = whatsappLink();
 
 ---
 
@@ -29,6 +34,7 @@ const { title, description, image, imageAlt, noindex, nofollow, showScrollProgre
   description={description}
   image={image}
   imageAlt={imageAlt}
+  suffix={suffix}
   noindex={noindex}
   nofollow={nofollow}
   eagerReveal={eagerReveal}
@@ -43,7 +49,7 @@ const { title, description, image, imageAlt, noindex, nofollow, showScrollProgre
     size="lg"
     showActiveState
     showCta={true}
-    cta={{ label: 'Konsultasi Gratis', href: 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A', icon: 'message-circle' }}
+    cta={{ label: 'Konsultasi Gratis', href: waLink, icon: 'message-circle' }}
     autoHide={false}
     scrollProgressPosition="top"
     invertOnReturn={false}
@@ -65,25 +71,25 @@ const { title, description, image, imageAlt, noindex, nofollow, showScrollProgre
       {
         title: 'Layanan',
         links: [
-          { label: 'Jasa Bore Pile', href: '/area-layanan' },
-          { label: 'Straus Pile', href: '/area-layanan' },
-          { label: 'Mini Crane', href: '/area-layanan' },
-          { label: 'Survey & Konsultasi', href: '/contact' },
+          { label: 'Jasa Bore Pile', href: '/' },
+          { label: 'Straus Pile', href: '/area-layanan/' },
+          { label: 'Mini Crane', href: '/area-layanan/' },
+          { label: 'Survey & Konsultasi', href: '/contact/' },
         ],
       },
       {
         title: 'Perusahaan',
         links: [
-          { label: 'Tentang Kami', href: '/about' },
-          { label: 'Portofolio', href: '/projects' },
-          { label: 'Blog', href: '/blog' },
-          { label: 'Kontak', href: '/contact' },
+          { label: 'Tentang Kami', href: '/about/' },
+          { label: 'Portofolio', href: '/projects/' },
+          { label: 'Blog', href: '/blog/' },
+          { label: 'Kontak', href: '/contact/' },
         ],
       },
     ]}
     legalLinks={[
-      { label: 'Kebijakan Privasi', href: '/privacy' },
-      { label: 'Syarat & Ketentuan', href: '/terms' },
+      { label: 'Kebijakan Privasi', href: '/privacy/' },
+      { label: 'Syarat & Ketentuan', href: '/terms/' },
     ]}
   />
 </BaseLayout>

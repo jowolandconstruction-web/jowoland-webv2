@@ -137,7 +137,13 @@ const innerClasses = cn(headerInnerVariants({ size, shape }), !isFloating && max
 function isActive(href: string): boolean {
   if (!showActiveState) return false;
   if (href.startsWith('#')) return false;
-  return currentPath === href || currentPath.startsWith(href + '/');
+  // Bandingkan tanpa garis miring di akhir agar penanda menu aktif tetap
+  // benar meski URL memakai trailingSlash: 'always'.
+  const stripSlash = (p: string) => (p.length > 1 ? p.replace(/\/+$/, '') : p);
+  const current = stripSlash(currentPath);
+  const target = stripSlash(href);
+  if (!target) return false;
+  return current === target || current.startsWith(`${target}/`);
 }
 
 function getSocialIconData(url: string): { icon: string; label: string } {

@@ -33,6 +33,9 @@ export default defineConfig({
   output: 'server',
   adapter: isNetlify ? netlify() : (isVercel ? vercel() : undefined),
   site: 'https://jowolandborepile.co.id',
+  // Semua URL halaman distandarkan berakhiran garis miring (SEO: hindari
+  // duplikat /path vs /path/ yang masing-masing punya canonical sendiri).
+  trailingSlash: 'always',
   redirects: {
     '/artikel': '/blog',
     '/artikel/[slug]': '/blog/[slug]',
@@ -40,7 +43,7 @@ export default defineConfig({
   ...(astroI18nOptions ? { i18n: astroI18nOptions } : {}),
 
   build: {
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'auto',
   },
 
   env: {
@@ -69,7 +72,26 @@ export default defineConfig({
   integrations: [
     react(),
     mdx(),
-    sitemap(),
+    sitemap({
+      // Keluarkan halaman internal/utility dari sitemap.
+      filter: (page) =>
+        !page.includes('/components') &&
+        !page.includes('/fragments') &&
+        !page.includes('/404'),
+      // Sitemap tambahan untuk route SSR berparameter (blog & area layanan
+      // dari WordPress/WooCommerce) yang tidak ditangkap @astrojs/sitemap.
+      customSitemaps: ['https://jowolandborepile.co.id/sitemap-dynamic.xml'],
+      // Pastikan setiap URL halaman berakhiran garis miring, konsisten
+      // dengan trailingSlash: 'always'.
+      serialize(item) {
+        const url = new URL(item.url);
+        if (!/\.[a-z0-9]+$/i.test(url.pathname) && !url.pathname.endsWith('/')) {
+          url.pathname = `${url.pathname}/`;
+          item.url = url.toString();
+        }
+        return item;
+      },
+    }),
     icon(),
   ],
 

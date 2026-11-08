@@ -11,14 +11,15 @@ import { Hero } from '@/components/hero';
 import ContactForm from '@/components/patterns/ContactForm.astro';
 import { Image } from 'astro:assets';
 import founderImage from '@/assets/images/founder.jpg';
+import { whatsappLink, phoneDisplay } from '@/config/contact';
 
-const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
+const waLink = whatsappLink();
 
 const channels = [
   {
     icon: 'message-circle',
     label: 'WhatsApp',
-    value: '0852-8074-9218',
+    value: phoneDisplay,
     note: 'Konsultasi cepat via WhatsApp',
     href: waLink,
     external: true,
@@ -36,7 +37,7 @@ const channels = [
 
 <PageLayout
   title="Kontak & Konsultasi"
-  description="Hubungi PT. Jowo Land Construction untuk konsultasi, survey lokasi, dan penawaran jasa bore pile profesional di Jawa, Jakarta, Banten, dan Bali."
+  description="Hubungi PT. Jowo Land Construction untuk konsultasi, survey lokasi, dan penawaran pekerjaan pondasi profesional di Jawa, Jakarta, Banten, dan Bali."
   eagerReveal
 >
   <Hero layout="centered" size="md" class="isolate" showHeroHalo>

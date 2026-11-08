@@ -1,29 +1,28 @@
 {
-  "name": "hutama-bore-pile",
+  "name": "jowoland-webv2",
   "version": "1.4.1",
-  "description": "Hutama Bore Pile — Kontraktor jasa bore pile profesional untuk pondasi rumah, gedung, gudang, pabrik, dan berbagai proyek konstruksi di seluruh Pulau Jawa.",
+  "description": "PT. Jowo Land Construction — Kontraktor jasa bore pile manual & mesin (strauss pile, mini crane, hydraulic rig) untuk pondasi rumah, gedung, gudang, dan pabrik di area Jawa - Bali.",
   "type": "module",
-  "author": "Hans Martens",
+  "author": "Achmad Fikri Ibnu Hadi",
   "license": "MIT",
   "keywords": [
+    "bore-pile",
+    "strauss-pile",
+    "pondasi",
+    "kontraktor",
+    "jasa-bore-pile",
+    "konstruksi",
     "astro",
-    "astro-theme",
-    "theme",
-    "tailwind",
     "tailwindcss",
-    "typescript",
-    "blog",
-    "starter",
-    "boilerplate",
     "seo"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hansmartensdev/astro-rocket"
+    "url": "https://github.com/jowoland/jowoland-webv2"
   },
-  "homepage": "https://github.com/hansmartensdev/astro-rocket#readme",
+  "homepage": "https://jowolandborepile.co.id",
   "bugs": {
-    "url": "https://github.com/hansmartensdev/astro-rocket/issues"
+    "url": "https://github.com/jowoland/jowoland-webv2/issues"
   },
   "scripts": {
     "dev": "astro dev",
@@ -40,7 +39,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "5.0.0",
-    "@astrojs/netlify": "^7.0.2",
+    "@astrojs/netlify": "^8.2.12",
     "@astrojs/react": "5.0.0",
     "@astrojs/sitemap": "^3.7.1",
     "@astrojs/vercel": "^10.0.0",
@@ -50,7 +49,7 @@
     "@iconify-json/lucide": "^1.2.98",
     "@iconify-json/simple-icons": "^1.2.74",
     "@iconify/react": "^6.0.2",
-    "astro": "6.0.0",
+    "astro": "^6.4.8",
     "astro-icon": "^1.1.5",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -59,7 +58,7 @@
     "react-dom": "^19.0.0",
     "resend": "^6.9.3",
     "schema-dts": "^1.1.2",
-    "sharp": "^0.34.0",
+    "sharp": "^0.35.5",
     "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
@@ -81,7 +80,7 @@
     "tailwindcss": "^4.0.0",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.18.0",
-    "vitest": "^3.2.0",
+    "vitest": "^4.1.12",
     "zod": "^4.0.0"
   },
   "pnpm": {
@@ -92,5 +91,9 @@
   },
   "engines": {
     "node": ">=22.12.0"
+  },
+  "allowScripts": {
+    "fsevents@2.3.3": true,
+    "sharp@0.34.5": true
   }
 }

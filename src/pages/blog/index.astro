@@ -13,10 +13,13 @@ import Button from '@/components/ui/form/Button/Button.astro';
 import { Hero } from '@/components/hero';
 import { getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml } from '@/lib/wordpress';
 import siteConfig from '@/config/site.config';
+import { whatsappLink, phoneDisplay } from '@/config/contact';
 
 const posts = await getPosts({ per_page: 20, orderby: 'date', order: 'desc' });
 
-const canonicalUrl = `${siteConfig.url}/blog`;
+const waLink = whatsappLink();
+
+const canonicalUrl = `${siteConfig.url}/blog/`;
 
 const collectionSchema = {
   '@context': 'https://schema.org',
@@ -42,8 +45,8 @@ const breadcrumbSchema = {
 ---
 
 <PageLayout
-  title="Kategori Jasa Bore Pile"
-  description="Artikel seputar jasa bore pile, pondasi bangunan, biaya bore pile, jenis pondasi, dan tips konstruksi untuk berbagai proyek di Pulau Jawa."
+  title="Blog & Artikel Pondasi"
+  description="Artikel seputar pondasi bangunan, biaya bore pile, jenis pondasi, dan tips konstruksi untuk berbagai proyek di Pulau Jawa."
   eagerReveal
 >
   <Fragment slot="head">
@@ -57,7 +60,7 @@ const breadcrumbSchema = {
       <Icon name="book" size="sm" />
       Blog
     </Badge>
-    <h1 slot="title">Kategori Jasa Bore Pile</h1>
+    <h1 slot="title">Blog</h1>
     <p slot="description">
       Informasi lengkap seputar jasa bore pile, pondasi bangunan, biaya, proses pengerjaan, dan tips konstruksi untuk berbagai proyek di Pulau Jawa.
     </p>
@@ -74,7 +77,7 @@ const breadcrumbSchema = {
             const cats = getPostCategories(post);
             const excerpt = stripHtml(post.excerpt.rendered).slice(0, 140);
             return (
-              <a href={`/blog/${post.slug}`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
+              <a href={`/blog/${post.slug}/`} class="group block" data-reveal data-reveal-delay={String(i % 3)}>
                 <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
                   {img ? (
                     <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
@@ -124,7 +127,7 @@ const breadcrumbSchema = {
             <Icon name="file-text" size="lg" class="text-foreground-muted" />
           </div>
           <p class="text-foreground-muted text-lg mb-4">Belum ada artikel tersedia.</p>
-          <Button variant="outline" href="/contact">
+          <Button variant="outline" href="/contact/">
             Hubungi Kami
             <Icon name="arrow-right" size="sm" />
           </Button>
@@ -144,11 +147,11 @@ const breadcrumbSchema = {
         Hubungi PT. Jowo Land Construction untuk konsultasi dan penawaran terbaik.
       </p>
       <div class="flex flex-col sm:flex-row gap-3 justify-center">
-        <Button size="lg" href="https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A" target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
+        <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
           <Icon name="message-circle" size="sm" />
-          WhatsApp: 0852-8074-9218
+          WhatsApp: {phoneDisplay}
         </Button>
-        <Button size="lg" variant="outline" href="/contact">
+        <Button size="lg" variant="outline" href="/contact/">
           Kirim Pesan
           <Icon name="arrow-right" size="sm" />
         </Button>

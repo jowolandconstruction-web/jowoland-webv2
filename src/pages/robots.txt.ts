@@ -35,9 +35,6 @@ Allow: /
 
 # Sitemaps
 Sitemap: ${siteUrl}/sitemap-index.xml
-
-# LLMs.txt
-LLMs: ${siteUrl}/llms.txt
 `.trim();
 
   return new Response(robotsTxt, {

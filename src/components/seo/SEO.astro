@@ -12,6 +12,12 @@ interface Props {
   description?: string;
   image?: string;
   imageAlt?: string;
+  /**
+   * Jika `false`, judul dipakai persis seperti ditulis tanpa menambahkan
+   * "— <nama situs>" di belakangnya. Berguna untuk judul yang sudah
+   * memuat nama brand. Default: `true`.
+   */
+  suffix?: boolean;
   article?: {
     publishedTime?: Date;
     modifiedTime?: Date;
@@ -24,39 +30,93 @@ interface Props {
 
 const {
   title,
-  description = siteConfig.description,
+  description = siteConfig.defaultMetaDescription,
   image,
   imageAlt,
+  suffix = true,
   article,
   noindex = false,
   nofollow = false,
 } = Astro.props;
 
-function formatPageTitle(rawTitle?: string): string {
-  if (!rawTitle) return siteConfig.name;
-
-  const siteName = siteConfig.name;
-  // Hapus jika rawTitle sudah diakhiri oleh pemisah + nama situs (misal: "Title | PT. Jowo Land Construction" atau "Title — PT. Jowo Land Construction")
-  const escapedSiteName = siteName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-  const trailingSitePattern = new RegExp(`\\s*([—–\\|-]|&mdash;|&ndash;)\\s*${escapedSiteName}\\s*$`, 'i');
-  const cleaned = rawTitle.replace(trailingSitePattern, '').trim();
-
-  // Jika setelah dibersihkan sama dengan nama situs, kembalikan nama situs saja
-  if (cleaned.toLowerCase() === siteName.toLowerCase()) {
-    return siteName;
-  }
-
-  // Jika nama situs masih ada di dalam title (misal "Tentang PT. Jowo Land Construction"), jangan tambahkan lagi
-  if (cleaned.toLowerCase().includes(siteName.toLowerCase())) {
-    return cleaned;
-  }
-
-  return `${cleaned} — ${siteName}`;
+/** Decode entitas HTML umum (termasuk NBSP) yang sering muncul di judul WordPress. */
+function decodeHtmlEntities(input: string): string {
+  const named: Record<string, string> = {
+    '&nbsp;': ' ',
+    '&mdash;': '—',
+    '&ndash;': '–',
+    '&amp;': '&',
+    '&quot;': '"',
+    '&apos;': "'",
+    '&lt;': '<',
+    '&gt;': '>',
+  };
+  return input
+    .replace(/&(nbsp|mdash|ndash|amp|quot|apos|lt|gt);/gi, (m) => named[m.toLowerCase()] ?? m)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(Number(code)))
+    .replace(/&#x([0-9a-f]+);/gi, (_, code) => String.fromCharCode(parseInt(code, 16)))
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
-const pageTitle = formatPageTitle(title);
+/**
+ * Normalkan teks untuk perbandingan: buang semua tanda baca & spasi,
+ * huruf kecil. Sehingga "PT. Jowo Land Construction", "PT Jowo Land
+ * Construction", dan "pt jowo-land construction" dianggap sama.
+ */
+function normalizeForCompare(text: string): string {
+  return text.toLowerCase().replace(/[\s\p{P}]+/gu, '');
+}
 
+/**
+ * Bersihkan judul halaman:
+ * 1. Decode entitas HTML & normalisasi spasi.
+ * 2. Buang segmen brand yang menempel di akhir judul (berulang) memakai
+ *    perbandingan tanpa tanda baca/spasi.
+ * 3. Tambahkan "— <nama situs>" satu kali saja (kecuali suffix={false}
+ *    atau judul sudah memuat nama situs).
+ */
+function formatPageTitle(rawTitle?: string, addSuffix = true): string {
+  const siteName = siteConfig.name;
+  if (!rawTitle) return siteName;
+
+  const cleaned = decodeHtmlEntities(rawTitle);
+  if (!addSuffix) return cleaned || siteName;
+
+  const normalizedSite = normalizeForCompare(siteName);
+  const separators = ['—', '–', '|', '-', '·', ':'];
+  let title = cleaned;
+  let changed = true;
+  while (changed) {
+    changed = false;
+    for (const sep of separators) {
+      const idx = title.lastIndexOf(sep);
+      if (idx > 0 && normalizeForCompare(title.slice(idx + sep.length)) === normalizedSite) {
+        title = title.slice(0, idx).trim();
+        changed = true;
+        break;
+      }
+    }
+  }
+
+  if (!title) return siteName;
+  const normalizedTitle = normalizeForCompare(title);
+  if (normalizedTitle === normalizedSite || normalizedTitle.includes(normalizedSite)) {
+    return title;
+  }
+
+  return `${title} — ${siteName}`;
+}
+
+const pageTitle = formatPageTitle(title, suffix);
+
+// Canonical selalu berakhiran "/", tanpa query/hash.
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+canonicalURL.search = '';
+canonicalURL.hash = '';
+if (!/\.[a-z0-9]+$/i.test(canonicalURL.pathname)) {
+  canonicalURL.pathname = `${canonicalURL.pathname.replace(/\/+$/, '')}/`;
+}
 
 // Process image - fall back to the static default OG image
 let ogImage: string;

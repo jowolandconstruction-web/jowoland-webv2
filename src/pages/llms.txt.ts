@@ -1,60 +1,29 @@
 import type { APIRoute } from 'astro';
+import { phoneDisplay } from '@/config/contact';
 
 export const GET: APIRoute = () => {
-  const llmsTxt = `# LLMs.txt — PT. Jowo Land Construction
-# https://jowolandborepile.co.id/llms.txt
-# Referensi untuk AI assistant dan LLM crawlers
+  const llmsTxt = `# PT. Jowo Land Construction
 
-# Identitas Bisnis
-Name: PT. Jowo Land Construction
-Type: Kontraktor Jasa Bore Pile & Strauss Pile
-Founded: 2012
-Founder: Achmad Fikri Ibnu Hadi
-Specialty: Geoteknik Rekayasa Pondasi
-Phone: 0852-8074-9218
-Email: info@jowolandborepile.co.id
-Address: Karanganyar, Ketitang, Kec. Godong, Kabupaten Grobogan, Jawa Tengah 58162, Indonesia
-Website: https://jowolandborepile.co.id
+> Kontraktor spesialis pekerjaan pondasi dan geoteknik (bore pile / strauss pile) sejak 2012. Melayani 7 provinsi di Jawa & Bali dengan standar SNI 8460:2017, SNI 2847:2019, dan SNI 03-1726-2012.
 
-# Layanan Utama
-Services:
-- Jasa Bore Pile Manual (Strauss Pile) dengan Mini Crane
-- Jasa Bore Pile Mesin (Hydraulic Drilling Rig)
-- Survey dan Analisa Soil Test
-- Konsultasi Pondasi Gratis
-- Paket All-In (Jasa + Material Besi & Beton Ready Mix)
+## Halaman Utama
 
-# Area Layanan
-Coverage: Jawa Tengah, Jawa Timur, Jawa Barat, DI Yogyakarta, DKI Jakarta, Banten, Bali
+- [Beranda](https://jowolandborepile.co.id/): Ringkasan layanan pondasi bore pile, estimasi harga, dan FAQ.
+- [Area Layanan](https://jowolandborepile.co.id/area-layanan/): Daftar wilayah layanan per kota dan kabupaten.
+- [Layanan](https://jowolandborepile.co.id/services/): Layanan dan metode pengerjaan pondasi.
+- [Portofolio Proyek](https://jowolandborepile.co.id/projects/): Dokumentasi proyek pondasi yang telah dikerjakan.
+- [Blog](https://jowolandborepile.co.id/blog/): Artikel edukatif seputar pondasi dan bore pile.
+- [Tentang Kami](https://jowolandborepile.co.id/about/): Profil PT. Jowo Land Construction dan founder.
+- [Kontak](https://jowolandborepile.co.id/contact/): Kontak dan formulir konsultasi.
+- [Kebijakan Privasi](https://jowolandborepile.co.id/privacy/): Kebijakan privasi situs.
+- [Syarat & Ketentuan](https://jowolandborepile.co.id/terms/): Syarat dan ketentuan layanan.
 
-# Halaman Utama
-Pages:
-- / : Halaman utama — penjelasan layanan, harga, FAQ bore pile
-- /about : Tentang PT. Jowo Land Construction dan founder
-- /projects : Portofolio proyek bore pile yang telah dikerjakan
-- /blog : Artikel edukatif seputar bore pile dan pondasi
-- /contact : Kontak dan formulir konsultasi
-- /area-layanan : Halaman area layanan per wilayah
-- /privacy : Kebijakan privasi
-- /terms : Syarat & ketentuan
+## Kontak
 
-# Standar Teknis yang Diterapkan
-Standards:
-- SNI 8460:2017 (Persyaratan Perancangan Geoteknik)
-- SNI 2847:2019 (Persyaratan Beton Struktural)
-- SNI 03-1726-2012 (Tata Cara Perencanaan Ketahanan Gempa)
-
-# Legalitas
-Legal:
-- NIB (Nomor Induk Berusaha)
-- SILO (Sertifikasi Kelayakan Alat Berat)
-- SIO Operator dari Kemenaker
-
-# Sitemap
-Sitemap: https://jowolandborepile.co.id/sitemap-index.xml
-
-# Kontak untuk Pertanyaan AI/LLM
-Contact: info@jowolandborepile.co.id
+- Website: https://jowolandborepile.co.id/
+- Email: info@jowolandborepile.co.id
+- Telepon: ${phoneDisplay}
+- Alamat: Karanganyar, Ketitang, Kec. Godong, Kabupaten Grobogan, Jawa Tengah 58162, Indonesia
 `.trim();
 
   return new Response(llmsTxt, {

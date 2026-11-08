@@ -1,5 +1,6 @@
 import { SITE_URL, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from 'astro:env/server';
 import i18nConfig, { type I18nConfig } from './i18n.config';
+import { phoneDisplay } from './contact';
 
 export { i18nConfig };
 export type { I18nConfig };
@@ -7,6 +8,13 @@ export type { I18nConfig };
 export interface SiteConfig {
   name: string;
   description: string;
+  /**
+   * Deskripsi meta netral (tanpa kata kunci beranda) yang dipakai
+   * SEO.astro sebagai fallback ketika halaman tidak menyediakan
+   * `description` sendiri. `description` tetap dipakai untuk JSON-LD
+   * Organization dan RSS.
+   */
+  defaultMetaDescription: string;
   url: string;
   ogImage: string;
   author: string;
@@ -123,11 +131,13 @@ const siteConfig: SiteConfig = {
   name: 'PT. Jowo Land Construction',
   description:
     'PT. Jowo Land Construction - Kontraktor jasa bore pile & strauss pile profesional sejak 2012. Spesialis geoteknik rekayasa pondasi dengan harga terjangkau, layanan 7 provinsi di Jawa & Bali, dan 98% kepuasan klien.',
+  defaultMetaDescription:
+    'PT. Jowo Land Construction — kontraktor spesialis pekerjaan pondasi dan geoteknik untuk proyek konstruksi di Jawa & Bali sejak 2012.',
   url: SITE_URL || 'https://jowolandborepile.co.id',
   ogImage: '/og-default.svg',
   author: 'Achmad Fikri Ibnu Hadi',
   email: 'info@jowolandborepile.co.id',
-  phone: '0852-8074-9218',
+  phone: phoneDisplay,
   address: {
     street: 'Karanganyar, Ketitang, Kec. Godong',
     city: 'Kabupaten Grobogan',

@@ -10,12 +10,13 @@ import Card from '@/components/ui/data-display/Card/Card.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import { Hero } from '@/components/hero';
 import LetterGlitchBand from '@/components/patterns/LetterGlitchBand.astro';
+import { whatsappLink, phoneDisplay } from '@/config/contact';
 
-const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
+const waLink = whatsappLink();
 ---
 <PageLayout
-  title="Area Layanan Jasa Bore Pile"
-  description="PT. Jowo Land Construction melayani pembuatan bore pile profesional untuk rumah, gedung, gudang, dan proyek konstruksi di seluruh Pulau Jawa."
+  title="Layanan & Metode Pengerjaan"
+  description="Pelajari layanan dan metode pengerjaan pondasi bore pile: straus pile manual untuk area sempit hingga bore pile mesin mini crane untuk proyek skala besar di Pulau Jawa."
 >
   <Hero layout="centered" size="sm" class="isolate services-hero" showHeroHalo>
     <Badge slot="badge" variant="brand" pill>
@@ -243,9 +244,9 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="cta-btn-brand">
           <Icon name="message-circle" size="sm" />
-          WhatsApp: 0852-8074-9218
+          WhatsApp: {phoneDisplay}
         </Button>
-        <Button size="lg" variant="outline" href="/contact">
+        <Button size="lg" variant="outline" href="/contact/">
           Kirim Pesan
           <Icon name="arrow-right" size="sm" />
         </Button>
@@ -261,9 +262,9 @@ const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20P
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <Button size="lg" href={waLink} target="_blank" rel="noopener noreferrer" class="hero-btn-brand">
           <Icon name="message-circle" size="sm" />
-          WhatsApp: 0852-8074-9218
+          WhatsApp: {phoneDisplay}
         </Button>
-        <Button size="lg" variant="outline" href="/contact">
+        <Button size="lg" variant="outline" href="/contact/">
           Kirim Pesan
           <Icon name="arrow-right" size="sm" />
         </Button>

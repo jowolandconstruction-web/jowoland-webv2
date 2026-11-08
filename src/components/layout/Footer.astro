@@ -262,9 +262,9 @@ function getSocialIcon(platform: string): string {
           ) : (
             linkGroups.map((group) => (
               <div class="space-y-[var(--space-stack-md)]">
-                <h3 class="font-semibold text-sm text-foreground">
+                <strong class="block font-semibold text-sm text-foreground">
                   {group.title}
-                </h3>
+                </strong>
                 <ul class="space-y-2">
                   {group.links.map((link) => (
                     <li>

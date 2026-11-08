@@ -12,12 +12,13 @@ import Card from '@/components/ui/data-display/Card/Card.astro';
 import Button from '@/components/ui/form/Button/Button.astro';
 import { getPost, getPosts, getFeaturedImage, getPostCategories, formatWPDate, stripHtml } from '@/lib/wordpress';
 import siteConfig from '@/config/site.config';
+import { whatsappLink } from '@/config/contact';
 
 const { slug } = Astro.params;
-if (!slug) return Astro.redirect('/blog');
+if (!slug) return Astro.redirect('/blog/');
 
 const post = await getPost(slug);
-if (!post) return Astro.redirect('/blog');
+if (!post) return Astro.redirect('/blog/');
 
 const img = getFeaturedImage(post);
 const cats = getPostCategories(post);
@@ -28,7 +29,7 @@ const primaryTaxonomyTerms = cats.length > 0 ? cats[0] : 'Konstruksi';
 const tagNames = post._embedded?.['wp:term']?.[1]?.map((t) => t.name) ?? [];
 const keywords = tagNames.length > 0 ? tagNames.join(', ') : (cats.join(', ') || 'Bore Pile, Strauss Pile, Konstruksi Pondasi');
 
-const canonicalUrl = `${siteConfig.url}/blog/${post.slug}`;
+const canonicalUrl = `${siteConfig.url}/blog/${post.slug}/`;
 const seoTitle = post.yoast_head_json?.title || stripHtml(post.title.rendered);
 const seoDesc = post.yoast_head_json?.description || excerpt.slice(0, 160);
 const ogImage = post.yoast_head_json?.og_image?.[0]?.url || img?.src || `${siteConfig.url}/og-default.svg`;
@@ -47,7 +48,7 @@ function formatIsoWithTimezone(dateStr: string): string {
 const datePublished = formatIsoWithTimezone(post.date);
 const dateModified = formatIsoWithTimezone(post.modified);
 
-const waLink = 'https://api.whatsapp.com/send/?phone=6285280749218&text=Halo%20PT.%20Jowo%20Land%20Construction%2C%20saya%20ingin%20order%20layanan%20pondasi%20bore%20pile.%0A%0ANama%3A%0ALokasi%20Proyek%20%28Kota%2FKecamatan%29%3A%0AJenis%20Bangunan%20%28Rumah%2FGudang%2FRuko%29%3A%0AJumlah%20Titik%3A%0AKedalaman%3A%0ADiameter%3A';
+const waLink = whatsappLink();
 
 const recentPosts = await getPosts({ per_page: 4, exclude: String(post.id) });
 
@@ -77,8 +78,8 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Beranda', item: siteConfig.url },
-    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteConfig.url}/blog` },
+    { '@type': 'ListItem', position: 1, name: 'Beranda', item: `${siteConfig.url}/` },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteConfig.url}/blog/` },
     { '@type': 'ListItem', position: 3, name: stripHtml(post.title.rendered), item: canonicalUrl },
   ],
 };
@@ -107,7 +108,7 @@ const breadcrumbSchema = {
       <ol class="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-foreground-muted flex-wrap">
         <li><a href="/" class="hover:text-brand-500 transition-colors">Beranda</a></li>
         <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50 shrink-0" /></li>
-        <li><a href="/blog" class="hover:text-brand-500 transition-colors">Blog</a></li>
+        <li><a href="/blog/" class="hover:text-brand-500 transition-colors">Blog</a></li>
         <li><Icon name="chevron-right" size="sm" class="text-foreground-muted/50 shrink-0" /></li>
         <li class="text-foreground font-medium line-clamp-1 min-w-0" set:html={post.title.rendered} />
       </ol>
@@ -185,7 +186,7 @@ const breadcrumbSchema = {
               </svg>
               Pesan Sekarang
             </a>
-            <Button size="lg" variant="outline" href="/contact" class="w-full sm:flex-1">
+            <Button size="lg" variant="outline" href="/contact/" class="w-full sm:flex-1">
               <Icon name="mail" size="sm" />
               Kirim Inquiry
             </Button>
@@ -266,7 +267,7 @@ const breadcrumbSchema = {
           {recentPosts.map((rp, i) => {
             const rpImg = getFeaturedImage(rp);
             return (
-              <a href={`/blog/${rp.slug}`} class="group block min-w-0">
+              <a href={`/blog/${rp.slug}/`} class="group block min-w-0">
                 <Card variant="elevated" hover padding="none" class="flex flex-col h-full">
                   {rpImg ? (
                     <div class="aspect-video overflow-hidden rounded-t-xl bg-background-tertiary">
@@ -294,7 +295,7 @@ const breadcrumbSchema = {
           })}
         </div>
         <div class="flex justify-center">
-          <Button variant="outline" href="/blog">
+          <Button variant="outline" href="/blog/">
             Semua Blog
             <Icon name="arrow-right" size="sm" />
           </Button>
