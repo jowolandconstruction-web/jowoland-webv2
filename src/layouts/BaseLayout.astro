@@ -102,45 +102,6 @@ const locale = getLocaleFromPath(Astro.url.pathname);
 
     <!-- Analytics (loads if PUBLIC_GA_MEASUREMENT_ID or PUBLIC_GTM_ID is set) -->
     <Analytics />
-
-    <!-- Client-side view transitions are intentionally disabled. They composed
-         poorly with the theme's CSS keyframe animations (hero slide-up,
-         data-reveal fades) and produced a visible post-fade "aftershake" on
-         mobile. Each navigation now does a normal page load, so animations
-         run cleanly from frame 0 every time. -->
-
-
-
-    <!-- Keep the palette preference in sync across regular and Astro navigations. -->
-    <script is:inline>
-      (function () {
-        const COLOR_THEMES = ['orange', 'amber', 'lime', 'emerald', 'teal', 'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'magenta'];
-
-        function applyColorTheme(el) {
-          try {
-            // Color palette — sessionStorage so it resets to default on each new visit
-            const saved = sessionStorage.getItem('color-theme');
-            if (saved && COLOR_THEMES.indexOf(saved) !== -1) {
-              el.setAttribute('data-theme', saved);
-            }
-          } catch { /* ignored */ }
-        }
-
-        function applyTheme(el) {
-          el.classList.remove('dark');
-          applyColorTheme(el);
-        }
-
-        applyTheme(document.documentElement);
-
-        document.addEventListener('astro:before-swap', function (e) {
-          applyTheme(e.newDocument.documentElement);
-        });
-        document.addEventListener('astro:after-swap', function () {
-          applyTheme(document.documentElement);
-        });
-      })();
-    </script>
   </head>
 
   <body class="min-h-screen bg-background text-foreground antialiased" data-eager-reveal={eagerReveal ? '' : undefined}>
