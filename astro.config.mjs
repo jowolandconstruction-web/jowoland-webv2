@@ -43,7 +43,9 @@ export default defineConfig({
   ...(astroI18nOptions ? { i18n: astroI18nOptions } : {}),
 
   build: {
-    inlineStylesheets: 'auto',
+    // 'never' → semua CSS dikeluarkan sebagai file .css eksternal (<link>),
+    // tidak ada blok <style> yang ikut ter-render di HTML page source.
+    inlineStylesheets: 'never',
   },
 
   env: {
