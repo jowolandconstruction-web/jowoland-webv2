@@ -76,7 +76,7 @@ const serviceSchema = {
     name: seoTitle,
     url: canonicalUrl,
     description: seoDesc,
-    serviceType: 'JasaBorePiledanStraussPile',
+    serviceType: 'Jasa Bore Pile dan Strauss Pile',
     areaServed: {
       '@type': 'City',
       name: cityName,
@@ -301,7 +301,7 @@ const breadcrumbSchema = {
                 Daftar Isi
               </p>
               <nav id="toc-nav" aria-label="Table of contents">
-                <p class="text-sm text-foreground-muted italic">Memuat...</p>
+                <p class="text-sm text-foreground-muted italic"></p>
               </nav>
             </div>
           </aside>
@@ -320,9 +320,9 @@ const breadcrumbSchema = {
   {relatedProducts.length > 0 && (
     <section class="py-[var(--space-section-md)] bg-background-secondary border-t border-border">
       <div class="mx-auto max-w-6xl px-6 flex flex-col gap-8">
-        <h2 class="font-display text-2xl font-bold text-foreground text-center" data-reveal>
+        <div class="font-display text-2xl font-bold text-foreground text-center" data-reveal>
           Layanan Terkait
-        </h2>
+        </div>
         <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {relatedProducts.map((rp, i) => (
             <a href={`/area-layanan/${rp.slug}/`} class="group block" data-reveal data-reveal-delay={String(i)}>
@@ -333,9 +333,9 @@ const breadcrumbSchema = {
                   </div>
                 )}
                 <div class="p-4 flex flex-col flex-1">
-                  <h3 class="text-sm font-semibold text-foreground mb-1">{rp.name}</h3>
+                  <div class="text-sm font-semibold text-foreground mb-1">{rp.name}</div>
                   {rp.price && parseFloat(rp.price) > 0 && (
-                    <p class="text-sm font-bold text-brand-500 mt-auto">{formatPrice(rp.price)}</p>
+                    <div class="text-sm font-bold text-brand-500 mt-auto">{formatPrice(rp.price)}</div>
                   )}
                 </div>
               </Card>
