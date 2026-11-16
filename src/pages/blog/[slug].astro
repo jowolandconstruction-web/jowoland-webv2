@@ -223,7 +223,7 @@ const breadcrumbSchema = {
               Daftar Isi
             </p>
             <nav id="toc-nav" aria-label="Table of contents">
-              <p class="text-sm text-foreground-muted italic">Memuat...</p>
+              <p class="text-sm text-foreground-muted italic"></p>
             </nav>
           </div>
         </aside>
@@ -260,9 +260,9 @@ const breadcrumbSchema = {
   {recentPosts.length > 0 && (
     <section class="py-8 sm:py-[var(--space-section-md)] bg-background border-t border-border overflow-x-hidden">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 flex flex-col gap-6 sm:gap-8">
-        <h2 class="font-display text-xl sm:text-2xl font-bold text-foreground text-center">
+        <p class="font-display text-xl sm:text-2xl font-bold text-foreground text-center">
           Artikel Terbaru
-        </h2>
+        </p>
         <div class="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {recentPosts.map((rp, i) => {
             const rpImg = getFeaturedImage(rp);
@@ -286,7 +286,7 @@ const breadcrumbSchema = {
                     </div>
                   )}
                   <div class="p-4 flex flex-col flex-1 min-w-0">
-                    <h3 class="text-sm font-semibold text-foreground mb-1 line-clamp-2 group-hover:text-brand-500 transition-colors" set:html={rp.title.rendered} />
+                    <p class="text-sm font-semibold text-foreground mb-1 line-clamp-2 group-hover:text-brand-500 transition-colors" set:html={rp.title.rendered} />
                     <time class="text-xs text-foreground-muted mt-auto" datetime={rp.date}>{formatWPDate(rp.date)}</time>
                   </div>
                 </Card>
